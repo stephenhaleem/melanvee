@@ -29,8 +29,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Maison Noir — Luxury Hair Atelier" },
-      { name: "description", content: "Small-batch luxury hair, hand-poured in Paris." },
+      { title: "MELANVÉE — Textured Wigs for Women of Colour" },
+      { name: "description", content: "Luxury textured-hair atelier. Hand-tied wigs on HD lace, made for our textures." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
