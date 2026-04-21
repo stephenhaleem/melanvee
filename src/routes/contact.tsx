@@ -6,14 +6,21 @@ import { Layout } from "@/components/Layout";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Maison Noir" },
-      { name: "description", content: "Reach the Maison Noir atelier. Press, partnerships, and personal inquiries." },
-      { property: "og:title", content: "Contact Maison Noir" },
-      { property: "og:description", content: "Reach our Paris and New York ateliers." },
+      { title: "Contact — MELANVÉE" },
+      {
+        name: "description",
+        content:
+          "Reach the MELANVÉE atelier. WhatsApp us, email us, or send a message — we read every letter.",
+      },
+      { property: "og:title", content: "Contact MELANVÉE" },
+      { property: "og:description", content: "WhatsApp, email, or write to our London atelier." },
     ],
   }),
   component: Contact,
 });
+
+const WHATSAPP_NUMBER = "440000000000";
+const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 function Contact() {
   const [sent, setSent] = useState(false);
@@ -22,12 +29,12 @@ function Contact() {
     <Layout>
       <section className="py-24 md:py-32 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Get in Touch</p>
-        <h1 className="font-display text-5xl md:text-7xl text-cream leading-[1] max-w-3xl mx-auto px-6">
-          We'd love to <em className="italic text-gradient-gold">hear from you</em>.
+        <h1 className="font-display text-5xl md:text-7xl text-noir leading-[1] max-w-3xl mx-auto px-6">
+          We'd love to <em className="italic text-gradient-rose">hear from you</em>.
         </h1>
-        <p className="mt-8 text-muted-foreground max-w-xl mx-auto px-6 leading-relaxed">
-          Whether it's a question about a formula, a press request, or simply
-          a hello — write to us. We read every letter.
+        <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
+          Questions about texture, length, or shipping? The fastest way to reach
+          us is WhatsApp — usually under an hour.
         </p>
       </section>
 
@@ -41,27 +48,31 @@ function Contact() {
             className="md:col-span-2 space-y-10"
           >
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Atelier · Paris</p>
-              <p className="text-cream leading-relaxed">
-                14 rue de Saints-Pères<br />
-                75006 Paris, France
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">WhatsApp</p>
+              <a
+                href={WHATSAPP_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-noir leading-relaxed hover:text-gold transition-colors"
+              >
+                +44 0000 000 000<br />
+                <span className="text-xs uppercase tracking-luxe text-mauve">Tap to chat</span>
+              </a>
+            </div>
+            <div className="hairline w-20" />
+            <div>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email</p>
+              <p className="text-noir leading-relaxed">
+                hello@melanvee.co<br />
+                press@melanvee.co
               </p>
             </div>
             <div className="hairline w-20" />
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Studio · New York</p>
-              <p className="text-cream leading-relaxed">
-                88 Mercer Street, Floor 3<br />
-                New York, NY 10012
-              </p>
-            </div>
-            <div className="hairline w-20" />
-            <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Direct</p>
-              <p className="text-cream leading-relaxed">
-                hello@maisonnoir.co<br />
-                press@maisonnoir.co<br />
-                +1 (212) 555 0188
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Atelier · London</p>
+              <p className="text-noir leading-relaxed">
+                By appointment only<br />
+                Worldwide shipping available
               </p>
             </div>
           </motion.div>
@@ -75,7 +86,7 @@ function Contact() {
               e.preventDefault();
               setSent(true);
             }}
-            className="md:col-span-3 space-y-8 bg-card/40 p-8 md:p-12 border border-border"
+            className="md:col-span-3 space-y-8 bg-card p-8 md:p-12 border border-border shadow-luxe"
           >
             <div className="grid sm:grid-cols-2 gap-8">
               <Field label="First Name" name="first" />
@@ -90,7 +101,7 @@ function Contact() {
               <textarea
                 rows={5}
                 required
-                className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-muted-foreground resize-none transition-colors"
+                className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-noir placeholder:text-muted-foreground resize-none transition-colors"
                 placeholder="Tell us a little..."
               />
             </div>
@@ -98,7 +109,7 @@ function Contact() {
             <button
               type="submit"
               disabled={sent}
-              className="w-full sm:w-auto bg-gold text-primary-foreground px-10 py-4 text-xs uppercase tracking-luxe hover:shadow-gold-glow transition-all duration-500 disabled:opacity-60"
+              className="w-full sm:w-auto bg-gold text-primary-foreground px-10 py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500 disabled:opacity-60"
             >
               {sent ? "Thank you — we'll be in touch" : "Send Message"}
             </button>
@@ -120,7 +131,7 @@ function Field({ label, name, type = "text" }: { label: string; name: string; ty
         name={name}
         type={type}
         required
-        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-muted-foreground transition-colors"
+        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-noir placeholder:text-muted-foreground transition-colors"
       />
     </div>
   );
