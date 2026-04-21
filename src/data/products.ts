@@ -2,49 +2,58 @@ import product1 from "@/assets/product-1.jpg";
 import product2 from "@/assets/product-2.jpg";
 import product3 from "@/assets/product-3.jpg";
 
+export type LengthOption = { inches: number; price: number };
+
 export type Product = {
   id: string;
   name: string;
   tagline: string;
   description: string;
-  price: string;
-  volume: string;
+  startingPrice: string;
   image: string;
   notes: string[];
+  lengths: LengthOption[];
 };
+
+// +£15 per 2 inches, 14" → 24"
+const buildLengths = (base: number): LengthOption[] =>
+  [14, 16, 18, 20, 22, 24].map((inches, i) => ({
+    inches,
+    price: base + i * 15,
+  }));
 
 export const products: Product[] = [
   {
-    id: "soie",
-    name: "Élixir de Soie",
-    tagline: "Featherweight silk mist",
+    id: "kimi-curl",
+    name: "Kimi Curl",
+    tagline: "Defined springy curls",
     description:
-      "A weightless veil of silk proteins and rosehip extract that smooths flyaways and crowns each strand in a soft, luminous halo.",
-    price: "$68",
-    volume: "120 ml",
+      "A weightless, hand-tied curl pattern with bounce and movement. Crafted on an HD lace base for an undetectable hairline that disappears into your skin.",
+    startingPrice: "£149",
     image: product1,
-    notes: ["Silk Protein", "Rosehip", "Cashmere Musk"],
+    notes: ["HD Lace", "Hand-Tied", "Pre-Plucked"],
+    lengths: buildLengths(149),
   },
   {
-    id: "huile",
-    name: "Huile Précieuse",
-    tagline: "Restorative gold oil",
+    id: "zora-coil",
+    name: "Zora Coil",
+    tagline: "Tight kinky coils",
     description:
-      "A blend of cold-pressed marula, argan, and Bulgarian rose. One drop transforms dry ends into mirrored, candle-lit shine.",
-    price: "$92",
-    volume: "50 ml",
+      "A protective, true-to-texture kinky coil designed to blend seamlessly with 4B/4C natural hair. Soft, full, and unapologetic.",
+    startingPrice: "£149",
     image: product2,
-    notes: ["Marula", "Argan", "Bulgarian Rose"],
+    notes: ["4C Match", "Glueless Fit", "Bleached Knots"],
+    lengths: buildLengths(149),
   },
   {
-    id: "masque",
-    name: "Masque Nocturne",
-    tagline: "Overnight repair ritual",
+    id: "lola-bouncy",
+    name: "Lola Bouncy",
+    tagline: "Voluminous bouncy waves",
     description:
-      "A slow, indulgent treatment with hydrolyzed keratin and amber resin. Worn through the night, it rebuilds the hair from within.",
-    price: "$118",
-    volume: "200 ml",
+      "Loose, romantic waves with weightless body. The wig you reach for when you want to feel soft, slow, and seen.",
+    startingPrice: "£155",
     image: product3,
-    notes: ["Keratin", "Amber Resin", "Vanilla Orchid"],
+    notes: ["HD Lace", "Loose Wave", "Glueless Fit"],
+    lengths: buildLengths(155),
   },
 ];
