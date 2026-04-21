@@ -8,6 +8,8 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+const BRAND = "M E L A N V É E";
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -29,8 +31,8 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-display text-2xl tracking-wide text-cream">
-            Maison<span className="text-gold italic"> Noir</span>
+          <span className="font-display text-lg md:text-xl tracking-[0.25em] text-noir">
+            {BRAND}
           </span>
         </Link>
 
@@ -58,7 +60,7 @@ export function Header() {
         <button
           aria-label="Menu"
           onClick={() => setOpen((v) => !v)}
-          className="md:hidden text-cream"
+          className="md:hidden text-noir"
         >
           <div className="w-6 flex flex-col gap-1.5">
             <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />

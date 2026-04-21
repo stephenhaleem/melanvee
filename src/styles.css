@@ -6,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MAISON NOIR — Luxury hair brand design system.
- * Editorial dark palette with champagne gold accents.
+ * MELANVÉE — luxury textured-hair atelier for women of colour.
+ * Light blush palette with rose-gold and deep mauve accents.
  */
 
 @theme inline {
@@ -39,6 +39,10 @@
   --color-gold-soft: var(--gold-soft);
   --color-noir: var(--noir);
   --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-blush-deep: var(--blush-deep);
+  --color-rose: var(--rose);
+  --color-mauve: var(--mauve);
 
   --font-display: "Playfair Display", Georgia, serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -47,41 +51,46 @@
 :root {
   --radius: 0.25rem;
 
-  /* Core palette */
-  --noir: oklch(0.13 0.005 60);
-  --background: oklch(0.13 0.005 60);
-  --foreground: oklch(0.96 0.012 80);
-  --cream: oklch(0.96 0.012 80);
+  /* Core palette — light blush */
+  --blush: oklch(0.96 0.02 20);
+  --blush-deep: oklch(0.92 0.035 18);
+  --rose: oklch(0.82 0.08 18);
+  --mauve: oklch(0.42 0.04 20);
+  --noir: oklch(0.28 0.02 20);
+  --cream: oklch(0.98 0.012 60);
 
-  --card: oklch(0.17 0.006 60);
-  --card-foreground: oklch(0.96 0.012 80);
-  --popover: oklch(0.17 0.006 60);
-  --popover-foreground: oklch(0.96 0.012 80);
+  --background: oklch(0.97 0.018 22);
+  --foreground: oklch(0.28 0.02 20);
 
-  /* Champagne gold */
-  --gold: oklch(0.78 0.105 78);
-  --gold-soft: oklch(0.86 0.06 82);
+  --card: oklch(0.99 0.01 22);
+  --card-foreground: oklch(0.28 0.02 20);
+  --popover: oklch(0.99 0.01 22);
+  --popover-foreground: oklch(0.28 0.02 20);
 
-  --primary: oklch(0.78 0.105 78);
-  --primary-foreground: oklch(0.13 0.005 60);
-  --secondary: oklch(0.22 0.008 60);
-  --secondary-foreground: oklch(0.96 0.012 80);
-  --muted: oklch(0.20 0.006 60);
-  --muted-foreground: oklch(0.66 0.012 70);
-  --accent: oklch(0.78 0.105 78);
-  --accent-foreground: oklch(0.13 0.005 60);
+  /* Rose-gold accent */
+  --gold: oklch(0.68 0.105 32);
+  --gold-soft: oklch(0.82 0.075 28);
+
+  --primary: oklch(0.42 0.04 20);
+  --primary-foreground: oklch(0.98 0.012 60);
+  --secondary: oklch(0.93 0.025 22);
+  --secondary-foreground: oklch(0.28 0.02 20);
+  --muted: oklch(0.93 0.022 22);
+  --muted-foreground: oklch(0.48 0.025 22);
+  --accent: oklch(0.68 0.105 32);
+  --accent-foreground: oklch(0.98 0.012 60);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.78 0.105 78 / 18%);
-  --input: oklch(0.78 0.105 78 / 22%);
-  --ring: oklch(0.78 0.105 78 / 50%);
+  --border: oklch(0.42 0.04 20 / 14%);
+  --input: oklch(0.42 0.04 20 / 18%);
+  --ring: oklch(0.68 0.105 32 / 50%);
 
-  --chart-1: oklch(0.78 0.105 78);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: oklch(0.68 0.105 32);
+  --chart-2: oklch(0.82 0.08 18);
+  --chart-3: oklch(0.42 0.04 20);
+  --chart-4: oklch(0.86 0.045 22);
+  --chart-5: oklch(0.55 0.06 28);
 
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
@@ -93,10 +102,10 @@
   --sidebar-ring: var(--ring);
 
   /* Gradients & shadows */
-  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.06 82), oklch(0.72 0.12 70));
-  --gradient-noir: linear-gradient(180deg, oklch(0.13 0.005 60), oklch(0.09 0.004 60));
-  --shadow-luxe: 0 30px 80px -20px oklch(0 0 0 / 0.6), 0 0 0 1px oklch(0.78 0.105 78 / 0.08);
-  --shadow-gold-glow: 0 0 40px -10px oklch(0.78 0.105 78 / 0.4);
+  --gradient-rose: linear-gradient(135deg, oklch(0.82 0.075 28), oklch(0.68 0.105 32));
+  --gradient-blush: linear-gradient(180deg, oklch(0.97 0.02 22), oklch(0.93 0.035 20));
+  --shadow-luxe: 0 30px 80px -30px oklch(0.42 0.04 20 / 0.25), 0 0 0 1px oklch(0.42 0.04 20 / 0.05);
+  --shadow-rose-glow: 0 0 40px -10px oklch(0.68 0.105 32 / 0.4);
 }
 
 @layer base {
@@ -109,7 +118,7 @@
   }
 
   body {
-    background: var(--gradient-noir);
+    background: var(--gradient-blush);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-weight: 300;
@@ -125,7 +134,7 @@
 
   ::selection {
     background: var(--gold);
-    color: var(--noir);
+    color: var(--cream);
   }
 }
 
@@ -134,11 +143,23 @@
   .text-gold { color: var(--gold); }
   .bg-gold { background-color: var(--gold); }
   .border-gold { border-color: var(--gold); }
-  .gradient-gold { background: var(--gradient-gold); }
+  .text-cream { color: var(--cream); }
+  .text-noir { color: var(--noir); }
+  .text-mauve { color: var(--mauve); }
+  .bg-blush { background-color: var(--blush); }
+  .bg-blush-deep { background-color: var(--blush-deep); }
+  .gradient-rose { background: var(--gradient-rose); }
   .shadow-luxe { box-shadow: var(--shadow-luxe); }
-  .shadow-gold-glow { box-shadow: var(--shadow-gold-glow); }
+  .shadow-rose-glow { box-shadow: var(--shadow-rose-glow); }
+  .text-gradient-rose {
+    background: var(--gradient-rose);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* Back-compat alias */
   .text-gradient-gold {
-    background: var(--gradient-gold);
+    background: var(--gradient-rose);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
