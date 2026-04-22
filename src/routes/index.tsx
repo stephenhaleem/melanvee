@@ -58,11 +58,11 @@ function Home() {
               — The Inaugural Collection
             </motion.p>
             <motion.h1 variants={fade} className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-noir">
-              Hair, as <span className="italic text-gradient-rose">ritual</span>.
+              Made to feel <span className="italic text-gradient-rose">like yours</span>.
             </motion.h1>
             <motion.p variants={fade} className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed">
-              Textured wigs designed for women of colour. Hand-tied, true-to-texture,
-              and crafted to feel like your own — only softer.
+              Half wigs and U-part wigs designed for women of colour — true to
+              your texture, easy to wear, and so natural no one has to know.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4">
               <Link
@@ -88,11 +88,11 @@ function Home() {
       </section>
 
       {/* MARQUEE / TAGS */}
-      <section className="border-y border-border py-6 overflow-hidden bg-blush-deep/30">
+      <section className="border-y border-border py-6 overflow-hidden bg-blush/40">
         <div className="flex justify-center items-center gap-12 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
-          <span>HD Lace</span>
+          <span>Half Wigs</span>
           <span className="text-gold">✦</span>
-          <span>Hand-Tied</span>
+          <span>U-Part Wigs</span>
           <span className="text-gold">✦</span>
           <span>True Textures</span>
           <span className="text-gold">✦</span>
@@ -165,7 +165,7 @@ function Home() {
       </section>
 
       {/* PHILOSOPHY */}
-      <section className="py-28 md:py-40 bg-blush-deep/40">
+      <section className="py-28 md:py-40 bg-blush/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0, scale: 1.05 }}
@@ -196,10 +196,10 @@ function Home() {
             </h2>
             <div className="hairline mt-10 w-24" />
             <p className="mt-10 text-mauve leading-loose text-lg">
-              MELANVÉE was born from a simple frustration — too few wigs are made
-              with our textures in mind. We craft each piece with hand-tied curls
-              that mirror real coils, kinks, and waves, on lace that disappears.
-              Soft, slow, and unmistakably ours.
+              MELANVÉE exists for every woman who is tired of salons, tired of
+              wigs that look artificial, tired of damage, tired of spending hours
+              on her hair. The woman who wants to look like herself — not just on
+              a good hair day, but every single day.
             </p>
             <Link
               to="/about"

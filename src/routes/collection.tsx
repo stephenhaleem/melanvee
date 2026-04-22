@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { products, type Product } from "@/data/products";
+import { addToCart } from "@/lib/cart";
+import { showToast } from "@/components/ToastHost";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -49,7 +51,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
       <div>
         <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
-          N° 0{index + 1} · {selected.inches}"
+          N° 0{index + 1} · {product.type}
         </p>
         <h2 className="font-display text-4xl md:text-5xl text-noir leading-tight">
           {product.name}
@@ -101,8 +103,19 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             </p>
             <p className="font-display text-3xl text-gold">£{selected.price}</p>
           </div>
-          <button className="bg-gold text-primary-foreground px-8 py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500">
-            Add to Vanity
+          <button
+            onClick={() => {
+              addToCart({
+                productId: product.id,
+                name: product.name,
+                inches: selected.inches,
+                price: selected.price,
+              });
+              showToast(`${product.name} ${selected.inches}" added to cart`);
+            }}
+            className="bg-gold text-primary-foreground px-8 py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500"
+          >
+            Add to Cart
           </button>
         </div>
 

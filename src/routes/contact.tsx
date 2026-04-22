@@ -69,7 +69,7 @@ function Contact() {
             </div>
             <div className="hairline w-20" />
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Atelier · London</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
               <p className="text-noir leading-relaxed">
                 By appointment only<br />
                 Worldwide shipping available

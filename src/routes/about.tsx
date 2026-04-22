@@ -10,12 +10,12 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "MELANVÉE is a textured-hair atelier crafting wigs for women of colour — true to your kinks, coils, and curls.",
+          "MELANVÉE makes half wigs and U-part wigs for women of colour — true to your texture, made to feel like yours.",
       },
       { property: "og:title", content: "About MELANVÉE" },
       {
         property: "og:description",
-        content: "Luxury textured wigs for women of colour, hand-tied with intention.",
+        content: "Half wigs and U-part wigs for women of colour. Made to feel like yours.",
       },
       { property: "og:image", content: aboutImg },
     ],
@@ -24,19 +24,20 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { n: "01", t: "True Textures", d: "Every curl pattern is matched to real Type 3 and Type 4 hair — not generic 'curly'." },
-  { n: "02", t: "HD Lace", d: "An ultra-thin Swiss lace that melts into every shade of brown skin." },
-  { n: "03", t: "Hand-Tied", d: "Each strand is individually knotted for natural movement and a scalp that breathes." },
+  { n: "01", t: "True Textures", d: "Every curl pattern is matched to real Type 3 and Type 4 hair — not a generic 'curly'." },
+  { n: "02", t: "Glueless Fit", d: "Half wigs and U-part wigs you can put on yourself in minutes — no glue, no salon, no damage." },
+  { n: "03", t: "Made to Feel Like Yours", d: "Soft enough to live in. Natural enough that no one has to know it isn't your own." },
 ];
 
 function About() {
   return (
     <Layout>
       <section className="py-24 md:py-32 text-center">
-        <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Est. 2025 · London</p>
+        <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Our Story</p>
         <h1 className="font-display text-5xl md:text-7xl lg:text-8xl text-noir leading-[1] max-w-4xl mx-auto px-6">
-          A house built for <em className="italic text-gradient-rose">our textures</em>.
+          Made for <em className="italic text-gradient-rose">our textures</em>.
         </h1>
+        <p className="mt-8 italic font-display text-xl text-gold">Made to feel like yours.</p>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 lg:px-12">
@@ -61,27 +62,30 @@ function About() {
       <section className="py-28 md:py-40">
         <div className="max-w-3xl mx-auto px-6 lg:px-12 space-y-10 text-lg text-mauve leading-loose">
           <p className="font-display text-2xl md:text-3xl text-noir leading-snug italic">
-            "We started MELANVÉE because the wigs we wanted didn't exist —
-            wigs that looked like our hair, not someone else's idea of it."
+            "For too long, women of colour have been let down by the hair industry —
+            wigs that don't match our textures, lace that doesn't sit, and
+            installs that damage the hair we are trying to protect."
           </p>
           <p>
-            For too long, women of colour have made do with textures that don't
-            quite match, lace that doesn't quite melt, and hairlines that betray
-            the install. We built MELANVÉE to change that.
+            MELANVÉE exists for every woman who is tired of salons, tired of
+            wearing wigs that look artificial, tired of damage, tired of spending
+            hours on her hair.
           </p>
           <p>
-            Each wig is hand-tied on HD lace, in true 3B–4C curl patterns, and
-            crafted to be worn glueless. Soft enough to sleep in. Refined enough
-            to be reached for again and again.
+            For the woman who wants to look like herself — not just on a good
+            hair day, but every single day.
           </p>
           <p>
-            We launched with three silhouettes — Kimi, Zora, and Lola — because
-            three is enough to begin a ritual.
+            We launched with three pieces: <strong className="text-noir">Kimi Curl</strong>,
+            <strong className="text-noir"> Zora Coil</strong>, and
+            <strong className="text-noir"> Lola Bouncy</strong> — half wigs and
+            U-part wigs in true 3B–4C textures, designed to slip on, blend in,
+            and let you live your day.
           </p>
         </div>
       </section>
 
-      <section className="py-24 bg-blush-deep/40">
+      <section className="py-24 bg-blush/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-xs uppercase tracking-luxe text-gold mb-4 text-center">— What We Stand For</p>
           <h2 className="font-display text-4xl md:text-5xl text-noir text-center leading-tight">
