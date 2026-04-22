@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { CartButton } from "./CartDrawer";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -25,7 +26,7 @@ export function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/85 backdrop-blur-xl border-b border-border"
+          ? "bg-background/90 backdrop-blur-xl border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -50,24 +51,30 @@ export function Header() {
           ))}
         </nav>
 
-        <Link
-          to="/collection"
-          className="hidden md:inline-flex text-xs uppercase tracking-luxe border border-gold/40 px-5 py-2.5 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
-        >
-          Shop
-        </Link>
+        <div className="hidden md:flex items-center gap-6">
+          <CartButton />
+          <Link
+            to="/collection"
+            className="text-xs uppercase tracking-luxe border border-gold/40 px-5 py-2.5 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
+          >
+            Shop
+          </Link>
+        </div>
 
-        <button
-          aria-label="Menu"
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden text-noir"
-        >
-          <div className="w-6 flex flex-col gap-1.5">
-            <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`h-px bg-current transition-opacity ${open ? "opacity-0" : ""}`} />
-            <span className={`h-px bg-current transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
-          </div>
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <CartButton />
+          <button
+            aria-label="Menu"
+            onClick={() => setOpen((v) => !v)}
+            className="text-noir"
+          >
+            <div className="w-6 flex flex-col gap-1.5">
+              <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
+              <span className={`h-px bg-current transition-opacity ${open ? "opacity-0" : ""}`} />
+              <span className={`h-px bg-current transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            </div>
+          </button>
+        </div>
       </div>
 
       {open && (

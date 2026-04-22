@@ -6,8 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MELANVÉE — luxury textured-hair atelier for women of colour.
- * Light blush palette with rose-gold and deep mauve accents.
+ * MELANVÉE — light, airy, ivory base with restrained blush + rose-gold accents.
+ * Most surfaces are warm neutral; blush appears only as accent washes.
  */
 
 @theme inline {
@@ -39,6 +39,7 @@
   --color-gold-soft: var(--gold-soft);
   --color-noir: var(--noir);
   --color-cream: var(--cream);
+  --color-ivory: var(--ivory);
   --color-blush: var(--blush);
   --color-blush-deep: var(--blush-deep);
   --color-rose: var(--rose);
@@ -51,46 +52,48 @@
 :root {
   --radius: 0.25rem;
 
-  /* Core palette — light blush */
-  --blush: oklch(0.96 0.02 20);
-  --blush-deep: oklch(0.92 0.035 18);
-  --rose: oklch(0.82 0.08 18);
-  --mauve: oklch(0.42 0.04 20);
-  --noir: oklch(0.28 0.02 20);
-  --cream: oklch(0.98 0.012 60);
+  /* Core palette — light ivory base, blush ONLY as accent */
+  --ivory: oklch(0.985 0.006 70);
+  --cream: oklch(0.975 0.012 65);
+  --blush: oklch(0.955 0.022 25);       /* whisper of blush — for accent washes only */
+  --blush-deep: oklch(0.93 0.035 22);   /* slightly stronger blush for occasional sections */
+  --rose: oklch(0.78 0.075 22);
+  --mauve: oklch(0.45 0.025 25);
+  --noir: oklch(0.24 0.012 30);
 
-  --background: oklch(0.97 0.018 22);
-  --foreground: oklch(0.28 0.02 20);
+  /* Background is now a warm ivory — NOT pink */
+  --background: oklch(0.985 0.006 70);
+  --foreground: oklch(0.24 0.012 30);
 
-  --card: oklch(0.99 0.01 22);
-  --card-foreground: oklch(0.28 0.02 20);
-  --popover: oklch(0.99 0.01 22);
-  --popover-foreground: oklch(0.28 0.02 20);
+  --card: oklch(0.99 0.004 70);
+  --card-foreground: oklch(0.24 0.012 30);
+  --popover: oklch(0.99 0.004 70);
+  --popover-foreground: oklch(0.24 0.012 30);
 
-  /* Rose-gold accent */
-  --gold: oklch(0.68 0.105 32);
-  --gold-soft: oklch(0.82 0.075 28);
+  /* Rose-gold accent — restrained */
+  --gold: oklch(0.66 0.095 32);
+  --gold-soft: oklch(0.82 0.06 28);
 
-  --primary: oklch(0.42 0.04 20);
-  --primary-foreground: oklch(0.98 0.012 60);
-  --secondary: oklch(0.93 0.025 22);
-  --secondary-foreground: oklch(0.28 0.02 20);
-  --muted: oklch(0.93 0.022 22);
-  --muted-foreground: oklch(0.48 0.025 22);
-  --accent: oklch(0.68 0.105 32);
-  --accent-foreground: oklch(0.98 0.012 60);
+  --primary: oklch(0.24 0.012 30);
+  --primary-foreground: oklch(0.985 0.006 70);
+  --secondary: oklch(0.95 0.008 60);
+  --secondary-foreground: oklch(0.24 0.012 30);
+  --muted: oklch(0.95 0.008 60);
+  --muted-foreground: oklch(0.5 0.018 30);
+  --accent: oklch(0.66 0.095 32);
+  --accent-foreground: oklch(0.985 0.006 70);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.42 0.04 20 / 14%);
-  --input: oklch(0.42 0.04 20 / 18%);
-  --ring: oklch(0.68 0.105 32 / 50%);
+  --border: oklch(0.24 0.012 30 / 12%);
+  --input: oklch(0.24 0.012 30 / 16%);
+  --ring: oklch(0.66 0.095 32 / 50%);
 
-  --chart-1: oklch(0.68 0.105 32);
-  --chart-2: oklch(0.82 0.08 18);
-  --chart-3: oklch(0.42 0.04 20);
-  --chart-4: oklch(0.86 0.045 22);
-  --chart-5: oklch(0.55 0.06 28);
+  --chart-1: oklch(0.66 0.095 32);
+  --chart-2: oklch(0.78 0.075 22);
+  --chart-3: oklch(0.45 0.025 25);
+  --chart-4: oklch(0.86 0.04 22);
+  --chart-5: oklch(0.55 0.05 28);
 
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
@@ -101,11 +104,11 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  /* Gradients & shadows */
-  --gradient-rose: linear-gradient(135deg, oklch(0.82 0.075 28), oklch(0.68 0.105 32));
-  --gradient-blush: linear-gradient(180deg, oklch(0.97 0.02 22), oklch(0.93 0.035 20));
-  --shadow-luxe: 0 30px 80px -30px oklch(0.42 0.04 20 / 0.25), 0 0 0 1px oklch(0.42 0.04 20 / 0.05);
-  --shadow-rose-glow: 0 0 40px -10px oklch(0.68 0.105 32 / 0.4);
+  /* Gradients & shadows — softer */
+  --gradient-rose: linear-gradient(135deg, oklch(0.82 0.06 28), oklch(0.66 0.095 32));
+  --gradient-ivory: linear-gradient(180deg, oklch(0.985 0.006 70), oklch(0.965 0.012 60));
+  --shadow-luxe: 0 30px 80px -30px oklch(0.24 0.012 30 / 0.18), 0 0 0 1px oklch(0.24 0.012 30 / 0.04);
+  --shadow-rose-glow: 0 0 40px -10px oklch(0.66 0.095 32 / 0.35);
 }
 
 @layer base {
@@ -118,7 +121,7 @@
   }
 
   body {
-    background: var(--gradient-blush);
+    background: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-weight: 300;
@@ -146,9 +149,12 @@
   .text-cream { color: var(--cream); }
   .text-noir { color: var(--noir); }
   .text-mauve { color: var(--mauve); }
+  .bg-ivory { background-color: var(--ivory); }
+  .bg-cream { background-color: var(--cream); }
   .bg-blush { background-color: var(--blush); }
   .bg-blush-deep { background-color: var(--blush-deep); }
   .gradient-rose { background: var(--gradient-rose); }
+  .gradient-ivory { background: var(--gradient-ivory); }
   .shadow-luxe { box-shadow: var(--shadow-luxe); }
   .shadow-rose-glow { box-shadow: var(--shadow-rose-glow); }
   .text-gradient-rose {
@@ -157,7 +163,6 @@
     background-clip: text;
     color: transparent;
   }
-  /* Back-compat alias */
   .text-gradient-gold {
     background: var(--gradient-rose);
     -webkit-background-clip: text;
