@@ -8,7 +8,7 @@ export function PaymentBadges({ className = "" }: Props) {
       {methods.map((m) => (
         <span
           key={m}
-          className="text-[10px] uppercase tracking-wider border border-border bg-card text-mauve px-3 py-1.5 rounded-sm"
+          className="text-[10px] uppercase tracking-wider border border-border bg-card text-mauve px-3 py-1.5"
         >
           {m}
         </span>

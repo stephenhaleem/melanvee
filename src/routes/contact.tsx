@@ -29,7 +29,7 @@ function Contact() {
     <Layout>
       <section className="py-24 md:py-32 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Get in Touch</p>
-        <h1 className="font-display text-5xl md:text-7xl text-noir leading-[1] max-w-3xl mx-auto px-6">
+        <h1 className="font-display text-5xl md:text-7xl text-cream leading-[1] max-w-3xl mx-auto px-6">
           We'd love to <em className="italic text-gradient-rose">hear from you</em>.
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
@@ -53,7 +53,7 @@ function Contact() {
                 href={WHATSAPP_HREF}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-noir leading-relaxed hover:text-gold transition-colors"
+                className="text-cream leading-relaxed hover:text-gold transition-colors"
               >
                 +44 0000 000 000<br />
                 <span className="text-xs uppercase tracking-luxe text-mauve">Tap to chat</span>
@@ -62,7 +62,7 @@ function Contact() {
             <div className="hairline w-20" />
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email</p>
-              <p className="text-noir leading-relaxed">
+              <p className="text-cream leading-relaxed">
                 hello@melanvee.co<br />
                 press@melanvee.co
               </p>
@@ -70,7 +70,7 @@ function Contact() {
             <div className="hairline w-20" />
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
-              <p className="text-noir leading-relaxed">
+              <p className="text-cream leading-relaxed">
                 By appointment only<br />
                 Worldwide shipping available
               </p>
@@ -101,7 +101,7 @@ function Contact() {
               <textarea
                 rows={5}
                 required
-                className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-noir placeholder:text-muted-foreground resize-none transition-colors"
+                className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve resize-none transition-colors"
                 placeholder="Tell us a little..."
               />
             </div>
@@ -131,7 +131,7 @@ function Field({ label, name, type = "text" }: { label: string; name: string; ty
         name={name}
         type={type}
         required
-        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-noir placeholder:text-muted-foreground transition-colors"
+        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve transition-colors"
       />
     </div>
   );

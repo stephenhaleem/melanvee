@@ -4,8 +4,10 @@ import { CartButton } from "./CartDrawer";
 
 const nav = [
   { to: "/", label: "Home" },
-  { to: "/collection", label: "Collection" },
+  { to: "/collection", label: "Shop" },
+  { to: "/texture-guide", label: "Texture" },
   { to: "/about", label: "About" },
+  { to: "/faq", label: "FAQ" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -26,23 +28,23 @@ export function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/90 backdrop-blur-xl border-b border-border"
+          ? "bg-ink/85 backdrop-blur-xl border-b border-border"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-display text-lg md:text-xl tracking-[0.25em] text-noir">
+          <span className="font-display text-base md:text-xl tracking-[0.25em] text-cream">
             {BRAND}
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-8">
           {nav.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-xs uppercase tracking-luxe text-muted-foreground hover:text-gold transition-colors duration-300"
+              className="text-xs uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-300"
               activeProps={{ className: "text-gold" }}
               activeOptions={{ exact: true }}
             >
@@ -51,7 +53,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-6">
           <CartButton />
           <Link
             to="/collection"
@@ -61,12 +63,12 @@ export function Header() {
           </Link>
         </div>
 
-        <div className="md:hidden flex items-center gap-4">
+        <div className="lg:hidden flex items-center gap-4">
           <CartButton />
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="text-noir"
+            className="text-cream"
           >
             <div className="w-6 flex flex-col gap-1.5">
               <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
@@ -78,14 +80,14 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
+        <div className="lg:hidden border-t border-border bg-ink/95 backdrop-blur-xl">
           <nav className="flex flex-col px-6 py-6 gap-5">
             {nav.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="text-xs uppercase tracking-luxe text-muted-foreground"
+                className="text-xs uppercase tracking-luxe text-mauve"
                 activeProps={{ className: "text-gold" }}
               >
                 {item.label}

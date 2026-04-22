@@ -6,8 +6,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MELANVÉE — light, airy, ivory base with restrained blush + rose-gold accents.
- * Most surfaces are warm neutral; blush appears only as accent washes.
+ * MELANVÉE — soft dark editorial.
+ * Charcoal/ink base, warm cream type, rose-gold accents.
+ * Luxe but never harsh.
  */
 
 @theme inline {
@@ -40,8 +41,8 @@
   --color-noir: var(--noir);
   --color-cream: var(--cream);
   --color-ivory: var(--ivory);
-  --color-blush: var(--blush);
-  --color-blush-deep: var(--blush-deep);
+  --color-charcoal: var(--charcoal);
+  --color-ink: var(--ink);
   --color-rose: var(--rose);
   --color-mauve: var(--mauve);
 
@@ -52,47 +53,46 @@
 :root {
   --radius: 0.25rem;
 
-  /* Core palette — light ivory base, blush ONLY as accent */
-  --ivory: oklch(0.985 0.006 70);
-  --cream: oklch(0.975 0.012 65);
-  --blush: oklch(0.955 0.022 25);       /* whisper of blush — for accent washes only */
-  --blush-deep: oklch(0.93 0.035 22);   /* slightly stronger blush for occasional sections */
-  --rose: oklch(0.78 0.075 22);
-  --mauve: oklch(0.45 0.025 25);
-  --noir: oklch(0.24 0.012 30);
+  /* Soft dark palette */
+  --ink: oklch(0.18 0.012 40);          /* deepest base — never pure black */
+  --charcoal: oklch(0.24 0.014 38);     /* primary surface */
+  --noir: oklch(0.32 0.014 38);         /* elevated surface */
+  --cream: oklch(0.96 0.018 75);        /* warm cream type */
+  --ivory: oklch(0.92 0.022 70);
+  --rose: oklch(0.78 0.085 30);
+  --mauve: oklch(0.72 0.025 35);
 
-  /* Background is now a warm ivory — NOT pink */
-  --background: oklch(0.985 0.006 70);
-  --foreground: oklch(0.24 0.012 30);
+  /* Rose-gold accent — warm, restrained */
+  --gold: oklch(0.74 0.105 38);
+  --gold-soft: oklch(0.82 0.075 35);
 
-  --card: oklch(0.99 0.004 70);
-  --card-foreground: oklch(0.24 0.012 30);
-  --popover: oklch(0.99 0.004 70);
-  --popover-foreground: oklch(0.24 0.012 30);
+  --background: oklch(0.18 0.012 40);
+  --foreground: oklch(0.96 0.018 75);
 
-  /* Rose-gold accent — restrained */
-  --gold: oklch(0.66 0.095 32);
-  --gold-soft: oklch(0.82 0.06 28);
+  --card: oklch(0.22 0.014 38);
+  --card-foreground: oklch(0.96 0.018 75);
+  --popover: oklch(0.22 0.014 38);
+  --popover-foreground: oklch(0.96 0.018 75);
 
-  --primary: oklch(0.24 0.012 30);
-  --primary-foreground: oklch(0.985 0.006 70);
-  --secondary: oklch(0.95 0.008 60);
-  --secondary-foreground: oklch(0.24 0.012 30);
-  --muted: oklch(0.95 0.008 60);
-  --muted-foreground: oklch(0.5 0.018 30);
-  --accent: oklch(0.66 0.095 32);
-  --accent-foreground: oklch(0.985 0.006 70);
-  --destructive: oklch(0.55 0.2 27);
+  --primary: oklch(0.74 0.105 38);
+  --primary-foreground: oklch(0.18 0.012 40);
+  --secondary: oklch(0.28 0.014 38);
+  --secondary-foreground: oklch(0.96 0.018 75);
+  --muted: oklch(0.28 0.014 38);
+  --muted-foreground: oklch(0.72 0.025 35);
+  --accent: oklch(0.74 0.105 38);
+  --accent-foreground: oklch(0.18 0.012 40);
+  --destructive: oklch(0.6 0.2 27);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(0.24 0.012 30 / 12%);
-  --input: oklch(0.24 0.012 30 / 16%);
-  --ring: oklch(0.66 0.095 32 / 50%);
+  --border: oklch(0.96 0.018 75 / 12%);
+  --input: oklch(0.96 0.018 75 / 16%);
+  --ring: oklch(0.74 0.105 38 / 50%);
 
-  --chart-1: oklch(0.66 0.095 32);
-  --chart-2: oklch(0.78 0.075 22);
-  --chart-3: oklch(0.45 0.025 25);
-  --chart-4: oklch(0.86 0.04 22);
+  --chart-1: oklch(0.74 0.105 38);
+  --chart-2: oklch(0.78 0.085 30);
+  --chart-3: oklch(0.72 0.025 35);
+  --chart-4: oklch(0.86 0.04 32);
   --chart-5: oklch(0.55 0.05 28);
 
   --sidebar: var(--card);
@@ -104,11 +104,10 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  /* Gradients & shadows — softer */
-  --gradient-rose: linear-gradient(135deg, oklch(0.82 0.06 28), oklch(0.66 0.095 32));
-  --gradient-ivory: linear-gradient(180deg, oklch(0.985 0.006 70), oklch(0.965 0.012 60));
-  --shadow-luxe: 0 30px 80px -30px oklch(0.24 0.012 30 / 0.18), 0 0 0 1px oklch(0.24 0.012 30 / 0.04);
-  --shadow-rose-glow: 0 0 40px -10px oklch(0.66 0.095 32 / 0.35);
+  --gradient-rose: linear-gradient(135deg, oklch(0.82 0.075 35), oklch(0.74 0.105 38));
+  --gradient-dark: linear-gradient(180deg, oklch(0.18 0.012 40), oklch(0.22 0.014 38));
+  --shadow-luxe: 0 30px 80px -30px oklch(0 0 0 / 0.6), 0 0 0 1px oklch(0.96 0.018 75 / 0.06);
+  --shadow-rose-glow: 0 0 60px -10px oklch(0.74 0.105 38 / 0.45);
 }
 
 @layer base {
@@ -137,7 +136,7 @@
 
   ::selection {
     background: var(--gold);
-    color: var(--cream);
+    color: var(--ink);
   }
 }
 
@@ -147,14 +146,16 @@
   .bg-gold { background-color: var(--gold); }
   .border-gold { border-color: var(--gold); }
   .text-cream { color: var(--cream); }
-  .text-noir { color: var(--noir); }
+  .text-ivory { color: var(--ivory); }
+  .text-noir { color: var(--cream); }    /* legacy alias — now reads as cream on dark */
   .text-mauve { color: var(--mauve); }
-  .bg-ivory { background-color: var(--ivory); }
+  .bg-ivory { background-color: var(--cream); }
   .bg-cream { background-color: var(--cream); }
-  .bg-blush { background-color: var(--blush); }
-  .bg-blush-deep { background-color: var(--blush-deep); }
+  .bg-charcoal { background-color: var(--charcoal); }
+  .bg-ink { background-color: var(--ink); }
+  .bg-noir { background-color: var(--noir); }
   .gradient-rose { background: var(--gradient-rose); }
-  .gradient-ivory { background: var(--gradient-ivory); }
+  .gradient-dark { background: var(--gradient-dark); }
   .shadow-luxe { box-shadow: var(--shadow-luxe); }
   .shadow-rose-glow { box-shadow: var(--shadow-rose-glow); }
   .text-gradient-rose {
@@ -171,4 +172,12 @@
   }
   .tracking-luxe { letter-spacing: 0.32em; }
   .hairline { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
 }

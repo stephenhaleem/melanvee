@@ -14,12 +14,12 @@ export const Route = createFileRoute("/collection")({
       {
         name: "description",
         content:
-          "Three founding textures: Kimi Curl, Zora Coil, and Lola Bouncy. Available from 14\" to 24\".",
+          "Three founding textures: Kimi Curl (4A–4B), Zora Coil (4B–4C), Lola Bouncy. Available 14\" to 24\".",
       },
       { property: "og:title", content: "The MELANVÉE Collection" },
       {
         property: "og:description",
-        content: "Hand-tied textured wigs on HD lace for women of colour.",
+        content: "Half wigs and U-part wigs in true 4A–4C textures.",
       },
     ],
   }),
@@ -38,22 +38,25 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       className={`grid md:grid-cols-2 gap-12 lg:gap-20 items-center ${reverse ? "md:[&>*:first-child]:order-2" : ""}`}
     >
-      <div className="aspect-square overflow-hidden bg-card shadow-luxe">
+      <div className="aspect-[4/5] overflow-hidden bg-card shadow-luxe relative">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
           width={1024}
-          height={1024}
+          height={1280}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1.4s]"
         />
+        <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
+          {product.texture}
+        </div>
       </div>
 
       <div>
         <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
           N° 0{index + 1} · {product.type}
         </p>
-        <h2 className="font-display text-4xl md:text-5xl text-noir leading-tight">
+        <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
           {product.name}
         </h2>
         <p className="mt-3 text-gold/90 italic font-display text-lg">{product.tagline}</p>
@@ -61,7 +64,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <p className="mt-8 text-mauve leading-loose text-lg">{product.description}</p>
 
         <div className="mt-10">
-          <p className="text-xs uppercase tracking-luxe text-noir mb-4">Key Features</p>
+          <p className="text-xs uppercase tracking-luxe text-cream mb-4">Key Features</p>
           <div className="flex flex-wrap gap-2">
             {product.notes.map((n) => (
               <span
@@ -75,7 +78,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         </div>
 
         <div className="mt-10">
-          <p className="text-xs uppercase tracking-luxe text-noir mb-4">Length</p>
+          <p className="text-xs uppercase tracking-luxe text-cream mb-4">Length</p>
           <div className="flex flex-wrap gap-2">
             {product.lengths.map((opt) => {
               const active = opt.inches === selected.inches;
@@ -98,7 +101,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
         <div className="mt-12 flex items-center justify-between border-t border-border pt-8">
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-muted-foreground mb-1">
+            <p className="text-[10px] uppercase tracking-luxe text-mauve mb-1">
               {selected.inches}" — total
             </p>
             <p className="font-display text-3xl text-gold">£{selected.price}</p>
@@ -130,12 +133,12 @@ function Collection() {
     <Layout>
       <section className="pt-16 pb-12 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-5">— The Collection</p>
-        <h1 className="font-display text-5xl md:text-7xl text-noir leading-tight">
+        <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight">
           Three <em className="italic text-gradient-rose">silhouettes</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Kimi, Zora, Lola. Three textures, six lengths, endless ways to feel like
-          the softest version of yourself.
+          Kimi (4A–4B), Zora (4B–4C), Lola (loose wave). Three textures, six lengths,
+          endless ways to feel like the softest version of yourself.
         </p>
         <div className="hairline mt-10 w-32 mx-auto" />
       </section>

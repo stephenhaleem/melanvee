@@ -9,11 +9,23 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TextureGuideRouteImport } from './routes/texture-guide'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TextureGuideRoute = TextureGuideRouteImport.update({
+  id: '/texture-guide',
+  path: '/texture-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -40,12 +52,16 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +69,28 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
+  '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/collection' | '/contact'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/collection'
+    | '/contact'
+    | '/faq'
+    | '/texture-guide'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/collection' | '/contact'
-  id: '__root__' | '/' | '/about' | '/collection' | '/contact'
+  to: '/' | '/about' | '/collection' | '/contact' | '/faq' | '/texture-guide'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/collection'
+    | '/contact'
+    | '/faq'
+    | '/texture-guide'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +98,26 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CollectionRoute: typeof CollectionRoute
   ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
+  TextureGuideRoute: typeof TextureGuideRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/texture-guide': {
+      id: '/texture-guide'
+      path: '/texture-guide'
+      fullPath: '/texture-guide'
+      preLoaderRoute: typeof TextureGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -107,6 +154,8 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CollectionRoute: CollectionRoute,
   ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
+  TextureGuideRoute: TextureGuideRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
