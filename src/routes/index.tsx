@@ -13,8 +13,8 @@ export const Route = createFileRoute("/")({
       { title: "MELANVÉE — Textured Wigs for Women of Colour" },
       {
         name: "description",
-        content:
-          "Half wigs and U-part wigs in true 4A–4C textures. Glueless, undetectable, made to feel like yours.",
+          content:
+            "Half wigs and U-part wigs in true 4A–4C textures. Lace-free, undetectable, made to feel like yours.",
       },
       { property: "og:title", content: "MELANVÉE — Made to feel like yours" },
       { property: "og:description", content: "Luxury textured wigs for women of colour. 4A–4C." },
@@ -118,8 +118,8 @@ function Home() {
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              Three textures. Each available 14" to 24". Glueless, undetectable,
-              built to live in.
+              Three textures. Each available 14" to 24". Lace-free half wigs
+              and U-parts, built to live in.
             </p>
           </motion.div>
 
@@ -158,7 +158,7 @@ function Home() {
                       <p className="text-sm text-mauve mt-1">{p.tagline}</p>
                     </div>
                     <p className="font-display text-lg text-gold whitespace-nowrap">
-                      from {p.startingPrice}
+                      from £{p.startingPriceGBP}
                     </p>
                   </div>
                 </Link>
@@ -253,7 +253,7 @@ function Home() {
             Be first for <em className="text-gradient-rose not-italic italic">the launch</em>.
           </h2>
           <p className="mt-6 text-mauve max-w-xl mx-auto">
-            Early access, restock alerts, and the occasional letter from our atelier.
+            Early access, restock alerts, and first looks at new textures.
           </p>
           <form
             onSubmit={(e) => e.preventDefault()}

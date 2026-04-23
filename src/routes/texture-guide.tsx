@@ -100,7 +100,7 @@ function TextureGuide() {
                             {t.matchName}
                           </p>
                           <p className="text-xs uppercase tracking-luxe text-gold">
-                            from {product.startingPrice}
+                            from £{product.startingPriceGBP}
                           </p>
                         </div>
                       </div>

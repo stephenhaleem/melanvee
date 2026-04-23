@@ -22,7 +22,7 @@ export const Route = createFileRoute("/about")({
 
 const values = [
   { n: "01", t: "True 4A–4C Textures", d: "Every pattern is matched to real Type 4 hair — not a generic 'curly'. Type 3 coming soon." },
-  { n: "02", t: "Glueless Fit", d: "Half wigs and U-part wigs you can put on yourself in minutes — no glue, no salon, no damage." },
+  { n: "02", t: "Lace-Free Fit", d: "Half wigs and U-part wigs you can put on yourself in minutes — no lace, no glue, no salon, no damage." },
   { n: "03", t: "Made to Feel Like Yours", d: "Soft enough to live in. Natural enough that no one has to know it isn't your own." },
 ];
 

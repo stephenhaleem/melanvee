@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TextureGuideRouteImport } from './routes/texture-guide'
+import { Route as PoliciesRouteImport } from './routes/policies'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
+import { Route as CollaborateRouteImport } from './routes/collaborate'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TextureGuideRoute = TextureGuideRouteImport.update({
   id: '/texture-guide',
   path: '/texture-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliciesRoute = PoliciesRouteImport.update({
+  id: '/policies',
+  path: '/policies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -36,6 +43,11 @@ const CollectionRoute = CollectionRouteImport.update({
   path: '/collection',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollaborateRoute = CollaborateRouteImport.update({
+  id: '/collaborate',
+  path: '/collaborate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -50,26 +62,32 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
 }
 export interface FileRouteTypes {
@@ -77,28 +95,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/collaborate'
     | '/collection'
     | '/contact'
     | '/faq'
+    | '/policies'
     | '/texture-guide'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/collection' | '/contact' | '/faq' | '/texture-guide'
+  to:
+    | '/'
+    | '/about'
+    | '/collaborate'
+    | '/collection'
+    | '/contact'
+    | '/faq'
+    | '/policies'
+    | '/texture-guide'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/collaborate'
     | '/collection'
     | '/contact'
     | '/faq'
+    | '/policies'
     | '/texture-guide'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CollaborateRoute: typeof CollaborateRoute
   CollectionRoute: typeof CollectionRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  PoliciesRoute: typeof PoliciesRoute
   TextureGuideRoute: typeof TextureGuideRoute
 }
 
@@ -109,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/texture-guide'
       fullPath: '/texture-guide'
       preLoaderRoute: typeof TextureGuideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/policies': {
+      id: '/policies'
+      path: '/policies'
+      fullPath: '/policies'
+      preLoaderRoute: typeof PoliciesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -132,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collaborate': {
+      id: '/collaborate'
+      path: '/collaborate'
+      fullPath: '/collaborate'
+      preLoaderRoute: typeof CollaborateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -152,9 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CollaborateRoute: CollaborateRoute,
   CollectionRoute: CollectionRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  PoliciesRoute: PoliciesRoute,
   TextureGuideRoute: TextureGuideRoute,
 }
 export const routeTree = rootRouteImport
