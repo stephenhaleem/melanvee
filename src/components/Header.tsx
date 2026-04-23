@@ -8,6 +8,7 @@ const nav = [
   { to: "/texture-guide", label: "Texture" },
   { to: "/about", label: "About" },
   { to: "/faq", label: "FAQ" },
+  { to: "/collaborate", label: "Collab" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -28,18 +29,23 @@ export function Header() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-ink/85 backdrop-blur-xl border-b border-border"
-          : "bg-transparent"
+          ? "bg-ink/90 backdrop-blur-xl border-b border-border"
+          : "bg-ink/40 backdrop-blur-sm"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+      {/* Free shipping bar */}
+      <div className="bg-gold/10 border-b border-gold/20 text-center py-1.5 text-[10px] uppercase tracking-luxe text-gold">
+        Free UK shipping over £120 · Worldwide delivery
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 lg:h-20 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-display text-base md:text-xl tracking-[0.25em] text-cream">
+          <span className="font-display text-sm md:text-xl tracking-[0.25em] text-cream">
             {BRAND}
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-7">
           {nav.map((item) => (
             <Link
               key={item.to}
@@ -53,22 +59,21 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-6">
-          <CartButton />
+        <div className="flex items-center gap-5">
           <Link
             to="/collection"
-            className="text-xs uppercase tracking-luxe border border-gold/40 px-5 py-2.5 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
+            className="hidden lg:inline-flex text-xs uppercase tracking-luxe border border-gold/40 px-5 py-2.5 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
           >
             Shop
           </Link>
-        </div>
 
-        <div className="lg:hidden flex items-center gap-4">
+          {/* Cart icon — always visible */}
           <CartButton />
+
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="text-cream"
+            className="lg:hidden text-cream"
           >
             <div className="w-6 flex flex-col gap-1.5">
               <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
