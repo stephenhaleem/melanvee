@@ -11,7 +11,7 @@ export type Product = {
   texture: string;
   tagline: string;
   description: string;
-  startingPrice: string;
+  startingPriceGBP: number;
   image: string;
   notes: string[];
   lengths: LengthOption[];
@@ -33,9 +33,9 @@ export const products: Product[] = [
     tagline: "Defined springy curls",
     description:
       "A weightless, true-to-texture curl pattern that mimics natural 4A to 4B hair — soft springy curls with body and movement. Designed as a half wig so it blends seamlessly with your own leave-out. Natural, full, unmistakably you.",
-    startingPrice: "£149",
+    startingPriceGBP: 149,
     image: product1,
-    notes: ["Half Wig", "4A – 4B Match", "Glueless"],
+    notes: ["Half Wig", "4A – 4B Match", "No Lace"],
     lengths: buildLengths(149),
   },
   {
@@ -45,10 +45,10 @@ export const products: Product[] = [
     texture: "4B – 4C",
     tagline: "Tight afro coils",
     description:
-      "A protective U-part wig in a true 4B to 4C afro coil — coarser, denser, and fuller than Kimi. Slip it on, lay your edges, and walk out. No glue, no salon, no damage to your own hair.",
-    startingPrice: "£149",
+      "A protective U-part wig in a true 4B to 4C afro coil — coarser, denser, and fuller than Kimi. Slip it on, lay your edges, and walk out. No lace, no salon, no damage to your own hair.",
+    startingPriceGBP: 149,
     image: product2,
-    notes: ["U-Part", "4B – 4C Match", "Glueless"],
+    notes: ["U-Part", "4B – 4C Match", "No Lace"],
     lengths: buildLengths(149),
   },
   {
@@ -59,9 +59,9 @@ export const products: Product[] = [
     tagline: "Voluminous bouncy waves",
     description:
       "Loose, romantic waves with weightless body. The half wig you reach for when you want soft volume that still looks like your own hair — relaxed, effortless, made to move.",
-    startingPrice: "£155",
+    startingPriceGBP: 155,
     image: product3,
-    notes: ["Half Wig", "Loose Wave", "Glueless"],
+    notes: ["Half Wig", "Loose Wave", "No Lace"],
     lengths: buildLengths(155),
   },
 ];
