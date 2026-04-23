@@ -10,10 +10,10 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Reach the MELANVÉE atelier. WhatsApp us, email us, or send a message — we read every letter.",
+          "Reach MELANVÉE. WhatsApp us, email us, or send a message — we read every one.",
       },
       { property: "og:title", content: "Contact MELANVÉE" },
-      { property: "og:description", content: "WhatsApp, email, or write to our London atelier." },
+      { property: "og:description", content: "WhatsApp, email, or write to our London studio." },
     ],
   }),
   component: Contact,
@@ -63,8 +63,8 @@ function Contact() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email</p>
               <p className="text-cream leading-relaxed">
-                hello@melanvee.co<br />
-                press@melanvee.co
+                hello@melanvee.com<br />
+                <span className="text-mauve text-sm">woman@melanvee.com (collabs)</span>
               </p>
             </div>
             <div className="hairline w-20" />

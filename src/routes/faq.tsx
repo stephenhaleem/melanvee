@@ -24,8 +24,8 @@ const faqs = [
     a: "Kimi Curl matches 4A–4B (soft springy curls). Zora Coil matches 4B–4C (tighter, fuller afro coils). Lola Bouncy is a loose wave for anyone wanting soft volume. Visit our Texture Guide, or WhatsApp us a photo and we'll match you.",
   },
   {
-    q: "Are these glueless?",
-    a: "Yes — all three pieces install glueless in under 5 minutes. Half wigs blend with your own leave-out; the U-part wig sits over your parted hair. No glue, no tape, no salon required.",
+    q: "Do these have lace? Do I need glue?",
+    a: "No lace, no glue. These are half wigs and U-part wigs — they install in under 5 minutes. Half wigs blend with your own leave-out; the U-part wig sits over your parted hair. No tape, no salon required.",
   },
   {
     q: "What's the difference between a half wig and a U-part wig?",
@@ -41,11 +41,11 @@ const faqs = [
   },
   {
     q: "How long does shipping take?",
-    a: "UK: 1–3 working days (free over £200). EU: 3–5 days. Worldwide: 5–10 days. All orders are tracked.",
+    a: "UK & Europe: dispatched within 24–48 hours, delivered in 3–5 working days. Free UK shipping over £120. Rest of world: 5–10 working days. All orders are tracked.",
   },
   {
     q: "What's your returns policy?",
-    a: "Unworn, unaltered pieces in original packaging can be returned within 14 days of delivery for a full refund. For hygiene reasons we cannot accept returns once a wig has been worn or installed.",
+    a: "Unworn, unaltered pieces in original packaging can be returned within 14 days of delivery for a full refund. Customer pays return shipping unless the item is faulty. For hygiene reasons we cannot accept returns once a wig has been worn or installed. See our full Policies page.",
   },
   {
     q: "Do you ship worldwide?",

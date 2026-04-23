@@ -30,7 +30,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "MELANVÉE — Textured Wigs for Women of Colour" },
-      { name: "description", content: "Luxury textured-hair atelier. Hand-tied wigs on HD lace, made for our textures." },
+      { name: "description", content: "Half wigs and U-part wigs in true 4A–4C textures. Made for women of colour." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
