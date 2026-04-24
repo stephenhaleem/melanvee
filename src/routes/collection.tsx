@@ -6,6 +6,7 @@ import { PaymentBadges } from "@/components/PaymentBadges";
 import { products, type Product } from "@/data/products";
 import { addToCart } from "@/lib/cart";
 import { showToast } from "@/components/ToastHost";
+import { useCurrency } from "@/lib/currency";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -14,7 +15,7 @@ export const Route = createFileRoute("/collection")({
       {
         name: "description",
         content:
-          "Three founding textures: Kimi Curl (4A–4B), Zora Coil (4B–4C), Lola Bouncy. Available 14\" to 24\".",
+          'Three founding textures: Kimi Curl (4A–4B), Zora Coil (4B–4C), Lola Bouncy. Available 14" to 24".',
       },
       { property: "og:title", content: "The MELANVÉE Collection" },
       {
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/collection")({
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
   const [selected, setSelected] = useState(product.lengths[0]);
+  const { format } = useCurrency();
   const reverse = index % 2 === 1;
 
   return (
@@ -104,7 +106,10 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-1">
               {selected.inches}" — total
             </p>
-            <p className="font-display text-3xl text-gold">£{selected.price}</p>
+            <p className="font-display text-3xl text-gold">{format(selected.price)}</p>
+            <p className="text-[10px] text-mauve mt-1 normal-case tracking-normal">
+              Charged in GBP at checkout
+            </p>
           </div>
           <button
             onClick={() => {
@@ -137,8 +142,8 @@ function Collection() {
           Three <em className="italic text-gradient-rose">silhouettes</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Kimi (4A–4B), Zora (4B–4C), Lola (loose wave). Three textures, six lengths,
-          endless ways to feel like the softest version of yourself.
+          Kimi (4A–4B), Zora (4B–4C), Lola (loose wave). Three textures, six lengths, endless ways
+          to feel like the softest version of yourself.
         </p>
         <div className="hairline mt-10 w-32 mx-auto" />
       </section>

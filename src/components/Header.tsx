@@ -34,24 +34,27 @@ export function Header() {
       }`}
     >
       {/* Free shipping bar */}
-      <div className="bg-gold/10 border-b border-gold/20 text-center py-1.5 text-[10px] uppercase tracking-luxe text-gold">
+      <div className="bg-gold/10 border-b border-gold/20 text-center py-2 text-[10px] uppercase tracking-luxe text-gold">
         Free UK shipping over £120 · Worldwide delivery
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 h-16 lg:h-20 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className="font-display text-sm md:text-xl tracking-[0.25em] text-cream">
+      {/* Main bar */}
+      <div className="max-w-7xl mx-auto px-5 lg:px-10 h-16 lg:h-20 flex items-center justify-between gap-4">
+        {/* Brand */}
+        <Link to="/" className="flex-shrink-0 group">
+          <span className="font-display text-base md:text-xl tracking-[0.3em] text-cream group-hover:text-gold transition-colors duration-300">
             {BRAND}
           </span>
         </Link>
 
+        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-7">
           {nav.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="text-xs uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-300"
-              activeProps={{ className: "text-gold" }}
+              className="text-[11px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-300 relative after:absolute after:bottom-[-3px] after:left-0 after:w-0 after:h-px after:bg-gold after:transition-all after:duration-300 hover:after:w-full"
+              activeProps={{ className: "text-gold after:w-full" }}
               activeOptions={{ exact: true }}
             >
               {item.label}
@@ -59,45 +62,60 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-5">
+        {/* Right actions */}
+        <div className="flex items-center gap-4">
           <Link
             to="/collection"
-            className="hidden lg:inline-flex text-xs uppercase tracking-luxe border border-gold/40 px-5 py-2.5 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
+            className="hidden lg:inline-flex text-[11px] uppercase tracking-luxe border border-gold/40 px-4 py-2 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
           >
-            Shop
+            Shop Now
           </Link>
 
-          {/* Cart icon — always visible */}
           <CartButton />
 
+          {/* Hamburger */}
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-cream"
+            className="lg:hidden text-cream p-1"
           >
-            <div className="w-6 flex flex-col gap-1.5">
-              <span className={`h-px bg-current transition-transform ${open ? "translate-y-2 rotate-45" : ""}`} />
-              <span className={`h-px bg-current transition-opacity ${open ? "opacity-0" : ""}`} />
-              <span className={`h-px bg-current transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+            <div className="w-6 flex flex-col gap-[5px]">
+              <span
+                className={`block h-px bg-current transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`}
+              />
+              <span
+                className={`block h-px bg-current transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`}
+              />
+              <span
+                className={`block h-px bg-current transition-all duration-300 origin-center ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
+              />
             </div>
           </button>
         </div>
       </div>
 
+      {/* Mobile nav */}
       {open && (
         <div className="lg:hidden border-t border-border bg-ink/95 backdrop-blur-xl">
-          <nav className="flex flex-col px-6 py-6 gap-5">
+          <nav className="flex flex-col px-5 py-6 gap-5">
             {nav.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="text-xs uppercase tracking-luxe text-mauve"
+                className="text-[11px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-200"
                 activeProps={{ className: "text-gold" }}
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              to="/collection"
+              onClick={() => setOpen(false)}
+              className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe border border-gold/40 px-4 py-2 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
+            >
+              Shop Now
+            </Link>
           </nav>
         </div>
       )}

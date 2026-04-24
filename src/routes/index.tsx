@@ -13,8 +13,8 @@ export const Route = createFileRoute("/")({
       { title: "MELANVÉE — Textured Wigs for Women of Colour" },
       {
         name: "description",
-          content:
-            "Half wigs and U-part wigs in true 4A–4C textures. Lace-free, undetectable, made to feel like yours.",
+        content:
+          "Half wigs and U-part wigs in true 4A–4C textures. Lace-free, undetectable, made to feel like yours.",
       },
       { property: "og:title", content: "MELANVÉE — Made to feel like yours" },
       { property: "og:description", content: "Luxury textured wigs for women of colour. 4A–4C." },
@@ -58,12 +58,18 @@ function Home() {
             <motion.p variants={fade} className="text-xs uppercase tracking-luxe text-gold mb-6">
               — The Inaugural Collection
             </motion.p>
-            <motion.h1 variants={fade} className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-cream">
+            <motion.h1
+              variants={fade}
+              className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-cream"
+            >
               Made to feel <span className="italic text-gradient-rose">like yours</span>.
             </motion.h1>
-            <motion.p variants={fade} className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed">
-              Half wigs and U-part wigs designed for 4A to 4C textures — true to
-              your hair, easy to wear, and so natural no one has to know.
+            <motion.p
+              variants={fade}
+              className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
+            >
+              Half wigs and U-part wigs designed for 4A to 4C textures — true to your hair, easy to
+              wear, and so natural no one has to know.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
               <Link
@@ -92,11 +98,11 @@ function Home() {
       <section className="border-y border-border py-6 bg-charcoal">
         <div className="flex justify-center items-center gap-8 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
           <span>Half Wigs</span>
-          <span className="text-gold">✦</span>
+          <span className="text-gold">▪</span>
           <span>U-Part Wigs</span>
-          <span className="text-gold">✦</span>
+          <span className="text-gold">▪</span>
           <span>4A — 4C Textures</span>
-          <span className="text-gold">✦</span>
+          <span className="text-gold">▪</span>
           <span>Worldwide Shipping</span>
         </div>
       </section>
@@ -114,12 +120,13 @@ function Home() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">— Three Silhouettes</p>
               <h2 className="font-display text-4xl md:text-6xl text-cream max-w-xl leading-tight">
-                The founding <em className="text-gradient-rose not-italic font-normal italic">collection</em>.
+                The founding{" "}
+                <em className="text-gradient-rose not-italic font-normal italic">collection</em>.
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              Three textures. Each available 14" to 24". Lace-free half wigs
-              and U-parts, built to live in.
+              Three textures. Each available 14" to 24". Lace-free half wigs and U-parts, built to
+              live in.
             </p>
           </motion.div>
 
@@ -200,10 +207,9 @@ function Home() {
             </h2>
             <div className="hairline mt-10 w-24" />
             <p className="mt-10 text-mauve leading-loose text-lg">
-              MELANVÉE exists for every woman who is tired of salons, tired of
-              wigs that look artificial, tired of damage, tired of spending hours
-              on her hair. The woman who wants to look like herself — not just on
-              a good hair day, but every single day.
+              MELANVÉE exists for every woman who is tired of salons, tired of wigs that look
+              artificial, tired of damage, tired of spending hours on her hair. The woman who wants
+              to look like herself — not just on a good hair day, but every single day.
             </p>
             <Link
               to="/about"
