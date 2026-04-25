@@ -24,7 +24,7 @@ function useRequireAuth() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) {
-        navigate({ to: "/admin/" });
+        navigate({ to: "/admin" });
       } else {
         setReady(true);
       }
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
 
   const signOut = async () => {
     await supabase.auth.signOut();
-    navigate({ to: "/admin/" });
+    navigate({ to: "/admin" });
   };
 
   const toggleStock = async (product: Product) => {
