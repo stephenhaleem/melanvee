@@ -84,29 +84,26 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Shipping() {
   return (
     <Section title="Shipping Policy">
-      <p>
-        All MELANVÉE orders are dispatched from our London studio.
-      </p>
+      <p>All MELANVÉE orders are dispatched from our London studio.</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
-          <strong className="text-cream">UK & Europe:</strong> Dispatched within
-          24–48 hours, delivered in 3–5 working days.
+          <strong className="text-cream">UK & Europe:</strong> Dispatched within 24 to 48 hours,
+          delivered in 3 to 5 working days.
         </Item>
         <Item>
-          <strong className="text-cream">Rest of world:</strong> Dispatched within
-          24–48 hours, delivered in 5–10 working days.
+          <strong className="text-cream">Rest of world:</strong> Dispatched within 24 to 48 hours,
+          delivered in 5 to 10 working days.
         </Item>
         <Item>
-          <strong className="text-cream">Free UK shipping</strong> on all orders
-          over £120.
+          <strong className="text-cream">Free UK shipping</strong> on all orders over £100.
         </Item>
         <Item>
-          All orders are <strong className="text-cream">tracked</strong> — you'll
-          receive a tracking link by email as soon as your order leaves us.
+          All orders are <strong className="text-cream">tracked</strong>. You will receive a
+          tracking link by email as soon as your order leaves us.
         </Item>
         <Item>
-          Customs duties and import taxes for orders outside the UK and EU are the
-          buyer's responsibility.
+          Customs duties and import taxes for orders outside the UK and EU are the buyer's
+          responsibility.
         </Item>
       </ul>
     </Section>
@@ -117,27 +114,31 @@ function Returns() {
   return (
     <Section title="Returns Policy">
       <p>
-        Because our wigs are intimate beauty products, we follow strict hygiene
-        rules — but we want you to feel safe ordering.
+        Because our wigs are intimate beauty products, we follow strict hygiene rules, but we want
+        you to feel safe ordering.
       </p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
-          Unopened, unworn pieces in their original packaging can be returned
-          within <strong className="text-cream">14 days of delivery</strong> for a
-          full refund.
+          Returns are accepted within <strong className="text-cream">14 days of delivery</strong>{" "}
+          on unopened, unworn pieces in their original packaging.
         </Item>
         <Item>
-          Once a wig has been worn, installed, washed, dyed, or altered, we
-          cannot accept it back for hygiene reasons.
+          All returns are <strong className="text-cream">subject to a quality inspection</strong>.
+          Refunds are only issued once the piece passes inspection and shows no sign of wear,
+          washing, styling, dye or alteration.
         </Item>
         <Item>
-          <strong className="text-cream">Customer pays return shipping</strong> —
-          unless the item arrived faulty or we sent the wrong piece, in which
+          Once a wig has been worn, installed, washed, dyed or altered, we cannot accept it back
+          for hygiene reasons.
+        </Item>
+        <Item>
+          <strong className="text-cream">Return shipping is the customer's responsibility</strong>,
+          except in the case of damaged or faulty items, or if we sent the wrong piece, in which
           case we cover the full cost.
         </Item>
         <Item>
-          Refunds are issued to your original payment method within 5–7 working
-          days of us receiving the return.
+          Approved refunds are issued to your original payment method within 5 to 7 working days
+          of our inspection team receiving and approving the return.
         </Item>
       </ul>
       <p className="text-sm">
@@ -154,24 +155,22 @@ function Returns() {
 function Exchange() {
   return (
     <Section title="Exchange Policy">
-      <p>
-        Wrong texture? Wrong length? We'll help you find the right one.
-      </p>
+      <p>Wrong texture? Wrong length? We will help you find the right one.</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
-          Exchanges are accepted within <strong className="text-cream">14 days</strong>{" "}
-          of delivery on unopened, unworn pieces in original packaging.
+          Exchanges are accepted within <strong className="text-cream">7 days of delivery</strong>{" "}
+          on unopened, unworn pieces in original packaging.
         </Item>
         <Item>
           You can exchange for a different texture, length, or take store credit.
         </Item>
         <Item>
-          <strong className="text-cream">Customer covers return shipping;</strong>{" "}
-          we cover the cost of sending the new piece.
+          <strong className="text-cream">Customer covers return shipping.</strong> We cover the
+          cost of sending the new piece.
         </Item>
         <Item>
-          If the new piece is more expensive, you'll be invoiced for the
-          difference. If it's cheaper, you'll be refunded the difference.
+          If the new piece is more expensive, you will be invoiced for the difference. If it is
+          cheaper, you will be refunded the difference.
         </Item>
       </ul>
     </Section>
@@ -183,24 +182,22 @@ function PrivacyTerms() {
     <>
       <Section title="Privacy Policy">
         <p>
-          We collect only what we need to fulfil your order: name, email, delivery
-          address, payment details (processed securely by Stripe). We never sell
-          your data.
+          We collect only what we need to fulfil your order: name, email, delivery address, payment
+          details (processed securely by Stripe). We never sell your data.
         </p>
         <p>
-          If you sign up to our mailing list, you can unsubscribe at any time
-          using the link in any email we send.
+          If you sign up to our mailing list, you can unsubscribe at any time using the link in any
+          email we send.
         </p>
       </Section>
       <Section title="Terms of Service">
         <p>
-          By placing an order with MELANVÉE you agree to these terms. All prices
-          are listed in GBP and charged in GBP at checkout regardless of the
-          display currency you've selected.
+          By placing an order with MELANVÉE you agree to these terms. All prices are listed in GBP
+          and charged in GBP at checkout regardless of the display currency you have selected.
         </p>
         <p>
-          Product images are styled professionally — natural variation in human
-          hair (slight shade or curl pattern differences) is normal.
+          Product images are styled professionally. Natural variation in human hair (slight shade
+          or curl pattern differences) is normal.
         </p>
       </Section>
     </>
