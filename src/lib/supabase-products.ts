@@ -26,7 +26,7 @@ export async function fetchProducts(): Promise<Product[]> {
     .order("sort_order", { ascending: true });
 
   if (error) throw error;
-  return (data ?? []) as Product[];
+  return (data ?? []) as unknown as Product[];
 }
 
 /** Fetch ALL products including out-of-stock (admin only) */
@@ -37,7 +37,7 @@ export async function fetchAllProducts(): Promise<Product[]> {
     .order("sort_order", { ascending: true });
 
   if (error) throw error;
-  return (data ?? []) as Product[];
+  return (data ?? []) as unknown as Product[];
 }
 
 export async function createProduct(
@@ -45,7 +45,7 @@ export async function createProduct(
 ): Promise<Product> {
   const { data, error } = await supabase.from("products").insert(product).select().single();
   if (error) throw error;
-  return data as Product;
+  return data as unknown as Product;
 }
 
 export async function updateProduct(id: string, updates: Partial<Product>): Promise<Product> {
@@ -56,7 +56,7 @@ export async function updateProduct(id: string, updates: Partial<Product>): Prom
     .select()
     .single();
   if (error) throw error;
-  return data as Product;
+  return data as unknown as Product;
 }
 
 export async function deleteProduct(id: string): Promise<void> {
