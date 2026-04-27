@@ -74,12 +74,12 @@ function FAQ() {
   return (
     <Layout>
       <section className="pt-20 pb-12 text-center">
-        <p className="text-xs uppercase tracking-luxe text-gold mb-5">— FAQ</p>
+        <p className="text-xs uppercase tracking-luxe text-gold mb-5">· FAQ</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
           Asked & <em className="italic text-gradient-rose">answered</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Still wondering something? WhatsApp us — we usually reply within an hour.
+          Still wondering something? WhatsApp us. We usually reply within an hour.
         </p>
       </section>
 
