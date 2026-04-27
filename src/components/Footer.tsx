@@ -12,7 +12,7 @@ export function Footer() {
           <p className="font-display text-2xl tracking-[0.25em] text-cream">M E L A N V É E</p>
           <p className="mt-4 italic font-display text-lg text-gold">Made to feel like yours.</p>
           <p className="mt-4 text-sm text-mauve max-w-sm leading-relaxed">
-            Half wigs and U-part wigs for women of colour — true 4A–4C textures.
+            Half wigs and U-part wigs for women of colour. True 4A to 4C textures.
           </p>
 
           <div className="mt-6 flex items-center gap-3">
@@ -50,6 +50,16 @@ export function Footer() {
             <li>
               <Link to="/texture-guide" className="hover:text-cream transition-colors">
                 Texture Guide
+              </Link>
+            </li>
+            <li>
+              <Link to="/how-to-wear" className="hover:text-cream transition-colors">
+                How to Wear
+              </Link>
+            </li>
+            <li>
+              <Link to="/care" className="hover:text-cream transition-colors">
+                Care Guide
               </Link>
             </li>
             <li>
