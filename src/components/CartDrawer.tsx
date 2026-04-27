@@ -35,7 +35,7 @@ export function openCart() {
   openSetterRef.current?.(true);
 }
 
-const FREE_SHIPPING_THRESHOLD = 120;
+const FREE_SHIPPING_THRESHOLD = 100;
 
 export function CartButton({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
@@ -196,7 +196,7 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
               </button>
 
               <p className="text-[10px] text-center text-mauve leading-relaxed">
-                Secure checkout · Free UK shipping over £120 · All prices charged in GBP
+                Secure checkout · Free UK shipping over £100 · All prices charged in GBP
               </p>
             </div>
           </aside>
