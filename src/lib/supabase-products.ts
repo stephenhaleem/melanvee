@@ -26,7 +26,7 @@ export async function fetchProducts(): Promise<Product[]> {
     .order("sort_order", { ascending: true });
 
   if (error) throw error;
-  return (data ?? []) as Product[];
+  return (data ?? []) as unknown as Product[];
 }
 
 /** Fetch ALL products including out-of-stock (admin only) */
