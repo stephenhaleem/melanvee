@@ -205,7 +205,7 @@ function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
           >
-            <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Philosophy</p>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Philosophy</p>
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-cream">
               Made for <em className="text-gradient-rose not-italic italic">our textures</em>.
             </h2>
@@ -213,7 +213,7 @@ function Home() {
             <p className="mt-10 text-mauve leading-loose text-lg">
               MELANVÉE exists for every woman who is tired of salons, tired of wigs that look
               artificial, tired of damage, tired of spending hours on her hair. The woman who wants
-              to look like herself — not just on a good hair day, but every single day.
+              to look like herself, not just on a good hair day, but every single day.
             </p>
             <Link
               to="/about"
@@ -231,12 +231,12 @@ function Home() {
       {/* FAQ TEASER */}
       <section className="py-28 bg-charcoal">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Before You Buy</p>
+          <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Before You Buy</p>
           <h2 className="font-display text-3xl md:text-5xl text-cream leading-tight">
             Everything you need to <em className="italic text-gradient-rose">know</em>.
           </h2>
           <p className="mt-6 text-mauve">
-            Texture matching, install times, shipping, returns — all answered.
+            Texture matching, install times, shipping, returns, all answered.
           </p>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Link
@@ -258,7 +258,7 @@ function Home() {
       {/* CTA */}
       <section className="py-28 md:py-40">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Join the House</p>
+          <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
           <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight">
             Be first for <em className="text-gradient-rose not-italic italic">the launch</em>.
           </h2>
@@ -284,7 +284,7 @@ function Home() {
 
           <div className="mt-16">
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-4">
-              Secure checkout — payments accepted
+              Secure checkout · payments accepted
             </p>
             <PaymentBadges className="justify-center" />
           </div>
