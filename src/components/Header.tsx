@@ -6,6 +6,8 @@ const nav = [
   { to: "/", label: "Home" },
   { to: "/collection", label: "Shop" },
   { to: "/texture-guide", label: "Texture" },
+  { to: "/how-to-wear", label: "How to Wear" },
+  { to: "/care", label: "Care" },
   { to: "/about", label: "About" },
   { to: "/faq", label: "FAQ" },
   { to: "/collaborate", label: "Collab" },
@@ -35,7 +37,7 @@ export function Header() {
     >
       {/* Free shipping bar */}
       <div className="bg-gold/10 border-b border-gold/20 text-center py-2 text-[10px] uppercase tracking-luxe text-gold">
-        Free UK shipping over £120 · Worldwide delivery
+        Free UK shipping over £100 · Worldwide delivery
       </div>
 
       {/* Main bar */}

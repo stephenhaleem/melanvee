@@ -11,13 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TextureGuideRouteImport } from './routes/texture-guide'
 import { Route as PoliciesRouteImport } from './routes/policies'
+import { Route as HowToWearRouteImport } from './routes/how-to-wear'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as CollaborateRouteImport } from './routes/collaborate'
+import { Route as CareRouteImport } from './routes/care'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 
 const TextureGuideRoute = TextureGuideRouteImport.update({
@@ -28,6 +31,11 @@ const TextureGuideRoute = TextureGuideRouteImport.update({
 const PoliciesRoute = PoliciesRouteImport.update({
   id: '/policies',
   path: '/policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowToWearRoute = HowToWearRouteImport.update({
+  id: '/how-to-wear',
+  path: '/how-to-wear',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -50,6 +58,11 @@ const CollaborateRoute = CollaborateRouteImport.update({
   path: '/collaborate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CareRoute = CareRouteImport.update({
+  id: '/care',
+  path: '/care',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -65,6 +78,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductProductIdRoute = ProductProductIdRouteImport.update({
+  id: '/product/$productId',
+  path: '/product/$productId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -74,38 +92,47 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-to-wear': typeof HowToWearRoute
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-to-wear': typeof HowToWearRoute
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/how-to-wear': typeof HowToWearRoute
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/product/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -113,50 +140,62 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
     | '/faq'
+    | '/how-to-wear'
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
+    | '/product/$productId'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
     | '/faq'
+    | '/how-to-wear'
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
+    | '/product/$productId'
     | '/admin'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
     | '/faq'
+    | '/how-to-wear'
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
+    | '/product/$productId'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CareRoute: typeof CareRoute
   CollaborateRoute: typeof CollaborateRoute
   CollectionRoute: typeof CollectionRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  HowToWearRoute: typeof HowToWearRoute
   PoliciesRoute: typeof PoliciesRoute
   TextureGuideRoute: typeof TextureGuideRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  ProductProductIdRoute: typeof ProductProductIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -174,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/policies'
       fullPath: '/policies'
       preLoaderRoute: typeof PoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-to-wear': {
+      id: '/how-to-wear'
+      path: '/how-to-wear'
+      fullPath: '/how-to-wear'
+      preLoaderRoute: typeof HowToWearRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -204,6 +250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollaborateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/care': {
+      id: '/care'
+      path: '/care'
+      fullPath: '/care'
+      preLoaderRoute: typeof CareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -225,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/$productId': {
+      id: '/product/$productId'
+      path: '/product/$productId'
+      fullPath: '/product/$productId'
+      preLoaderRoute: typeof ProductProductIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -238,13 +298,16 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CareRoute: CareRoute,
   CollaborateRoute: CollaborateRoute,
   CollectionRoute: CollectionRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  HowToWearRoute: HowToWearRoute,
   PoliciesRoute: PoliciesRoute,
   TextureGuideRoute: TextureGuideRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  ProductProductIdRoute: ProductProductIdRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
