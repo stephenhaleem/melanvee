@@ -314,7 +314,7 @@ function InfoBlock({ title, items }: { title: string; items: string[] }) {
       <ul className="space-y-3">
         {items.map((i) => (
           <li key={i} className="flex gap-3 text-mauve leading-relaxed">
-            <span className="text-gold flex-shrink-0">·</span>
+            <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
             <span>{i}</span>
           </li>
         ))}
