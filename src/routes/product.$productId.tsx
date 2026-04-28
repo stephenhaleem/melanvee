@@ -204,9 +204,9 @@ function ProductPage() {
                   heads, comfortable on larger ones.
                 </p>
                 <ul className="mt-4 space-y-2 text-mauve text-sm">
-                  <li className="flex gap-3"><span className="text-gold">·</span>Circumference: 22" / 56cm</li>
-                  <li className="flex gap-3"><span className="text-gold">·</span>Front to nape: 13" to 14"</li>
-                  <li className="flex gap-3"><span className="text-gold">·</span>Ear to ear: 11" to 12"</li>
+                  <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Circumference: 22" / 56cm</li>
+                  <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Front to nape: 13" to 14"</li>
+                  <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Ear to ear: 11" to 12"</li>
                 </ul>
                 <div className="mt-6 max-w-[200px] overflow-hidden rounded bg-cream">
                   <img
@@ -241,7 +241,7 @@ function ProductPage() {
                 to="/how-to-wear"
                 className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
               >
-                The full ritual
+                Full wear & care guide
               </Link>
             </div>
           )}
@@ -252,7 +252,7 @@ function ProductPage() {
               <ul className="space-y-3">
                 {product.care.map((c, i) => (
                   <li key={i} className="flex gap-3 text-mauve leading-loose">
-                    <span className="text-gold flex-shrink-0">✦</span>
+                    <span className="mt-2.5 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
                     <span>{c}</span>
                   </li>
                 ))}
@@ -261,7 +261,7 @@ function ProductPage() {
                 to="/how-to-wear"
                 className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
               >
-                Full ritual guide
+                Full wear & care guide
               </Link>
             </div>
           )}
@@ -314,7 +314,7 @@ function InfoBlock({ title, items }: { title: string; items: string[] }) {
       <ul className="space-y-3">
         {items.map((i) => (
           <li key={i} className="flex gap-3 text-mauve leading-relaxed">
-            <span className="text-gold flex-shrink-0">·</span>
+            <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
             <span>{i}</span>
           </li>
         ))}

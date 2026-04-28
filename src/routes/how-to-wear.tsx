@@ -6,20 +6,20 @@ import capSizeImg from "@/assets/cap-size.jpg";
 export const Route = createFileRoute("/how-to-wear")({
   head: () => ({
     meta: [
-      { title: "The Ritual · Wear & Care · MELANVÉE" },
+      { title: "Wear & Care · MELANVÉE" },
       {
         name: "description",
         content:
-          "How to wear and care for your MELANVÉE. Install in minutes, no lace, no glue. Wash, detangle, refresh — keep her soft for 1 to 3 years.",
+          "How to wear and care for your MELANVÉE. Install in minutes, no lace, no glue. Wash, detangle, refresh, keep her soft for 1 to 3 years.",
       },
-      { property: "og:title", content: "The Ritual · MELANVÉE" },
+      { property: "og:title", content: "Wear & Care · MELANVÉE" },
       {
         property: "og:description",
-        content: "Install, wear, love, care. One ritual, one piece, made to last.",
+        content: "Install, wear, care. Made to last 1 to 3 years with love.",
       },
     ],
   }),
-  component: Ritual,
+  component: WearAndCare,
 });
 
 const halfWig = [
@@ -87,7 +87,7 @@ const donts = [
   "Use alcohol-heavy products",
 ];
 
-function Ritual() {
+function WearAndCare() {
   return (
     <Layout>
       {/* HERO */}
@@ -98,7 +98,7 @@ function Ritual() {
           transition={{ duration: 0.6 }}
           className="text-xs uppercase tracking-luxe text-gold mb-5"
         >
-          · The Ritual
+          Wear & Care
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -114,7 +114,7 @@ function Ritual() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="mt-8 text-mauve max-w-xl mx-auto leading-loose"
         >
-          No lace. No glue. No salon. One ritual from the moment she arrives, made to keep her soft
+          No lace. No glue. No salon. A simple routine from the moment she arrives, made to keep her soft
           for one to three years.
         </motion.p>
       </section>
@@ -123,7 +123,7 @@ function Ritual() {
       <section className="relative py-20 bg-charcoal border-y border-border overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
-            <p className="text-[10px] uppercase tracking-luxe text-mauve">Chapter One</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve">Step One</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">The Install</h2>
             <div className="hairline mx-auto mt-6 w-20" />
           </div>
@@ -151,7 +151,7 @@ function Ritual() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="max-w-sm mx-auto md:mx-0 overflow-hidden bg-cream shadow-luxe"
+            className="max-w-[280px] mx-auto md:mx-0 overflow-hidden bg-cream shadow-luxe"
           >
             <img
               src={capSizeImg}
@@ -163,7 +163,7 @@ function Ritual() {
             />
           </motion.div>
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">· Universal Cap Size</p>
+            <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">Universal Cap Size</p>
             <h2 className="font-display text-4xl text-cream leading-tight">
               Made to sit, <em className="italic text-gradient-rose">made to adjust</em>.
             </h2>
@@ -172,11 +172,11 @@ function Ritual() {
               combs. Snug on smaller heads, comfortable on larger ones. No measuring tape required.
             </p>
             <ul className="mt-8 space-y-3 text-mauve">
-              <li className="flex gap-3"><span className="text-gold">·</span>Circumference: 22" / 56cm</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Front to nape: 13" to 14"</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Ear to ear: 11" to 12"</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Adjustable straps inside</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Built-in combs at crown and nape</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Circumference: 22" / 56cm</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Front to nape: 13" to 14"</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Ear to ear: 11" to 12"</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Adjustable straps inside</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Built-in combs at crown and nape</li>
             </ul>
           </div>
         </div>
@@ -186,7 +186,7 @@ function Ritual() {
       <section className="relative py-24 bg-charcoal border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
-            <p className="text-[10px] uppercase tracking-luxe text-mauve">Chapter Two</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve">Step Two</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">
               The Care
             </h2>
@@ -219,22 +219,22 @@ function Ritual() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-gold mb-5">· Love her like this</p>
+            <p className="text-[10px] uppercase tracking-luxe text-gold mb-5">Love her like this</p>
             <ul className="space-y-4">
               {dos.map((d) => (
                 <li key={d} className="flex gap-3 text-mauve leading-loose border-b border-border/50 pb-3">
-                  <span className="text-gold">✦</span>
+                  <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
                   <span>{d}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-mauve mb-5">· Never</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve mb-5">Never</p>
             <ul className="space-y-4">
               {donts.map((d) => (
                 <li key={d} className="flex gap-3 text-mauve/80 leading-loose border-b border-border/50 pb-3">
-                  <span className="text-mauve/60">✕</span>
+                  <span className="mt-2 inline-block h-1.5 w-1.5 border border-mauve/60 flex-shrink-0" />
                   <span>{d}</span>
                 </li>
               ))}

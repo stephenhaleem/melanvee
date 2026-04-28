@@ -207,7 +207,7 @@ function PrivacyTerms() {
 function Item({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex gap-3">
-      <span className="text-gold flex-shrink-0">✦</span>
+      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
       <span>{children}</span>
     </li>
   );
