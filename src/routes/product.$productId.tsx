@@ -253,10 +253,10 @@ function ProductPage() {
                 ))}
               </ul>
               <Link
-                to="/care"
+                to="/how-to-wear"
                 className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
               >
-                Full care guide
+                Full ritual guide
               </Link>
             </div>
           )}
