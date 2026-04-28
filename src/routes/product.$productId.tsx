@@ -200,13 +200,18 @@ function ProductPage() {
                 <p className="text-mauve leading-loose">{product.lifespan}</p>
                 <p className="text-xs uppercase tracking-luxe text-gold mt-8 mb-4">Cap Size</p>
                 <p className="text-mauve leading-loose">
-                  Universal cap size with adjustable straps inside for a snug, comfortable fit.
-                  Fits most head shapes.
+                  Universal cap with adjustable inner straps and built-in combs. Snug on smaller
+                  heads, comfortable on larger ones.
                 </p>
-                <div className="mt-4 overflow-hidden rounded bg-cream">
+                <ul className="mt-4 space-y-2 text-mauve text-sm">
+                  <li className="flex gap-3"><span className="text-gold">·</span>Circumference: 22" / 56cm</li>
+                  <li className="flex gap-3"><span className="text-gold">·</span>Front to nape: 13" to 14"</li>
+                  <li className="flex gap-3"><span className="text-gold">·</span>Ear to ear: 11" to 12"</li>
+                </ul>
+                <div className="mt-6 max-w-[200px] overflow-hidden rounded bg-cream">
                   <img
                     src={capSizeImg}
-                    alt="Universal wig cap size diagram"
+                    alt="Profile illustration showing wig cap measurements"
                     loading="lazy"
                     width={1024}
                     height={1024}
@@ -236,7 +241,7 @@ function ProductPage() {
                 to="/how-to-wear"
                 className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
               >
-                Full how-to-wear guide
+                The full ritual
               </Link>
             </div>
           )}
