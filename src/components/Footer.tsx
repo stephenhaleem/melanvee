@@ -54,7 +54,7 @@ export function Footer() {
             </li>
             <li>
               <Link to="/how-to-wear" className="hover:text-cream transition-colors">
-                The Ritual
+                Wear & Care
               </Link>
             </li>
             <li>

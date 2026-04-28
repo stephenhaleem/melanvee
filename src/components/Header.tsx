@@ -6,7 +6,7 @@ const nav = [
   { to: "/", label: "Home" },
   { to: "/collection", label: "Shop" },
   { to: "/texture-guide", label: "Texture" },
-  { to: "/how-to-wear", label: "The Ritual" },
+  { to: "/how-to-wear", label: "Wear & Care" },
   { to: "/about", label: "About" },
   { to: "/collaborate", label: "Collab" },
   { to: "/contact", label: "Contact" },

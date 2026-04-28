@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: "How long do they last?",
-    a: "With proper care: 1 to 3 years of regular wear. Wash gently every 2 to 3 weeks, air dry, and store on a wig stand. See our Care Guide for the full ritual.",
+    a: "With proper care: 1 to 3 years of regular wear. Wash gently every 2 to 3 weeks, air dry, and store on a wig stand. See our Wear & Care page for the full guide.",
   },
   {
     q: "Can I dye, bleach or heat-style them?",
