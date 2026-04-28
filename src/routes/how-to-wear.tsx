@@ -151,7 +151,7 @@ function WearAndCare() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="max-w-sm mx-auto md:mx-0 overflow-hidden bg-cream shadow-luxe"
+            className="max-w-[280px] mx-auto md:mx-0 overflow-hidden bg-cream shadow-luxe"
           >
             <img
               src={capSizeImg}
@@ -163,7 +163,7 @@ function WearAndCare() {
             />
           </motion.div>
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">· Universal Cap Size</p>
+            <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">Universal Cap Size</p>
             <h2 className="font-display text-4xl text-cream leading-tight">
               Made to sit, <em className="italic text-gradient-rose">made to adjust</em>.
             </h2>
@@ -172,11 +172,11 @@ function WearAndCare() {
               combs. Snug on smaller heads, comfortable on larger ones. No measuring tape required.
             </p>
             <ul className="mt-8 space-y-3 text-mauve">
-              <li className="flex gap-3"><span className="text-gold">·</span>Circumference: 22" / 56cm</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Front to nape: 13" to 14"</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Ear to ear: 11" to 12"</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Adjustable straps inside</li>
-              <li className="flex gap-3"><span className="text-gold">·</span>Built-in combs at crown and nape</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Circumference: 22" / 56cm</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Front to nape: 13" to 14"</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Ear to ear: 11" to 12"</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Adjustable straps inside</li>
+              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Built-in combs at crown and nape</li>
             </ul>
           </div>
         </div>
