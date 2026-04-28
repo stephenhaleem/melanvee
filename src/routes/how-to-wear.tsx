@@ -123,7 +123,7 @@ function WearAndCare() {
       <section className="relative py-20 bg-charcoal border-y border-border overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
-            <p className="text-[10px] uppercase tracking-luxe text-mauve">Chapter One</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve">Step One</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">The Install</h2>
             <div className="hairline mx-auto mt-6 w-20" />
           </div>
@@ -186,7 +186,7 @@ function WearAndCare() {
       <section className="relative py-24 bg-charcoal border-y border-border">
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
-            <p className="text-[10px] uppercase tracking-luxe text-mauve">Chapter Two</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve">Step Two</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">
               The Care
             </h2>
@@ -219,22 +219,22 @@ function WearAndCare() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-12">
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-gold mb-5">· Love her like this</p>
+            <p className="text-[10px] uppercase tracking-luxe text-gold mb-5">Love her like this</p>
             <ul className="space-y-4">
               {dos.map((d) => (
                 <li key={d} className="flex gap-3 text-mauve leading-loose border-b border-border/50 pb-3">
-                  <span className="text-gold">✦</span>
+                  <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
                   <span>{d}</span>
                 </li>
               ))}
             </ul>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-luxe text-mauve mb-5">· Never</p>
+            <p className="text-[10px] uppercase tracking-luxe text-mauve mb-5">Never</p>
             <ul className="space-y-4">
               {donts.map((d) => (
                 <li key={d} className="flex gap-3 text-mauve/80 leading-loose border-b border-border/50 pb-3">
-                  <span className="text-mauve/60">✕</span>
+                  <span className="mt-2 inline-block h-1.5 w-1.5 border border-mauve/60 flex-shrink-0" />
                   <span>{d}</span>
                 </li>
               ))}
