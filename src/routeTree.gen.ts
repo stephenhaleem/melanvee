@@ -16,7 +16,6 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CollectionRouteImport } from './routes/collection'
 import { Route as CollaborateRouteImport } from './routes/collaborate'
-import { Route as CareRouteImport } from './routes/care'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
@@ -58,11 +57,6 @@ const CollaborateRoute = CollaborateRouteImport.update({
   path: '/collaborate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CareRoute = CareRouteImport.update({
-  id: '/care',
-  path: '/care',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -92,7 +86,6 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
@@ -107,7 +100,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
@@ -123,7 +115,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/care': typeof CareRoute
   '/collaborate': typeof CollaborateRoute
   '/collection': typeof CollectionRoute
   '/contact': typeof ContactRoute
@@ -140,7 +131,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
@@ -155,7 +145,6 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
@@ -170,7 +159,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/care'
     | '/collaborate'
     | '/collection'
     | '/contact'
@@ -186,7 +174,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CareRoute: typeof CareRoute
   CollaborateRoute: typeof CollaborateRoute
   CollectionRoute: typeof CollectionRoute
   ContactRoute: typeof ContactRoute
@@ -250,13 +237,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollaborateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/care': {
-      id: '/care'
-      path: '/care'
-      fullPath: '/care'
-      preLoaderRoute: typeof CareRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -298,7 +278,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CareRoute: CareRoute,
   CollaborateRoute: CollaborateRoute,
   CollectionRoute: CollectionRoute,
   ContactRoute: ContactRoute,
