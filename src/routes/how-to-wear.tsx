@@ -6,20 +6,20 @@ import capSizeImg from "@/assets/cap-size.jpg";
 export const Route = createFileRoute("/how-to-wear")({
   head: () => ({
     meta: [
-      { title: "The Ritual · Wear & Care · MELANVÉE" },
+      { title: "Wear & Care · MELANVÉE" },
       {
         name: "description",
         content:
-          "How to wear and care for your MELANVÉE. Install in minutes, no lace, no glue. Wash, detangle, refresh — keep her soft for 1 to 3 years.",
+          "How to wear and care for your MELANVÉE. Install in minutes, no lace, no glue. Wash, detangle, refresh, keep her soft for 1 to 3 years.",
       },
-      { property: "og:title", content: "The Ritual · MELANVÉE" },
+      { property: "og:title", content: "Wear & Care · MELANVÉE" },
       {
         property: "og:description",
-        content: "Install, wear, love, care. One ritual, one piece, made to last.",
+        content: "Install, wear, care. Made to last 1 to 3 years with love.",
       },
     ],
   }),
-  component: Ritual,
+  component: WearAndCare,
 });
 
 const halfWig = [
@@ -87,7 +87,7 @@ const donts = [
   "Use alcohol-heavy products",
 ];
 
-function Ritual() {
+function WearAndCare() {
   return (
     <Layout>
       {/* HERO */}
@@ -98,7 +98,7 @@ function Ritual() {
           transition={{ duration: 0.6 }}
           className="text-xs uppercase tracking-luxe text-gold mb-5"
         >
-          · The Ritual
+          Wear & Care
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -114,7 +114,7 @@ function Ritual() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="mt-8 text-mauve max-w-xl mx-auto leading-loose"
         >
-          No lace. No glue. No salon. One ritual from the moment she arrives, made to keep her soft
+          No lace. No glue. No salon. A simple routine from the moment she arrives, made to keep her soft
           for one to three years.
         </motion.p>
       </section>
