@@ -79,7 +79,7 @@ function FAQ() {
           Asked & <em className="italic text-gradient-rose">answered</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Still wondering something? WhatsApp us. We usually reply within an hour.
+          Still wondering something? WhatsApp us Monday to Friday, or email us any time at hello@melanvee.com.
         </p>
       </section>
 
