@@ -83,9 +83,9 @@ export const products: Product[] = [
     texture: "4A to 4B",
     tagline: "Defined springy curls",
     shortDescription:
-      "Kimi is soft girl energy. True 4A to 4B springy curls with body, movement and just the right amount of fluff. She blends like she grew out of your head.",
+      "Kimi mimics a true kinky curly texture. Soft, springy 4A to 4B curls with real body and movement, made to sit like they grew out of your own head.",
     longDescription:
-      "Kimi Curl is for the days you want to look soft, rested and effortlessly pulled together. A true 4A to 4B springy curl with body and bounce, made to melt into your leave-out so well that no one has to know. As a half wig she is quick, beginner friendly and forgiving. For the girls who grew up being told their curls were a lot, and grew into women who know they were always everything.",
+      "Kimi Curl is our kinky curly piece. A soft, springy 4A to 4B curl with body and bounce, designed to mimic natural kinky curly hair so closely you forget where yours ends and she begins. She is the quiet confidence wig: relaxed enough for everyday, rich enough for a dinner reservation. A half wig build means she is beginner friendly, quick to install, and forgiving while you learn her.",
     blendsWith: ["Short hair", "Long hair", "Relaxed hair", "Natural hair"],
     startingPriceGBP: 149,
     image: product1,
@@ -127,9 +127,9 @@ export const products: Product[] = [
     texture: "Loose Wave",
     tagline: "Voluminous bouncy waves",
     shortDescription:
-      "Lola is the Friday night, the brunch reservation, the photo you send to the group chat. Loose romantic waves with weightless volume, made to move with you.",
+      "Lola mimics a softer kinky curly texture with loose romantic movement. Weightless volume, bouncy body, made to catch light.",
     longDescription:
-      "Lola Bouncy is your going-out friend. Loose romantic waves, weightless body, the kind of movement that catches light in a good photo. As a U-part she gives you the fullness of a full wig with the ease of a slip-on. Pull your own hair through the U, blend it in, and suddenly it is a whole moment. She is the piece you reach for when you want to feel a little more yourself, a little more put together, without overthinking it.",
+      "Lola Bouncy is our looser kinky curly piece. She carries the same natural texture cues as Kimi but drops into a softer, more romantic coil pattern: weightless volume, loose bounce, and the kind of movement that photographs beautifully. Built as a U-part so you can pull your own hair through and blend seamlessly, she gives you full wig fullness with slip-on ease. The piece you reach for when you want to feel a little more put together without overthinking it.",
     blendsWith: ["Short hair", "Long hair", "Relaxed hair", "Natural hair"],
     startingPriceGBP: 155,
     image: product3,
