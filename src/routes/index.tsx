@@ -10,14 +10,14 @@ import aboutImg from "@/assets/about.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MELANVÉE — Textured Wigs for Women of Colour" },
+      { title: "MELANVÉE · Textured Wigs for Women of Colour" },
       {
         name: "description",
         content:
-          "Half wigs and U-part wigs in true 4A–4C textures. Lace-free, undetectable, made to feel like yours.",
+          "Half wigs and U-part wigs in true 4A to 4C textures. No lace, no glue, undetectable and made to feel like yours.",
       },
-      { property: "og:title", content: "MELANVÉE — Made to feel like yours" },
-      { property: "og:description", content: "Luxury textured wigs for women of colour. 4A–4C." },
+      { property: "og:title", content: "MELANVÉE · Made to feel like yours" },
+      { property: "og:description", content: "Luxury textured wigs for women of colour. 4A to 4C." },
       { property: "og:image", content: heroImg },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: heroImg },
@@ -56,7 +56,7 @@ function Home() {
             className="max-w-2xl"
           >
             <motion.p variants={fade} className="text-xs uppercase tracking-luxe text-gold mb-6">
-              — The Inaugural Collection
+              · The Inaugural Collection
             </motion.p>
             <motion.h1
               variants={fade}
@@ -68,7 +68,7 @@ function Home() {
               variants={fade}
               className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
             >
-              Half wigs and U-part wigs designed for 4A to 4C textures — true to your hair, easy to
+              Half wigs and U-part wigs designed for 4A to 4C textures. True to your hair, easy to
               wear, and so natural no one has to know.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
@@ -101,7 +101,7 @@ function Home() {
           <span className="text-gold">▪</span>
           <span>U-Part Wigs</span>
           <span className="text-gold">▪</span>
-          <span>4A — 4C Textures</span>
+          <span>4A to 4C Textures</span>
           <span className="text-gold">▪</span>
           <span>Worldwide Shipping</span>
         </div>
@@ -118,15 +118,15 @@ function Home() {
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20"
           >
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">— Three Silhouettes</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">· The Collection</p>
               <h2 className="font-display text-4xl md:text-6xl text-cream max-w-xl leading-tight">
                 The founding{" "}
                 <em className="text-gradient-rose not-italic font-normal italic">collection</em>.
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              Three textures. Each available 14" to 24". Lace-free half wigs and U-parts, built to
-              live in.
+              Three textures. Each available 14&quot; to 24&quot;. No lace, no glue, half wigs and
+              U-parts built to live in.
             </p>
           </motion.div>
 
@@ -140,7 +140,11 @@ function Home() {
                 transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                 className="group"
               >
-                <Link to="/collection" className="block">
+                <Link
+                  to="/product/$productId"
+                  params={{ productId: p.id }}
+                  className="block"
+                >
                   <div className="aspect-[3/4] overflow-hidden bg-card relative">
                     <img
                       src={p.image}
@@ -201,7 +205,7 @@ function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
           >
-            <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Philosophy</p>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Philosophy</p>
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-cream">
               Made for <em className="text-gradient-rose not-italic italic">our textures</em>.
             </h2>
@@ -209,7 +213,7 @@ function Home() {
             <p className="mt-10 text-mauve leading-loose text-lg">
               MELANVÉE exists for every woman who is tired of salons, tired of wigs that look
               artificial, tired of damage, tired of spending hours on her hair. The woman who wants
-              to look like herself — not just on a good hair day, but every single day.
+              to look like herself, not just on a good hair day, but every single day.
             </p>
             <Link
               to="/about"
@@ -227,12 +231,12 @@ function Home() {
       {/* FAQ TEASER */}
       <section className="py-28 bg-charcoal">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Before You Buy</p>
+          <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Before You Buy</p>
           <h2 className="font-display text-3xl md:text-5xl text-cream leading-tight">
             Everything you need to <em className="italic text-gradient-rose">know</em>.
           </h2>
           <p className="mt-6 text-mauve">
-            Texture matching, install times, shipping, returns — all answered.
+            Texture matching, install times, shipping, returns, all answered.
           </p>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Link
@@ -254,7 +258,7 @@ function Home() {
       {/* CTA */}
       <section className="py-28 md:py-40">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Join the House</p>
+          <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
           <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight">
             Be first for <em className="text-gradient-rose not-italic italic">the launch</em>.
           </h2>
@@ -280,7 +284,7 @@ function Home() {
 
           <div className="mt-16">
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-4">
-              Secure checkout — payments accepted
+              Secure checkout · payments accepted
             </p>
             <PaymentBadges className="justify-center" />
           </div>

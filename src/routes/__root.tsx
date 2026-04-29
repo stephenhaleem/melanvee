@@ -33,6 +33,12 @@ export const Route = createRootRoute({
       { name: "description", content: "Half wigs and U-part wigs in true 4A–4C textures. Made for women of colour." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "MELANVÉE — Textured Wigs for Women of Colour" },
+      { name: "twitter:title", content: "MELANVÉE — Textured Wigs for Women of Colour" },
+      { property: "og:description", content: "Half wigs and U-part wigs in true 4A–4C textures. Made for women of colour." },
+      { name: "twitter:description", content: "Half wigs and U-part wigs in true 4A–4C textures. Made for women of colour." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/283a254c-1d60-4dd9-8997-e7e91c21331d/id-preview-c61b9be1--484288f3-63ae-4ff9-97de-e5f3ad3f200f.lovable.app-1777140610959.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/283a254c-1d60-4dd9-8997-e7e91c21331d/id-preview-c61b9be1--484288f3-63ae-4ff9-97de-e5f3ad3f200f.lovable.app-1777140610959.png" },
     ],
     links: [
       {

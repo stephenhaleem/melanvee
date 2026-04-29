@@ -33,8 +33,8 @@ function Contact() {
           We'd love to <em className="italic text-gradient-rose">hear from you</em>.
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
-          Questions about texture, length, or shipping? The fastest way to reach
-          us is WhatsApp — usually under an hour.
+          Questions about texture, length, or shipping? WhatsApp us Monday to Friday,
+          or drop us an email any time and we will come back to you.
         </p>
       </section>
 
@@ -56,12 +56,12 @@ function Contact() {
                 className="text-cream leading-relaxed hover:text-gold transition-colors"
               >
                 +44 0000 000 000<br />
-                <span className="text-xs uppercase tracking-luxe text-mauve">Tap to chat</span>
+                <span className="text-xs uppercase tracking-luxe text-mauve">Monday to Friday · Tap to chat</span>
               </a>
             </div>
             <div className="hairline w-20" />
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email · Anytime</p>
               <p className="text-cream leading-relaxed">
                 hello@melanvee.com<br />
                 <span className="text-mauve text-sm">woman@melanvee.com (collabs)</span>
@@ -71,8 +71,8 @@ function Contact() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
               <p className="text-cream leading-relaxed">
-                By appointment only<br />
-                Worldwide shipping available
+                Free international shipping<br />
+                Free UK shipping over £100
               </p>
             </div>
           </motion.div>

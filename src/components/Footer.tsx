@@ -12,7 +12,7 @@ export function Footer() {
           <p className="font-display text-2xl tracking-[0.25em] text-cream">M E L A N V É E</p>
           <p className="mt-4 italic font-display text-lg text-gold">Made to feel like yours.</p>
           <p className="mt-4 text-sm text-mauve max-w-sm leading-relaxed">
-            Half wigs and U-part wigs for women of colour — true 4A–4C textures.
+            Half wigs and U-part wigs for women of colour. True 4A to 4C textures.
           </p>
 
           <div className="mt-6 flex items-center gap-3">
@@ -53,6 +53,11 @@ export function Footer() {
               </Link>
             </li>
             <li>
+              <Link to="/how-to-wear" className="hover:text-cream transition-colors">
+                Wear & Care
+              </Link>
+            </li>
+            <li>
               <Link to="/about" className="hover:text-cream transition-colors">
                 Our Story
               </Link>
@@ -88,7 +93,7 @@ export function Footer() {
               woman@melanvee.com{" "}
               <span className="text-[10px] uppercase tracking-wider text-gold/70">(collabs)</span>
             </li>
-            <li>WhatsApp: +44 0000 000 000</li>
+            <li>WhatsApp: +44 0000 000 000 <span className="text-mauve/70">(Mon–Fri)</span></li>
             <li>London · Worldwide shipping</li>
           </ul>
         </div>
