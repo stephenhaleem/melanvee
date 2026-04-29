@@ -127,9 +127,9 @@ export const products: Product[] = [
     texture: "Loose Wave",
     tagline: "Voluminous bouncy waves",
     shortDescription:
-      "Lola mimics a softer kinky curly texture with loose romantic movement. Weightless volume, bouncy body, made to catch light.",
+      "Lola is bounce, body and movement. Soft loose waves with weightless volume, made to swing, catch light and feel effortlessly glamorous.",
     longDescription:
-      "Lola Bouncy is our looser kinky curly piece. She carries the same natural texture cues as Kimi but drops into a softer, more romantic coil pattern: weightless volume, loose bounce, and the kind of movement that photographs beautifully. Built as a U-part so you can pull your own hair through and blend seamlessly, she gives you full wig fullness with slip-on ease. The piece you reach for when you want to feel a little more put together without overthinking it.",
+      "Lola Bouncy is our wave piece. A different mood from Kimi and Zora: where they hold a defined coil, Lola flows. Soft, loose, body-rich waves with the kind of bounce that moves when you move. Built as a U-part so you can pull your own hair through and blend seamlessly, she gives you full wig fullness with slip-on ease. The piece you reach for when you want to feel a little more put together without overthinking it.",
     blendsWith: ["Short hair", "Long hair", "Relaxed hair", "Natural hair"],
     startingPriceGBP: 155,
     image: product3,
