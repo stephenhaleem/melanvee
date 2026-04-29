@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useCart, removeFromCart, updateQty } from "@/lib/cart";
+import { useShopifyCart } from "@/lib/shopify-cart";
 import { useCurrency } from "@/lib/currency";
 
-// Cart icon (SVG) used in header
+// ─── Cart Icon ─────────────────────────────────────────────────────────────
+
 export function CartIcon({ count }: { count: number }) {
   return (
     <span className="relative inline-flex">
@@ -27,8 +28,8 @@ export function CartIcon({ count }: { count: number }) {
   );
 }
 
-// Use a stable object ref so openCart() can trigger the setter
-// without causing it to be overwritten on every render.
+// ─── Global open trigger ───────────────────────────────────────────────────
+
 const openSetterRef = { current: null as ((v: boolean) => void) | null };
 
 export function openCart() {
@@ -37,10 +38,11 @@ export function openCart() {
 
 const FREE_SHIPPING_THRESHOLD = 100;
 
+// ─── Cart Button + Drawer ──────────────────────────────────────────────────
+
 export function CartButton({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
 
-  // Register the setter once, clean up on unmount
   useEffect(() => {
     openSetterRef.current = setOpen;
     return () => {
@@ -48,22 +50,17 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
     };
   }, []);
 
-  // Lock body scroll while drawer is open
   useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
 
-  const { items, count, total } = useCart();
+  const { lines, count, totalGBP, loading, updateQty, removeLine, checkout } = useShopifyCart();
   const { format } = useCurrency();
 
-  const remaining = FREE_SHIPPING_THRESHOLD - total;
+  const remaining = FREE_SHIPPING_THRESHOLD - totalGBP;
 
   return (
     <>
@@ -88,7 +85,7 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
             onClick={() => setOpen(false)}
           />
 
-          {/* Drawer — h-screen + solid inline bg guarantees full height and no transparency */}
+          {/* Drawer */}
           <aside
             className="absolute right-0 top-0 h-screen w-full max-w-md flex flex-col animate-in slide-in-from-right duration-300"
             style={{ backgroundColor: "#1c1c1e" }}
@@ -108,55 +105,76 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
               </button>
             </div>
 
-            {/* Scrollable item list — flex-1 + min-h-0 so it expands and scrolls correctly */}
+            {/* Item list */}
             <div className="flex-1 min-h-0 overflow-y-auto px-6 py-6 space-y-6">
-              {items.length === 0 ? (
+              {loading && lines.length === 0 ? (
+                <div className="text-center py-20">
+                  <p className="text-xs uppercase tracking-luxe text-mauve animate-pulse">
+                    Loading…
+                  </p>
+                </div>
+              ) : lines.length === 0 ? (
                 <div className="text-center py-20">
                   <p className="font-display text-xl text-cream mb-3">Your cart is empty</p>
                   <p className="text-sm text-mauve">Add a piece to begin.</p>
                 </div>
               ) : (
-                items.map((i) => (
+                lines.map((line) => (
                   <div
-                    key={i.id}
+                    key={line.lineId}
                     className="flex justify-between gap-4 border-b border-white/10 pb-5 last:border-0"
                   >
+                    {/* Thumbnail */}
+                    {line.image && (
+                      <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-noir">
+                        <img
+                          src={line.image}
+                          alt={line.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-lg text-cream leading-snug truncate">
-                        {i.name}
+                        {line.name}
                       </p>
-                      {i.inches && <p className="text-xs text-mauve mt-1">{i.inches}&quot;</p>}
+                      {line.variantTitle && line.variantTitle !== "Default Title" && (
+                        <p className="text-xs text-mauve mt-1">{line.variantTitle}</p>
+                      )}
+
+                      {/* Qty controls */}
                       <div className="mt-3 flex items-center gap-2">
                         <button
-                          onClick={() => {
-                            if (i.qty <= 1) {
-                              removeFromCart(i.id);
-                            } else {
-                              updateQty(i.id, i.qty - 1);
-                            }
-                          }}
-                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors"
+                          onClick={() => updateQty(line.lineId, line.qty - 1)}
+                          disabled={loading}
+                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors disabled:opacity-40"
                           aria-label="Decrease quantity"
                         >
                           −
                         </button>
                         <span className="text-sm w-6 text-center text-cream tabular-nums">
-                          {i.qty}
+                          {line.qty}
                         </span>
                         <button
-                          onClick={() => updateQty(i.id, i.qty + 1)}
-                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors"
+                          onClick={() => updateQty(line.lineId, line.qty + 1)}
+                          disabled={loading}
+                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors disabled:opacity-40"
                           aria-label="Increase quantity"
                         >
                           +
                         </button>
                       </div>
                     </div>
+
                     <div className="text-right flex-shrink-0">
-                      <p className="font-display text-lg text-gold">{format(i.price * i.qty)}</p>
+                      <p className="font-display text-lg text-gold">
+                        {format(line.priceGBP * line.qty)}
+                      </p>
                       <button
-                        onClick={() => removeFromCart(i.id)}
-                        className="mt-2 text-[10px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors"
+                        onClick={() => removeLine(line.lineId)}
+                        disabled={loading}
+                        className="mt-2 text-[10px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors disabled:opacity-40"
                       >
                         Remove
                       </button>
@@ -166,10 +184,10 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
               )}
             </div>
 
-            {/* Footer — always pinned to bottom, never scrolls away */}
+            {/* Footer */}
             <div className="flex-shrink-0 border-t border-white/10 px-6 py-5 space-y-4">
-              {/* Shipping progress — only shown when cart has items */}
-              {items.length > 0 &&
+              {/* Shipping progress */}
+              {lines.length > 0 &&
                 (remaining > 0 ? (
                   <div className="rounded border border-gold/30 bg-black/40 px-4 py-3 text-[11px] uppercase tracking-wider text-gold">
                     Add {format(remaining)} more for free UK shipping
@@ -182,17 +200,15 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
 
               <div className="flex justify-between items-baseline">
                 <span className="text-xs uppercase tracking-luxe text-mauve">Subtotal</span>
-                <span className="font-display text-2xl text-gold">{format(total)}</span>
+                <span className="font-display text-2xl text-gold">{format(totalGBP)}</span>
               </div>
 
               <button
-                disabled={items.length === 0}
+                disabled={lines.length === 0 || loading}
+                onClick={checkout}
                 className="w-full bg-gold text-primary-foreground py-4 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-                onClick={() =>
-                  alert("Checkout coming soon — Stripe payments will be enabled before launch.")
-                }
               >
-                Checkout — {format(total)}
+                {loading ? "Updating…" : `Checkout — ${format(totalGBP)}`}
               </button>
 
               <p className="text-[10px] text-center text-mauve leading-relaxed">

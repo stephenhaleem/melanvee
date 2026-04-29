@@ -1,8 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
-import { products } from "@/data/products";
 import { useCurrency } from "@/lib/currency";
+import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -25,6 +26,16 @@ export const Route = createFileRoute("/collection")({
 
 function Collection() {
   const { format } = useCurrency();
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    getProducts(20)
+      .then(setProducts)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <Layout>
@@ -41,50 +52,86 @@ function Collection() {
       </section>
 
       <section className="pb-32">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-3 gap-8 lg:gap-12">
-          {products.map((p, i) => (
-            <motion.article
-              key={p.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className="group"
-            >
-              <Link to="/product/$productId" params={{ productId: p.id }} className="block">
-                <div className="aspect-[3/4] overflow-hidden bg-card relative">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    loading="lazy"
-                    width={1024}
-                    height={1280}
-                    className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
-                  />
-                  <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
-                    {p.texture}
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          {loading && (
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="animate-pulse">
+                  <div className="aspect-[3/4] bg-charcoal" />
+                  <div className="pt-6 space-y-2">
+                    <div className="h-3 w-16 bg-charcoal rounded" />
+                    <div className="h-6 w-40 bg-charcoal rounded" />
+                    <div className="h-4 w-28 bg-charcoal rounded" />
                   </div>
                 </div>
-                <div className="pt-6">
-                  <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
-                    N° 0{i + 1} · {p.type}
-                  </p>
-                  <h2 className="font-display text-2xl text-cream group-hover:text-gold transition-colors">
-                    {p.name}
-                  </h2>
-                  <p className="text-sm text-mauve mt-1">{p.tagline}</p>
-                  <div className="mt-4 flex items-baseline justify-between">
-                    <p className="font-display text-lg text-gold">
-                      from {format(p.startingPriceGBP)}
-                    </p>
-                    <span className="text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors">
-                      View piece
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </motion.article>
-          ))}
+              ))}
+            </div>
+          )}
+
+          {error && (
+            <div className="text-center py-20">
+              <p className="text-mauve">Unable to load products. Please try again.</p>
+              <p className="text-xs text-mauve/60 mt-2">{error}</p>
+            </div>
+          )}
+
+          {!loading && !error && products.length === 0 && (
+            <div className="text-center py-20">
+              <p className="font-display text-2xl text-cream mb-3">No products found</p>
+              <p className="text-mauve text-sm">Check back soon — the collection is on its way.</p>
+            </div>
+          )}
+
+          {!loading && products.length > 0 && (
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+              {products.map((p, i) => (
+                <motion.article
+                  key={p.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.8, delay: i * 0.1 }}
+                  className="group"
+                >
+                  <Link to="/product/$productId" params={{ productId: p.handle }} className="block">
+                    <div className="aspect-[3/4] overflow-hidden bg-card relative">
+                      <img
+                        src={getProductImage(p)}
+                        alt={p.images.edges[0]?.node.altText ?? p.title}
+                        loading="lazy"
+                        width={1024}
+                        height={1280}
+                        className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+                      />
+                      {/* Texture badge from tags e.g. tag "texture:4A-4B" */}
+                      {p.productType && (
+                        <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
+                          {p.productType}
+                        </div>
+                      )}
+                    </div>
+                    <div className="pt-6">
+                      <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
+                        N° 0{i + 1} · {p.productType || "Wig"}
+                      </p>
+                      <h2 className="font-display text-2xl text-cream group-hover:text-gold transition-colors">
+                        {p.title}
+                      </h2>
+                      <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
+                      <div className="mt-4 flex items-baseline justify-between">
+                        <p className="font-display text-lg text-gold">
+                          from {format(getStartingPrice(p))}
+                        </p>
+                        <span className="text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors">
+                          View piece
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </Layout>

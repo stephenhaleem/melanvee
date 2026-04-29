@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { Reviews } from "@/components/Reviews";
-import { products } from "@/data/products";
+import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/about.jpg";
 
@@ -17,7 +18,10 @@ export const Route = createFileRoute("/")({
           "Half wigs and U-part wigs in true 4A to 4C textures. No lace, no glue, undetectable and made to feel like yours.",
       },
       { property: "og:title", content: "MELANVÉE · Made to feel like yours" },
-      { property: "og:description", content: "Luxury textured wigs for women of colour. 4A to 4C." },
+      {
+        property: "og:description",
+        content: "Luxury textured wigs for women of colour. 4A to 4C.",
+      },
       { property: "og:image", content: heroImg },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: heroImg },
@@ -32,6 +36,12 @@ const fade = {
 };
 
 function Home() {
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+
+  useEffect(() => {
+    getProducts(3).then(setProducts).catch(console.error);
+  }, []);
+
   return (
     <Layout>
       {/* HERO */}
@@ -94,7 +104,7 @@ function Home() {
         </div>
       </section>
 
-      {/* MARQUEE / TAGS */}
+      {/* MARQUEE */}
       <section className="border-y border-border py-6 bg-charcoal">
         <div className="flex justify-center items-center gap-8 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
           <span>Half Wigs</span>
@@ -130,52 +140,65 @@ function Home() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {products.map((p, i) => (
-              <motion.div
-                key={p.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="group"
-              >
-                <Link
-                  to="/product/$productId"
-                  params={{ productId: p.id }}
-                  className="block"
+          {products.length > 0 ? (
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+              {products.map((p, i) => (
+                <motion.div
+                  key={p.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  className="group"
                 >
-                  <div className="aspect-[3/4] overflow-hidden bg-card relative">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      loading="lazy"
-                      width={1024}
-                      height={1280}
-                      className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
-                      {p.texture}
+                  <Link to="/product/$productId" params={{ productId: p.handle }} className="block">
+                    <div className="aspect-[3/4] overflow-hidden bg-card relative">
+                      <img
+                        src={getProductImage(p)}
+                        alt={p.images.edges[0]?.node.altText ?? p.title}
+                        loading="lazy"
+                        width={1024}
+                        height={1280}
+                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
+                      />
+                      {p.productType && (
+                        <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
+                          {p.productType}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="pt-6 flex justify-between items-start">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
-                        N° 0{i + 1}
+                    <div className="pt-6 flex justify-between items-start">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
+                          N° 0{i + 1}
+                        </p>
+                        <h3 className="font-display text-2xl text-cream group-hover:text-gold transition-colors duration-300">
+                          {p.title}
+                        </h3>
+                        <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
+                      </div>
+                      <p className="font-display text-lg text-gold whitespace-nowrap">
+                        from £{getStartingPrice(p).toFixed(0)}
                       </p>
-                      <h3 className="font-display text-2xl text-cream group-hover:text-gold transition-colors duration-300">
-                        {p.name}
-                      </h3>
-                      <p className="text-sm text-mauve mt-1">{p.tagline}</p>
                     </div>
-                    <p className="font-display text-lg text-gold whitespace-nowrap">
-                      from £{p.startingPriceGBP}
-                    </p>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            // Skeleton while loading
+            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="animate-pulse">
+                  <div className="aspect-[3/4] bg-charcoal" />
+                  <div className="pt-6 space-y-2">
+                    <div className="h-3 w-16 bg-charcoal rounded" />
+                    <div className="h-6 w-40 bg-charcoal rounded" />
                   </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -255,7 +278,7 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA / email signup */}
       <section className="py-28 md:py-40">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
