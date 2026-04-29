@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
-import capSizeImg from "@/assets/cap-size.jpg";
+
 
 export const Route = createFileRoute("/how-to-wear")({
   head: () => ({
@@ -114,8 +114,8 @@ function WearAndCare() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="mt-8 text-mauve max-w-xl mx-auto leading-loose"
         >
-          No lace. No glue. No salon. A simple routine from the moment she arrives, made to keep her soft
-          for one to three years.
+          No salon visits. No appointments. No damage to your own hair. A simple
+          routine from the moment she arrives, made to keep her soft for one to three years.
         </motion.p>
       </section>
 
@@ -143,42 +143,24 @@ function WearAndCare() {
         </div>
       </section>
 
-      {/* CAP SIZE — intimate, editorial */}
+      {/* CAP COMFORT — benefits, not measurements */}
       <section className="py-24">
-        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="max-w-[280px] mx-auto md:mx-0 overflow-hidden bg-cream shadow-luxe"
-          >
-            <img
-              src={capSizeImg}
-              alt="Elegant profile illustration of a Black woman with delicate measurement lines tracing the wig cap circumference, ear-to-ear and front-to-nape"
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="w-full h-auto"
-            />
-          </motion.div>
-          <div>
-            <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">Universal Cap Size</p>
-            <h2 className="font-display text-4xl text-cream leading-tight">
-              Made to sit, <em className="italic text-gradient-rose">made to adjust</em>.
-            </h2>
-            <p className="mt-6 text-mauve leading-loose">
-              Every MELANVÉE piece is built on a universal cap with adjustable inner straps and
-              combs. Snug on smaller heads, comfortable on larger ones. No measuring tape required.
-            </p>
-            <ul className="mt-8 space-y-3 text-mauve">
-              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Circumference: 22" / 56cm</li>
-              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Front to nape: 13" to 14"</li>
-              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Ear to ear: 11" to 12"</li>
-              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Adjustable straps inside</li>
-              <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Built-in combs at crown and nape</li>
-            </ul>
-          </div>
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">The Cap</p>
+          <h2 className="font-display text-4xl text-cream leading-tight">
+            Built to <em className="italic text-gradient-rose">breathe</em>.
+          </h2>
+          <p className="mt-6 text-mauve leading-loose">
+            Every MELANVÉE piece is built on a soft, breathable cap with adjustable inner straps
+            and built-in combs. No tightness, no itching, no pressure on your edges. She sits
+            light enough to forget you have her on, secure enough to live your day in.
+          </p>
+          <ul className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-mauve text-left max-w-md mx-auto">
+            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Breathable, no itch</li>
+            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Adjustable inner straps</li>
+            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Combs at crown and nape</li>
+            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Gentle on your edges</li>
+          </ul>
         </div>
       </section>
 
