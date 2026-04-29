@@ -208,14 +208,14 @@ function ProductPage() {
                   <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Front to nape: 13" to 14"</li>
                   <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Ear to ear: 11" to 12"</li>
                 </ul>
-                <div className="mt-6 max-w-[200px] overflow-hidden rounded bg-cream">
+                <div className="mt-6 max-w-[260px] overflow-hidden">
                   <img
                     src={capSizeImg}
-                    alt="Profile illustration showing wig cap measurements"
+                    alt="Two diagrams showing wig cap measurements: front-to-nape from the side, and ear-to-ear from the front"
                     loading="lazy"
-                    width={1024}
-                    height={1024}
-                    className="w-full h-auto"
+                    width={1280}
+                    height={768}
+                    className="w-full h-auto mix-blend-lighten opacity-90"
                   />
                 </div>
               </div>

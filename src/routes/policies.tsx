@@ -87,15 +87,22 @@ function Shipping() {
       <p>All MELANVÉE orders are dispatched from our London studio.</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
-          <strong className="text-cream">UK & Europe:</strong> Dispatched within 24 to 48 hours,
-          delivered in 3 to 5 working days.
+          <strong className="text-cream">Dispatch:</strong> Within 24 to 72 hours of your order.
+          Times may vary slightly during busy periods.
         </Item>
         <Item>
-          <strong className="text-cream">Rest of world:</strong> Dispatched within 24 to 48 hours,
-          delivered in 5 to 10 working days.
+          <strong className="text-cream">UK & Europe:</strong> Delivered in 3 to 5 working days
+          after dispatch.
+        </Item>
+        <Item>
+          <strong className="text-cream">Rest of world:</strong> Delivered in 5 to 10 working days
+          after dispatch.
         </Item>
         <Item>
           <strong className="text-cream">Free UK shipping</strong> on all orders over £100.
+        </Item>
+        <Item>
+          <strong className="text-cream">Free international shipping</strong> on all orders.
         </Item>
         <Item>
           All orders are <strong className="text-cream">tracked</strong>. You will receive a

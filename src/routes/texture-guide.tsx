@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { products } from "@/data/products";
-import capSizeImg from "@/assets/cap-size.jpg";
+
 
 export const Route = createFileRoute("/texture-guide")({
   head: () => ({
@@ -125,37 +125,6 @@ function TextureGuide() {
         </div>
       </section>
 
-      {/* Cap size */}
-      <section className="py-20 bg-charcoal border-y border-border">
-        <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <p className="text-xs uppercase tracking-luxe text-gold mb-4">· Cap Size</p>
-            <h2 className="font-display text-4xl text-cream leading-tight">
-              Universal cap, adjustable fit.
-            </h2>
-            <p className="mt-6 text-mauve leading-loose">
-              Every piece uses a universal cap size with adjustable inner straps and built-in
-              combs. Comfortable on most head shapes without custom measuring.
-            </p>
-            <Link
-              to="/how-to-wear"
-              className="mt-6 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
-            >
-              See cap measurements
-            </Link>
-          </div>
-          <div className="overflow-hidden rounded bg-cream">
-            <img
-              src={capSizeImg}
-              alt="Universal wig cap size diagram"
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="w-full h-auto"
-            />
-          </div>
-        </div>
-      </section>
 
       <div className="max-w-3xl mx-auto px-6 py-20 text-center">
         <p className="text-mauve leading-loose">

@@ -86,7 +86,7 @@ function About() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-xs uppercase tracking-luxe text-gold mb-4 text-center">— What We Stand For</p>
           <h2 className="font-display text-4xl md:text-5xl text-cream text-center leading-tight">
-            Three <em className="italic text-gradient-rose">commitments</em>.
+            What we <em className="italic text-gradient-rose">stand for</em>.
           </h2>
           <div className="mt-20 grid md:grid-cols-3 gap-12">
             {values.map((v, i) => (
