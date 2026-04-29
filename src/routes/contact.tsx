@@ -22,14 +22,12 @@ const WHATSAPP_NUMBER = "440000000000";
 const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 /**
- * SETUP (2 minutes, no code changes after):
+ * FORMSPREE SETUP:
  * 1. Go to https://formspree.io — sign up free
- * 2. New Form → name it "MELANVÉE Contact" → set notification email to hello@melanvee.com
- * 3. Copy your endpoint: https://formspree.io/f/xyzabcde
- * 4. Paste it as the value of FORMSPREE_ENDPOINT below
- * Done. Messages land in your inbox instantly.
+ * 2. New Form → set notification email to hello@melanvee.com
+ * 3. Replace YOUR_FORM_ID below with your real form ID
  */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mpqkvgdw";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -113,7 +111,7 @@ function Contact() {
             </div>
           </motion.div>
 
-          {/* Right — form */}
+          {/* Right — form wrapped in motion.div NOT motion.form */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -130,6 +128,7 @@ function Contact() {
                 </p>
               </div>
             ) : (
+              /* Plain <form> — never use motion.form, it causes render loops on input */
               <form
                 onSubmit={onSubmit}
                 className="space-y-8 bg-card p-8 md:p-12 border border-border shadow-luxe"
@@ -141,10 +140,14 @@ function Contact() {
                 <Field label="Email" name="email" type="email" />
                 <Field label="Subject" name="subject" required={false} />
                 <div>
-                  <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
+                  <label
+                    htmlFor="message"
+                    className="block text-[10px] uppercase tracking-luxe text-gold mb-3"
+                  >
                     Message
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     rows={5}
                     required
