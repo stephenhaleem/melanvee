@@ -71,8 +71,8 @@ function Contact() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
               <p className="text-cream leading-relaxed">
-                By appointment only<br />
-                Worldwide shipping available
+                Free international shipping<br />
+                Free UK shipping over £100
               </p>
             </div>
           </motion.div>
