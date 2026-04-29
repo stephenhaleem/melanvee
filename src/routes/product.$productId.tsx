@@ -14,6 +14,7 @@ import {
   type ShopifyVariant,
 } from "@/lib/shopify";
 import capSizeImg from "@/assets/cap-size.jpg";
+import { ProductImageGallery } from "@/components/ProductImageGallery";
 
 export const Route = createFileRoute("/product/$productId")({
   loader: async ({ params }) => {
@@ -107,24 +108,13 @@ function ProductPage() {
               initial={{ opacity: 0, scale: 1.03 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.9 }}
-              className="aspect-[4/5] overflow-hidden bg-card shadow-luxe relative"
             >
-              {heroImage && (
-                <img
-                  src={heroImage.url}
-                  alt={heroImage.altText ?? product.title}
-                  width={heroImage.width}
-                  height={heroImage.height}
-                  className="w-full h-full object-cover"
-                />
-              )}
-              {textureBadge && (
-                <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
-                  {textureBadge}
-                </div>
-              )}
+              <ProductImageGallery
+                images={product.images.edges}
+                productTitle={product.title}
+                textureBadge={textureBadge}
+              />
             </motion.div>
-
             {/* Details */}
             <div>
               <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
@@ -369,26 +359,6 @@ function ProductPage() {
           )}
         </div>
       </section>
-
-      {/* Product images gallery (additional images) */}
-      {product.images.edges.length > 1 && (
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {product.images.edges.slice(1).map(({ node }, i) => (
-                <div key={i} className="aspect-[3/4] overflow-hidden bg-card">
-                  <img
-                    src={node.url}
-                    alt={node.altText ?? product.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </Layout>
   );
 }

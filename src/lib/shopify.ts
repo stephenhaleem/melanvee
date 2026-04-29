@@ -120,7 +120,7 @@ const PRODUCT_FRAGMENT = `
       minVariantPrice { amount currencyCode }
       maxVariantPrice { amount currencyCode }
     }
-    images(first: 5) {
+    images(first: 10) {
       edges { node { url altText width height } }
     }
     options { name values }
@@ -162,7 +162,7 @@ const CART_FRAGMENT = `
                 id
                 title
                 handle
-                images(first: 1) {
+                images(first: 10) {
                   edges { node { url altText width height } }
                 }
               }
