@@ -120,7 +120,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-1">
               {selected?.inches}&quot; — total
             </p>
-            <p className="font-display text-3xl text-gold">
+            <p className="font-sans text-3xl text-gold">
               {selected ? format(selected.price) : format(product.starting_price_gbp)}
             </p>
             <p className="text-[10px] text-mauve mt-1 normal-case tracking-normal">
