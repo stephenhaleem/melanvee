@@ -11,6 +11,7 @@ import {
   addCartLines,
   updateCartLines,
   removeCartLines,
+  setCartReturnUrl,
   parsePrice,
   type ShopifyCart,
   type ShopifyCartLine,
@@ -18,6 +19,9 @@ import {
 
 const CART_ID_KEY = "melanvee_shopify_cart_id";
 const EVT = "melanvee:shopify-cart";
+
+// The React site URL we want Shopify to return users to after checkout
+const STORE_URL = "https://melanvee.com";
 
 // ─── Internal state (module-level, shared across hooks) ────────────────────
 
@@ -66,6 +70,11 @@ async function initCart(): Promise<ShopifyCart> {
 
   const fresh = await createCart();
   storeCartId(fresh.id);
+
+  // Set the return URL attribute on the cart so Shopify knows where to send
+  // users back after purchase (belt-and-suspenders alongside the return_to param)
+  await setCartReturnUrl(fresh.id);
+
   _cart = fresh;
   broadcast();
   return fresh;
@@ -130,13 +139,26 @@ export async function shopifyRemoveLine(lineId: string): Promise<void> {
 
 /**
  * Get the Shopify checkout URL and redirect the user.
+ * Appends return_to so the "Back to store" / "Continue shopping" button on
+ * Shopify's thank-you page sends the user back to melanvee.com instead of
+ * the default Shopify theme storefront.
  */
 export function redirectToCheckout(): void {
   if (!_cart?.checkoutUrl) {
     console.warn("No checkout URL available");
     return;
   }
-  window.location.href = _cart.checkoutUrl;
+
+  try {
+    // Use URL API to safely append the return_to param regardless of
+    // whether checkoutUrl already has query parameters
+    const url = new URL(_cart.checkoutUrl);
+    url.searchParams.set("return_to", STORE_URL);
+    window.location.href = url.toString();
+  } catch {
+    // Fallback: if URL parsing fails for any reason, redirect without param
+    window.location.href = _cart.checkoutUrl;
+  }
 }
 
 // ─── Derived helpers ───────────────────────────────────────────────────────

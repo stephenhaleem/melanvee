@@ -54,16 +54,16 @@
   --radius: 0.25rem;
 
   /* Warmer, lifted dark palette — cocoa & espresso */
-  --ink: oklch(0.26 0.018 45);          /* deepest base, warm */
-  --charcoal: oklch(0.32 0.02 42);      /* primary surface, warm cocoa */
-  --noir: oklch(0.4 0.022 40);          /* elevated surface */
-  --cream: oklch(0.97 0.022 78);        /* warm cream type */
+  --ink: #2c211d; /* deepest base, warm */
+  --charcoal: oklch(0.32 0.02 42); /* primary surface, warm cocoa */
+  --noir: oklch(0.4 0.022 40); /* elevated surface */
+  --cream: oklch(0.97 0.022 78); /* warm cream type */
   --ivory: oklch(0.93 0.025 72);
   --rose: oklch(0.8 0.095 32);
-  --mauve: oklch(0.78 0.03 38);         /* lifted secondary text */
+  --mauve: oklch(0.78 0.03 38); /* lifted secondary text */
 
   /* Rose-gold accent — warm, slightly brighter */
-  --gold: oklch(0.78 0.115 40);
+  --gold: #f69e7e;
   --gold-soft: oklch(0.85 0.085 36);
 
   --background: oklch(0.26 0.018 45);
@@ -141,7 +141,11 @@
     letter-spacing: 0.01em;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-display);
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -154,23 +158,57 @@
 }
 
 @layer utilities {
-  .font-display { font-family: var(--font-display); }
-  .text-gold { color: var(--gold); }
-  .bg-gold { background-color: var(--gold); }
-  .border-gold { border-color: var(--gold); }
-  .text-cream { color: var(--cream); }
-  .text-ivory { color: var(--ivory); }
-  .text-noir { color: var(--cream); }
-  .text-mauve { color: var(--mauve); }
-  .bg-ivory { background-color: var(--cream); }
-  .bg-cream { background-color: var(--cream); }
-  .bg-charcoal { background-color: var(--charcoal); }
-  .bg-ink { background-color: var(--ink); }
-  .bg-noir { background-color: var(--noir); }
-  .gradient-rose { background: var(--gradient-rose); }
-  .gradient-dark { background: var(--gradient-dark); }
-  .shadow-luxe { box-shadow: var(--shadow-luxe); }
-  .shadow-rose-glow { box-shadow: var(--shadow-rose-glow); }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .text-gold {
+    color: var(--gold);
+  }
+  .bg-gold {
+    background-color: var(--gold);
+  }
+  .border-gold {
+    border-color: var(--gold);
+  }
+  .text-cream {
+    color: var(--cream);
+  }
+  .text-ivory {
+    color: var(--ivory);
+  }
+  .text-noir {
+    color: var(--cream);
+  }
+  .text-mauve {
+    color: var(--mauve);
+  }
+  .bg-ivory {
+    background-color: var(--cream);
+  }
+  .bg-cream {
+    background-color: var(--cream);
+  }
+  .bg-charcoal {
+    background-color: var(--charcoal);
+  }
+  .bg-ink {
+    background-color: var(--ink);
+  }
+  .bg-noir {
+    background-color: var(--noir);
+  }
+  .gradient-rose {
+    background: var(--gradient-rose);
+  }
+  .gradient-dark {
+    background: var(--gradient-dark);
+  }
+  .shadow-luxe {
+    box-shadow: var(--shadow-luxe);
+  }
+  .shadow-rose-glow {
+    box-shadow: var(--shadow-rose-glow);
+  }
   .text-gradient-rose {
     background: var(--gradient-rose);
     -webkit-background-clip: text;
@@ -183,8 +221,13 @@
     background-clip: text;
     color: transparent;
   }
-  .tracking-luxe { letter-spacing: 0.32em; }
-  .hairline { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .tracking-luxe {
+    letter-spacing: 0.32em;
+  }
+  .hairline {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
   .grain::before {
     content: "";
     position: absolute;

@@ -349,6 +349,31 @@ export async function removeCartLines(cartId: string, lineIds: string[]): Promis
   return data.cartLinesRemove.cart;
 }
 
+/**
+ * Set a custom attribute on the cart so Shopify knows the return URL.
+ * This embeds the return destination in the cart itself as a fallback.
+ */
+export async function setCartReturnUrl(cartId: string): Promise<void> {
+  const query = `
+    mutation SetCartAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
+      cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+        cart { id }
+        userErrors { field message }
+      }
+    }
+  `;
+
+  try {
+    await shopifyFetch(query, {
+      cartId,
+      attributes: [{ key: "_return_url", value: "https://melanvee.com" }],
+    });
+  } catch (err) {
+    // Non-fatal — the return_to query param on checkoutUrl is the primary mechanism
+    console.warn("[shopify] Could not set cart return URL attribute:", err);
+  }
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 /** Parse Shopify price string to number */
