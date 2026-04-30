@@ -110,6 +110,19 @@
   --shadow-rose-glow: 0 0 60px -10px oklch(0.78 0.115 40 / 0.5);
 }
 
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

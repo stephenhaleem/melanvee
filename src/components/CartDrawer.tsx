@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import { useShopifyCart } from "@/lib/shopify-cart";
 import { useCurrency } from "@/lib/currency";
 
@@ -39,8 +39,9 @@ export function openCart() {
 const FREE_SHIPPING_THRESHOLD = 100;
 
 // ─── Cart Button + Drawer ──────────────────────────────────────────────────
+// Wrapped in memo so cart state updates don't propagate re-renders up to Layout/Header
 
-export function CartButton({ inverted = false }: { inverted?: boolean }) {
+export const CartButton = memo(function CartButton({ inverted = false }: { inverted?: boolean }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -124,7 +125,6 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
                     key={line.lineId}
                     className="flex justify-between gap-4 border-b border-white/10 pb-5 last:border-0"
                   >
-                    {/* Thumbnail */}
                     {line.image && (
                       <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-noir">
                         <img
@@ -143,7 +143,6 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
                         <p className="text-xs text-mauve mt-1">{line.variantTitle}</p>
                       )}
 
-                      {/* Qty controls */}
                       <div className="mt-3 flex items-center gap-2">
                         <button
                           onClick={() => updateQty(line.lineId, line.qty - 1)}
@@ -186,7 +185,6 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
 
             {/* Footer */}
             <div className="flex-shrink-0 border-t border-white/10 px-6 py-5 space-y-4">
-              {/* Shipping progress */}
               {lines.length > 0 &&
                 (remaining > 0 ? (
                   <div className="rounded border border-gold/30 bg-black/40 px-4 py-3 text-[11px] uppercase tracking-wider text-gold">
@@ -220,4 +218,4 @@ export function CartButton({ inverted = false }: { inverted?: boolean }) {
       )}
     </>
   );
-}
+});

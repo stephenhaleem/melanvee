@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { subscribeToNewsletter } from "@/lib/newsletter";
 
 const KEY = "melanvee_welcome_seen_v1";
 const CODE = "FEEL5";
@@ -6,29 +7,45 @@ const CODE = "FEEL5";
 export function WelcomePopup() {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [stage, setStage] = useState<"form" | "code">("form");
+  const [stage, setStage] = useState<"form" | "submitting" | "code">("form");
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (localStorage.getItem(KEY)) return;
+    try {
+      if (localStorage.getItem(KEY)) return;
+    } catch {
+      return;
+    }
     const t = setTimeout(() => setOpen(true), 4000);
     return () => clearTimeout(t);
   }, []);
 
   const close = () => {
-    localStorage.setItem(KEY, "1");
+    try {
+      localStorage.setItem(KEY, "1");
+    } catch {}
     setOpen(false);
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
-    // Store email locally; later wire to Klaviyo
+
+    setStage("submitting");
+    setError(null);
+
+    const { ok } = await subscribeToNewsletter(email, "popup");
+
+    if (!ok) {
+      setError("Something went wrong — please try again.");
+      setStage("form");
+      return;
+    }
+
     try {
-      const stored = JSON.parse(localStorage.getItem("melanvee_emails") || "[]");
-      stored.push({ email, at: Date.now() });
-      localStorage.setItem("melanvee_emails", JSON.stringify(stored));
+      localStorage.setItem(KEY, "1");
     } catch {}
+
     setStage("code");
   };
 
@@ -50,7 +67,7 @@ export function WelcomePopup() {
           ×
         </button>
 
-        {stage === "form" ? (
+        {stage === "form" || stage === "submitting" ? (
           <div className="p-10 text-center">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— First Time Here?</p>
             <h3 className="font-display text-3xl text-cream leading-tight">
@@ -68,13 +85,18 @@ export function WelcomePopup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@email.com"
-                className="w-full bg-transparent border border-border focus:border-gold outline-none px-4 py-3 text-sm text-cream placeholder:text-mauve transition-colors"
+                disabled={stage === "submitting"}
+                className="w-full bg-transparent border border-border focus:border-gold outline-none px-4 py-3 text-sm text-cream placeholder:text-mauve transition-colors disabled:opacity-50"
               />
+              {error && (
+                <p className="text-[11px] text-rose-400 uppercase tracking-wider">{error}</p>
+              )}
               <button
                 type="submit"
-                className="w-full bg-gold text-primary-foreground py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition"
+                disabled={stage === "submitting"}
+                className="w-full bg-gold text-primary-foreground py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Get my 5% off
+                {stage === "submitting" ? "Subscribing…" : "Get my 5% off"}
               </button>
             </form>
             <button
@@ -97,7 +119,7 @@ export function WelcomePopup() {
               <p className="font-display text-4xl text-gold tracking-[0.4em]">{CODE}</p>
             </div>
             <p className="mt-4 text-[10px] uppercase tracking-luxe text-mauve">
-              We've also sent it to your email
+              Check your inbox — we've sent it over too.
             </p>
             <button
               onClick={close}

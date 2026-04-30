@@ -13,7 +13,7 @@ import {
   type ShopifyProduct,
   type ShopifyVariant,
 } from "@/lib/shopify";
-import capSizeImg from "@/assets/cap-size.jpg";
+import capSizeImg from "@/assets/cap-size.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 
 export const Route = createFileRoute("/product/$productId")({
@@ -207,7 +207,7 @@ function ProductPage() {
                   <p className="text-[10px] uppercase tracking-luxe text-mauve mb-1">
                     {selectedVariant?.title !== "Default Title" ? selectedVariant?.title : ""}
                   </p>
-                  <p className="font-display text-3xl text-gold">{format(price)}</p>
+                  <p className="font-sans text-3xl text-gold">{format(price)}</p>
                   <p className="text-[10px] text-mauve mt-1">Charged in GBP at checkout</p>
                   {!selectedVariant?.availableForSale && (
                     <p className="text-[10px] text-rose-400 uppercase tracking-luxe mt-2">
@@ -235,9 +235,9 @@ function ProductPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex flex-wrap gap-2 border-b border-border mb-10">
             {[
-              { id: "features" as const, label: "Key Features" },
               { id: "how" as const, label: "How to Wear" },
               { id: "care" as const, label: "Care" },
+              { id: "features" as const, label: "Key Features" },
             ].map((t) => (
               <button
                 key={t.id}
@@ -252,55 +252,6 @@ function ProductPage() {
               </button>
             ))}
           </div>
-
-          {tab === "features" && (
-            <div className="grid md:grid-cols-2 gap-10">
-              <div>
-                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Key Features</p>
-                <ul className="space-y-3">
-                  {[
-                    "No lace, no glue",
-                    "Beginner friendly install",
-                    "Breathable for all-day wear",
-                    "100% premium virgin human hair",
-                  ].map((f) => (
-                    <li key={f} className="flex gap-3 text-mauve leading-relaxed">
-                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
-                <p className="text-mauve leading-loose">
-                  Universal cap with adjustable inner straps and built-in combs.
-                </p>
-                <ul className="mt-4 space-y-2 text-mauve text-sm">
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Circumference: 22" / 56cm
-                  </li>
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Front to nape: 13" to 14"
-                  </li>
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Ear to ear: 11" to 12"
-                  </li>
-                </ul>
-                <div className="mt-6 max-w-[260px] overflow-hidden">
-                  <img
-                    src={capSizeImg}
-                    alt="Wig cap size diagram"
-                    loading="lazy"
-                    className="w-full h-auto mix-blend-lighten opacity-90"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
 
           {tab === "how" && (
             <div className="max-w-3xl">
@@ -355,6 +306,54 @@ function ProductPage() {
               >
                 Full wear & care guide
               </Link>
+            </div>
+          )}
+          {tab === "features" && (
+            <div className="grid md:grid-cols-2 gap-10">
+              <div>
+                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Key Features</p>
+                <ul className="space-y-3">
+                  {[
+                    "No lace, no glue",
+                    "Beginner friendly install",
+                    "Breathable for all-day wear",
+                    "100% premium virgin human hair",
+                  ].map((f) => (
+                    <li key={f} className="flex gap-3 text-mauve leading-relaxed">
+                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
+                <p className="text-mauve leading-loose">
+                  Universal cap with adjustable inner straps and built-in combs.
+                </p>
+                <ul className="mt-4 space-y-2 text-mauve text-sm">
+                  <li className="flex gap-3 items-center">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                    Circumference: 22" / 56cm
+                  </li>
+                  <li className="flex gap-3 items-center">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                    Front to nape: 13" to 14"
+                  </li>
+                  <li className="flex gap-3 items-center">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                    Ear to ear: 11" to 12"
+                  </li>
+                </ul>
+                <div className="mt-6 max-w-[260px] overflow-hidden">
+                  <img
+                    src={capSizeImg}
+                    alt="Wig cap size diagram"
+                    loading="lazy"
+                    className="w-full h-auto mix-blend-lighten opacity-90"
+                  />
+                </div>
+              </div>
             </div>
           )}
         </div>

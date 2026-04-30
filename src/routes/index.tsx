@@ -5,6 +5,7 @@ import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { Reviews } from "@/components/Reviews";
 import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
+import { subscribeToNewsletter } from "@/lib/newsletter";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/about.jpg";
 
@@ -34,6 +35,65 @@ const fade = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const } },
 };
+
+type NewsletterState = "idle" | "loading" | "success" | "duplicate" | "error";
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<NewsletterState>("idle");
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setState("loading");
+
+    const { ok, duplicate } = await subscribeToNewsletter(email, "homepage");
+
+    if (!ok) {
+      setState("error");
+      return;
+    }
+
+    setState(duplicate ? "duplicate" : "success");
+    if (!duplicate) setEmail("");
+  };
+
+  return (
+    <form onSubmit={onSubmit} className="mt-12 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+      <input
+        type="email"
+        required
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Your email"
+        disabled={state === "loading" || state === "success"}
+        className="flex-1 bg-transparent border-b border-border focus:border-gold outline-none px-2 py-3 text-sm text-cream placeholder:text-mauve transition-colors disabled:opacity-50"
+      />
+      <button
+        type="submit"
+        disabled={state === "loading" || state === "success"}
+        className="bg-gold text-primary-foreground px-8 py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        {state === "loading" ? "Subscribing…" : state === "success" ? "Subscribed ✓" : "Subscribe"}
+      </button>
+
+      {state === "success" && (
+        <p className="w-full text-[11px] uppercase tracking-luxe text-gold -mt-2">
+          You're on the list. Watch your inbox.
+        </p>
+      )}
+      {state === "duplicate" && (
+        <p className="w-full text-[11px] uppercase tracking-luxe text-mauve -mt-2">
+          You're already subscribed.
+        </p>
+      )}
+      {state === "error" && (
+        <p className="w-full text-[11px] uppercase tracking-luxe text-rose-400 -mt-2">
+          Something went wrong — please try again.
+        </p>
+      )}
+    </form>
+  );
+}
 
 function Home() {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -186,7 +246,6 @@ function Home() {
               ))}
             </div>
           ) : (
-            // Skeleton while loading
             <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
               {[1, 2, 3].map((n) => (
                 <div key={n} className="animate-pulse">
@@ -248,9 +307,6 @@ function Home() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <Reviews />
-
       {/* FAQ TEASER */}
       <section className="py-28 bg-charcoal">
         <div className="max-w-3xl mx-auto px-6 text-center">
@@ -278,7 +334,7 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA / email signup */}
+      {/* NEWSLETTER */}
       <section className="py-28 md:py-40">
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
@@ -288,22 +344,8 @@ function Home() {
           <p className="mt-6 text-mauve max-w-xl mx-auto">
             Early access, restock alerts, and first looks at new textures.
           </p>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-12 flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-          >
-            <input
-              type="email"
-              placeholder="Your email"
-              className="flex-1 bg-transparent border-b border-border focus:border-gold outline-none px-2 py-3 text-sm text-cream placeholder:text-mauve transition-colors"
-            />
-            <button
-              type="submit"
-              className="bg-gold text-primary-foreground px-8 py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500"
-            >
-              Subscribe
-            </button>
-          </form>
+
+          <NewsletterForm />
 
           <div className="mt-16">
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-4">

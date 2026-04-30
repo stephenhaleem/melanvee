@@ -22,7 +22,9 @@ export const Route = createFileRoute("/collaborate")({
   component: Collaborate,
 });
 
-const COLLAB_EMAIL = "woman@melanvee.com";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mvzlpeqg";
+
+type FormState = "idle" | "loading" | "success" | "error";
 
 const tiers = [
   {
@@ -43,17 +45,25 @@ const tiers = [
 ];
 
 function Collaborate() {
-  const [submitted, setSubmitted] = useState(false);
+  const [state, setState] = useState<FormState>("idle");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(`Collaboration — ${form.get("name") || "Application"}`);
-    const body = encodeURIComponent(
-      `Name: ${form.get("name")}\nInstagram / TikTok: ${form.get("social")}\nFollowers: ${form.get("followers")}\nLocation: ${form.get("location")}\nInterested in: ${form.get("type")}\n\nWhy MELANVÉE:\n${form.get("message")}`,
-    );
-    window.location.href = `mailto:${COLLAB_EMAIL}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+    setState("loading");
+    const form = e.currentTarget;
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      if (!res.ok) throw new Error();
+      setState("success");
+      form.reset();
+    } catch {
+      setState("error");
+    }
   };
 
   return (
@@ -98,22 +108,16 @@ function Collaborate() {
             <p className="mt-4 text-mauve">We read every application. Reply within 5–7 days.</p>
           </div>
 
-          {submitted ? (
-            <div className="bg-card border border-gold/30 p-10 text-center">
-              <p className="font-display text-2xl text-cream">Thank you.</p>
-              <p className="mt-4 text-mauve">
-                Your email client should have opened with your application drafted. If not, send it
-                manually to{" "}
-                <a href={`mailto:${COLLAB_EMAIL}`} className="text-gold border-b border-gold/40">
-                  {COLLAB_EMAIL}
-                </a>
-                .
+          {state === "success" ? (
+            <div className="bg-card border border-gold/30 p-12 text-center shadow-luxe flex flex-col items-center justify-center gap-4 min-h-[340px]">
+              <p className="font-display text-3xl text-cream">Thank you.</p>
+              <p className="text-mauve leading-relaxed max-w-xs">
+                We've received your application and will be in touch within 5–7 days.
               </p>
             </div>
           ) : (
-            /* Plain <form> inside a plain div — no motion.form */
             <div className="bg-card border border-border p-8 md:p-12 space-y-6 shadow-luxe">
-              <form onSubmit={onSubmit}>
+              <form onSubmit={onSubmit} className="space-y-6">
                 <CollabField label="Name" name="name" />
                 <CollabField
                   label="Instagram / TikTok handle"
@@ -126,44 +130,73 @@ function Collaborate() {
                   placeholder="e.g. 5k"
                 />
                 <CollabField label="Location" name="location" placeholder="London, UK" />
+
                 <div>
-                  <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
+                  <label
+                    htmlFor="type"
+                    className="block text-[10px] uppercase tracking-luxe text-gold mb-3"
+                  >
                     Interested in
                   </label>
                   <select
+                    id="type"
                     name="type"
                     required
-                    className="w-full bg-transparent outline-none py-3 text-cream appearance-none"
+                    className="w-full bg-transparent outline-none py-3 text-cream appearance-none border-b border-border focus:border-gold transition-colors"
                   >
-                    <option value="">Choose one</option>
-                    <option value="Content Creator">Content Creator</option>
-                    <option value="Ambassador">Ambassador</option>
-                    <option value="Affiliate">Affiliate</option>
-                    <option value="Other">Something else</option>
+                    <option value="" className="bg-charcoal">
+                      Choose one
+                    </option>
+                    <option value="Content Creator" className="bg-charcoal">
+                      Content Creator
+                    </option>
+                    <option value="Ambassador" className="bg-charcoal">
+                      Ambassador
+                    </option>
+                    <option value="Affiliate" className="bg-charcoal">
+                      Affiliate
+                    </option>
+                    <option value="Other" className="bg-charcoal">
+                      Something else
+                    </option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
+                  <label
+                    htmlFor="message"
+                    className="block text-[10px] uppercase tracking-luxe text-gold mb-3"
+                  >
                     Why MELANVÉE?
                   </label>
                   <textarea
+                    id="message"
                     name="message"
                     rows={5}
                     required
-                    className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve resize-none"
+                    className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve resize-none border-b border-border focus:border-gold transition-colors"
                     placeholder="Tell us about your community, your hair journey, why you want to work with us..."
                   />
                 </div>
+
+                {state === "error" && (
+                  <p className="text-[11px] text-rose-400 uppercase tracking-wider">
+                    Something went wrong — please email us at hello@melanvee.com
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-gold text-primary-foreground py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500"
+                  disabled={state === "loading"}
+                  className="w-full bg-gold text-primary-foreground py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Application
+                  {state === "loading" ? "Sending…" : "Send Application"}
                 </button>
+
                 <p className="text-[10px] text-center text-mauve">
                   Or email us directly:{" "}
-                  <a href={`mailto:${COLLAB_EMAIL}`} className="text-gold">
-                    {COLLAB_EMAIL}
+                  <a href="mailto:hello@melanvee.com" className="text-gold">
+                    hello@melanvee.com
                   </a>
                 </p>
               </form>
@@ -195,7 +228,7 @@ function CollabField({
         type="text"
         required
         placeholder={placeholder}
-        className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve"
+        className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve border-b border-border focus:border-gold transition-colors"
       />
     </div>
   );

@@ -119,7 +119,7 @@ function Collection() {
                       </h2>
                       <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
                       <div className="mt-4 flex items-baseline justify-between">
-                        <p className="font-display text-lg text-gold">
+                        <p className="font-sans text-lg text-gold">
                           from {format(getStartingPrice(p))}
                         </p>
                         <span className="text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors">

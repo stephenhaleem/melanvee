@@ -1,6 +1,6 @@
-import product1 from "@/assets/product-1.jpg";
-import product2 from "@/assets/product-2.jpg";
-import product3 from "@/assets/product-3.jpg";
+import product1 from "@/assets/kimi.jpeg";
+import product2 from "@/assets/zora.jpeg";
+import product3 from "@/assets/WhatsApp Image 2026-04-29 at 4.24.41 AM (1).jpeg";
 
 export type LengthOption = { inches: number; price: number };
 
@@ -63,10 +63,7 @@ const commonFeatures = [
   "100% premium virgin human hair",
 ];
 
-const commonDensity = [
-  '10" to 16": 2 full bundles',
-  '18" to 24": 3 full bundles',
-];
+const commonDensity = ['10" to 16": 2 full bundles', '18" to 24": 3 full bundles'];
 
 const commonOther = [
   "Safe to curl, straighten, dye or bleach",
