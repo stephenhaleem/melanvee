@@ -237,7 +237,7 @@ function Home() {
                         </h3>
                         <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
                       </div>
-                      <p className="font-display text-lg text-gold whitespace-nowrap">
+                      <p className="font-sans text-lg text-gold whitespace-nowrap">
                         from £{getStartingPrice(p).toFixed(0)}
                       </p>
                     </div>
