@@ -22,12 +22,14 @@ const WHATSAPP_NUMBER = "440000000000";
 const WHATSAPP_HREF = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 /**
- * FORMSPREE SETUP:
+ * SETUP (2 minutes, no code changes after):
  * 1. Go to https://formspree.io — sign up free
- * 2. New Form → set notification email to hello@melanvee.com
- * 3. Replace YOUR_FORM_ID below with your real form ID
+ * 2. New Form → name it "MELANVÉE Contact" → set notification email to hello@melanvee.com
+ * 3. Copy your endpoint: https://formspree.io/f/xyzabcde
+ * 4. Paste it as the value of FORMSPREE_ENDPOINT below
+ * Done. Messages land in your inbox instantly.
  */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mpqkvgdw";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -69,13 +71,7 @@ function Contact() {
       <section className="pb-32">
         <div className="max-w-6xl mx-auto px-6 lg:px-12 grid md:grid-cols-5 gap-16">
           {/* Left — contact details */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="md:col-span-2 space-y-10"
-          >
+          <div className="md:col-span-2 space-y-10">
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">WhatsApp</p>
               <a
@@ -109,16 +105,10 @@ function Contact() {
                 Free UK shipping over £100
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right — form wrapped in motion.div NOT motion.form */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="md:col-span-3"
-          >
+          {/* Right — form */}
+          <div className="md:col-span-3">
             {state === "success" ? (
               <div className="bg-card border border-gold/30 p-12 text-center shadow-luxe flex flex-col items-center justify-center gap-4 min-h-[340px]">
                 <p className="font-display text-3xl text-cream">Thank you.</p>
@@ -128,10 +118,9 @@ function Contact() {
                 </p>
               </div>
             ) : (
-              /* Plain <form> — never use motion.form, it causes render loops on input */
               <form
                 onSubmit={onSubmit}
-                className="space-y-8 bg-card p-8 md:p-12 border border-border shadow-luxe"
+                className="bg-card p-8 md:p-12 border border-border shadow-luxe"
               >
                 <div className="grid sm:grid-cols-2 gap-8">
                   <Field label="First Name" name="first_name" />
@@ -140,18 +129,14 @@ function Contact() {
                 <Field label="Email" name="email" type="email" />
                 <Field label="Subject" name="subject" required={false} />
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-[10px] uppercase tracking-luxe text-gold mb-3"
-                  >
+                  <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
                     Message
                   </label>
                   <textarea
-                    id="message"
                     name="message"
                     rows={5}
                     required
-                    className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve resize-none transition-colors"
+                    className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve resize-none"
                     placeholder="Tell us a little..."
                   />
                 </div>
@@ -171,7 +156,7 @@ function Contact() {
                 </button>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </section>
     </Layout>
@@ -199,7 +184,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve transition-colors"
+        className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve"
       />
     </div>
   );

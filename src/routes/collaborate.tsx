@@ -113,7 +113,7 @@ function Collaborate() {
           ) : (
             /* Plain <form> inside a plain div — no motion.form */
             <div className="bg-card border border-border p-8 md:p-12 space-y-6 shadow-luxe">
-              <form onSubmit={onSubmit} className="space-y-6">
+              <form onSubmit={onSubmit}>
                 <CollabField label="Name" name="name" />
                 <CollabField
                   label="Instagram / TikTok handle"
@@ -133,7 +133,7 @@ function Collaborate() {
                   <select
                     name="type"
                     required
-                    className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream transition-colors appearance-none"
+                    className="w-full bg-transparent outline-none py-3 text-cream appearance-none"
                   >
                     <option value="">Choose one</option>
                     <option value="Content Creator">Content Creator</option>
@@ -150,7 +150,7 @@ function Collaborate() {
                     name="message"
                     rows={5}
                     required
-                    className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve resize-none transition-colors"
+                    className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve resize-none"
                     placeholder="Tell us about your community, your hair journey, why you want to work with us..."
                   />
                 </div>
@@ -195,7 +195,7 @@ function CollabField({
         type="text"
         required
         placeholder={placeholder}
-        className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve transition-colors"
+        className="w-full bg-transparent outline-none py-3 text-cream placeholder:text-mauve"
       />
     </div>
   );

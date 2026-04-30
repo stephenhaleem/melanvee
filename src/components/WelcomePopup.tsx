@@ -35,7 +35,11 @@ export function WelcomePopup() {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center px-4" role="dialog" aria-modal="true">
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center px-4"
+      role="dialog"
+      aria-modal="true"
+    >
       <div className="absolute inset-0 bg-ink/80 backdrop-blur-sm" onClick={close} />
       <div className="relative w-full max-w-md bg-charcoal border border-gold/30 shadow-luxe">
         <button
@@ -50,11 +54,12 @@ export function WelcomePopup() {
           <div className="p-10 text-center">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— First Time Here?</p>
             <h3 className="font-display text-3xl text-cream leading-tight">
-              <em className="italic text-gradient-rose">5% off</em><br /> your first order.
+              <em className="italic text-gradient-rose">5% off</em>
+              <br /> your first order.
             </h3>
             <p className="mt-4 text-sm text-mauve leading-relaxed">
-              Drop your email — we'll send your code and let you know when new
-              textures land. No spam, ever.
+              Drop your email — we'll send your code and let you know when new textures land. No
+              spam, ever.
             </p>
             <form onSubmit={onSubmit} className="mt-8 space-y-3">
               <input

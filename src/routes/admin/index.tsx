@@ -55,7 +55,7 @@ export default function AdminLogin() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve transition-colors text-sm"
+              className="w-full bg-transparent border-b border-border outline-none py-3 text-cream placeholder:text-mauve text-sm"
               placeholder="you@melanvee.com"
             />
           </div>
@@ -69,7 +69,7 @@ export default function AdminLogin() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-transparent border-b border-border focus:border-gold outline-none py-3 text-cream placeholder:text-mauve transition-colors text-sm"
+              className="w-full bg-transparent border-b border-border outline-none py-3 text-cream placeholder:text-mauve text-sm"
               placeholder="••••••••"
             />
           </div>
