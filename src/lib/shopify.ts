@@ -1,8 +1,3 @@
-/**
- * MELANVÉE — Shopify Storefront API client
- * Headless storefront integration
- */
-
 const SHOPIFY_DOMAIN = "m-e-l-a-n-v-e-e.myshopify.com";
 const SHOPIFY_STOREFRONT_TOKEN = "17020e1b4e93b3ca085e35baa2389925";
 const API_VERSION = "2024-01";
@@ -34,8 +29,6 @@ export async function shopifyFetch<T = unknown>(
 
   return json.data as T;
 }
-
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 export type ShopifyImage = {
   url: string;
@@ -105,8 +98,6 @@ export type ShopifyCart = {
   lines: { edges: { node: ShopifyCartLine }[] };
 };
 
-// ─── GraphQL Fragments ────────────────────────────────────────────────────────
-
 const PRODUCT_FRAGMENT = `
   fragment ProductFragment on Product {
     id
@@ -175,8 +166,6 @@ const CART_FRAGMENT = `
   }
 `;
 
-// ─── Product queries ──────────────────────────────────────────────────────────
-
 export async function getProducts(first = 20): Promise<ShopifyProduct[]> {
   const query = `
     ${PRODUCT_FRAGMENT}
@@ -226,8 +215,6 @@ export async function getCollectionProducts(handle: string, first = 20): Promise
 
   return data.collection?.products.edges.map((e) => e.node) ?? [];
 }
-
-// ─── Cart mutations ───────────────────────────────────────────────────────────
 
 export async function createCart(
   lines?: { merchandiseId: string; quantity: number }[],
@@ -349,10 +336,6 @@ export async function removeCartLines(cartId: string, lineIds: string[]): Promis
   return data.cartLinesRemove.cart;
 }
 
-/**
- * Set a custom attribute on the cart so Shopify knows the return URL.
- * This embeds the return destination in the cart itself as a fallback.
- */
 export async function setCartReturnUrl(cartId: string): Promise<void> {
   const query = `
     mutation SetCartAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
@@ -374,24 +357,17 @@ export async function setCartReturnUrl(cartId: string): Promise<void> {
   }
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Parse Shopify price string to number */
 export function parsePrice(amount: string): number {
   return parseFloat(amount);
 }
 
-/** Get the first image URL from a product */
 export function getProductImage(product: ShopifyProduct): string {
   return product.images.edges[0]?.node.url ?? "";
 }
 
-/** Get all variants as a flat array */
 export function getVariants(product: ShopifyProduct): ShopifyVariant[] {
   return product.variants.edges.map((e) => e.node);
 }
-
-/** Find a variant by selected options e.g. { Length: '18"' } */
 export function findVariant(
   product: ShopifyProduct,
   selectedOptions: Record<string, string>,
@@ -401,7 +377,6 @@ export function findVariant(
   );
 }
 
-/** Get the starting (lowest) price in GBP */
 export function getStartingPrice(product: ShopifyProduct): number {
   return parsePrice(product.priceRange.minVariantPrice.amount);
 }
