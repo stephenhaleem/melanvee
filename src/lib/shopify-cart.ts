@@ -36,17 +36,52 @@ function broadcast() {
 
 function getStoredCartId(): string | null {
   if (typeof window === "undefined") return null;
-  return localStorage.getItem(CART_ID_KEY);
+  try {
+    return localStorage.getItem(CART_ID_KEY);
+  } catch {
+    return null;
+  }
 }
 
 function storeCartId(id: string) {
   if (typeof window === "undefined") return;
-  localStorage.setItem(CART_ID_KEY, id);
+  try {
+    localStorage.setItem(CART_ID_KEY, id);
+  } catch {
+    // quota exceeded — silently ignore, cart will still work in-memory
+  }
 }
 
 function clearCartId() {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(CART_ID_KEY);
+  try {
+    localStorage.removeItem(CART_ID_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+/**
+ * Validate that a cart has well-formed line data.
+ * A cart with lines that have missing or zero prices is considered corrupt
+ * and should be replaced with a fresh one rather than shown to the user.
+ */
+function isCartValid(cart: ShopifyCart): boolean {
+  if (!cart || !cart.id || !cart.checkoutUrl) return false;
+
+  for (const { node } of cart.lines.edges) {
+    const amount = node.merchandise?.price?.amount;
+    // If any line has a missing, empty, or explicitly "0" price string
+    // treat the cart as invalid so we start fresh.
+    if (amount === undefined || amount === null || amount === "" || Number(amount) === 0) {
+      console.warn(
+        "[melanvee] Stale cart detected — line has zero/missing price. Resetting.",
+        node,
+      );
+      return false;
+    }
+  }
+  return true;
 }
 
 // ─── Cart initialisation ───────────────────────────────────────────────────
@@ -57,13 +92,18 @@ async function initCart(): Promise<ShopifyCart> {
   if (stored) {
     try {
       const existing = await getCart(stored);
-      if (existing) {
+      if (existing && isCartValid(existing)) {
         _cart = existing;
         broadcast();
         return existing;
       }
-    } catch {
-      // Cart expired or invalid — create fresh
+      // Cart was fetched but invalid (stale prices, expired, etc.) — fall through to create fresh
+      if (existing) {
+        console.warn("[melanvee] Existing cart failed validation, creating a fresh one.");
+      }
+    } catch (err) {
+      // Cart ID is invalid / expired on Shopify's side
+      console.warn("[melanvee] Could not fetch stored cart, creating fresh one:", err);
     }
     clearCartId();
   }
@@ -72,7 +112,7 @@ async function initCart(): Promise<ShopifyCart> {
   storeCartId(fresh.id);
 
   // Set the return URL attribute on the cart so Shopify knows where to send
-  // users back after purchase (belt-and-suspenders alongside the return_to param)
+  // users back after purchase
   await setCartReturnUrl(fresh.id);
 
   _cart = fresh;
@@ -94,7 +134,16 @@ export async function shopifyAddToCart(merchandiseId: string, quantity = 1): Pro
     if (!cart) cart = await initCart();
 
     const updated = await addCartLines(cart.id, [{ merchandiseId, quantity }]);
-    _cart = updated;
+
+    // Validate the updated cart before accepting it
+    if (!isCartValid(updated)) {
+      console.warn("[melanvee] Cart returned invalid data after addLines — re-fetching.");
+      const refetched = await getCart(updated.id);
+      _cart = refetched && isCartValid(refetched) ? refetched : updated;
+    } else {
+      _cart = updated;
+    }
+
     broadcast();
   } finally {
     _loading = false;
@@ -138,27 +187,37 @@ export async function shopifyRemoveLine(lineId: string): Promise<void> {
 }
 
 /**
+ * Build the checkout URL.
+ *
+ * Shopify's checkout URL already contains the cart token. We append:
+ * - `return_to` so the "Continue Shopping" / "Back to store" button on the
+ *   thank-you page goes back to melanvee.com instead of the Shopify theme.
+ *
+ * Additionally, for headless storefronts the checkout "Back" arrow in the
+ * header uses the `shop_url` that is baked into the theme. We cannot change
+ * that without editing the Shopify theme itself, but `return_to` covers the
+ * post-purchase flow which matters most.
+ */
+function buildCheckoutUrl(rawCheckoutUrl: string): string {
+  try {
+    const url = new URL(rawCheckoutUrl);
+    url.searchParams.set("return_to", STORE_URL);
+    return url.toString();
+  } catch {
+    // If URL parsing fails for any reason, return the original
+    return rawCheckoutUrl;
+  }
+}
+
+/**
  * Get the Shopify checkout URL and redirect the user.
- * Appends return_to so the "Back to store" / "Continue shopping" button on
- * Shopify's thank-you page sends the user back to melanvee.com instead of
- * the default Shopify theme storefront.
  */
 export function redirectToCheckout(): void {
   if (!_cart?.checkoutUrl) {
-    console.warn("No checkout URL available");
+    console.warn("[melanvee] No checkout URL available");
     return;
   }
-
-  try {
-    // Use URL API to safely append the return_to param regardless of
-    // whether checkoutUrl already has query parameters
-    const url = new URL(_cart.checkoutUrl);
-    url.searchParams.set("return_to", STORE_URL);
-    window.location.href = url.toString();
-  } catch {
-    // Fallback: if URL parsing fails for any reason, redirect without param
-    window.location.href = _cart.checkoutUrl;
-  }
+  window.location.href = buildCheckoutUrl(_cart.checkoutUrl);
 }
 
 // ─── Derived helpers ───────────────────────────────────────────────────────
@@ -176,19 +235,25 @@ export type CartDisplayLine = {
 
 function toDisplayLines(cart: ShopifyCart | null): CartDisplayLine[] {
   if (!cart) return [];
-  return cart.lines.edges.map(({ node }) => {
-    const m = node.merchandise;
-    return {
-      lineId: node.id,
-      variantId: m.id,
-      productHandle: m.product.handle,
-      name: m.product.title,
-      variantTitle: m.title,
-      image: m.product.images.edges[0]?.node.url ?? "",
-      priceGBP: parsePrice(m.price.amount),
-      qty: node.quantity,
-    };
-  });
+  return (
+    cart.lines.edges
+      .map(({ node }) => {
+        const m = node.merchandise;
+        const priceGBP = parsePrice(m.price.amount);
+        return {
+          lineId: node.id,
+          variantId: m.id,
+          productHandle: m.product.handle,
+          name: m.product.title,
+          variantTitle: m.title,
+          image: m.product.images.edges[0]?.node.url ?? "",
+          priceGBP,
+          qty: node.quantity,
+        };
+      })
+      // Filter out any lines where price couldn't be parsed — prevents £0 showing in UI
+      .filter((line) => line.priceGBP > 0)
+  );
 }
 
 // ─── React hook ────────────────────────────────────────────────────────────
@@ -260,7 +325,7 @@ export function useShopifyCart(): UseShopifyCartReturn {
     lines,
     count,
     totalGBP,
-    checkoutUrl: cart?.checkoutUrl ?? null,
+    checkoutUrl: cart ? buildCheckoutUrl(cart.checkoutUrl) : null,
     loading,
     addToCart,
     updateQty,

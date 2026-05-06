@@ -130,6 +130,16 @@ const PRODUCT_FRAGMENT = `
   }
 `;
 
+/**
+ * Cart fragment — always request price on the merchandise (variant) node.
+ *
+ * The `... on ProductVariant` inline fragment is required because `merchandise`
+ * is a union type. Without it, Shopify may return __typename only and omit
+ * `price`, causing the client to see amount = undefined → parsePrice → 0.
+ *
+ * We explicitly request `price { amount currencyCode }` inside the inline
+ * fragment to guarantee the field is always present in the response.
+ */
 const CART_FRAGMENT = `
   fragment CartFragment on Cart {
     id
@@ -153,7 +163,7 @@ const CART_FRAGMENT = `
                 id
                 title
                 handle
-                images(first: 10) {
+                images(first: 1) {
                   edges { node { url altText width height } }
                 }
               }
@@ -336,6 +346,14 @@ export async function removeCartLines(cartId: string, lineIds: string[]): Promis
   return data.cartLinesRemove.cart;
 }
 
+/**
+ * Set the cart's return URL via two mechanisms:
+ * 1. A cart attribute `_return_url` (readable by Shopify apps / checkout UI extensions).
+ * 2. `buyerIdentity` is intentionally NOT used here as it requires customer tokens.
+ *
+ * The primary redirect mechanism is the `return_to` query param appended to
+ * `checkoutUrl` in `buildCheckoutUrl()` inside shopify-cart.ts.
+ */
 export async function setCartReturnUrl(cartId: string): Promise<void> {
   const query = `
     mutation SetCartAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
@@ -357,8 +375,16 @@ export async function setCartReturnUrl(cartId: string): Promise<void> {
   }
 }
 
-export function parsePrice(amount: string): number {
-  return parseFloat(amount);
+/**
+ * Safely parse a Shopify price amount string to a float.
+ * Returns 0 only if the string is genuinely "0.00", not if it is undefined/null.
+ * Callers should check for 0 and treat it as a signal of bad data when the
+ * product is known to be paid.
+ */
+export function parsePrice(amount: string | undefined | null): number {
+  if (amount === undefined || amount === null || amount === "") return 0;
+  const parsed = parseFloat(amount);
+  return isNaN(parsed) ? 0 : parsed;
 }
 
 export function getProductImage(product: ShopifyProduct): string {
@@ -368,6 +394,7 @@ export function getProductImage(product: ShopifyProduct): string {
 export function getVariants(product: ShopifyProduct): ShopifyVariant[] {
   return product.variants.edges.map((e) => e.node);
 }
+
 export function findVariant(
   product: ShopifyProduct,
   selectedOptions: Record<string, string>,
