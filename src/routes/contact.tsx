@@ -176,7 +176,7 @@ export default function Contact() {
                 +44 0000 000 000
                 <br />
                 <span className="text-xs uppercase tracking-luxe text-mauve">
-                  Monday to Friday · Tap to chat
+                  Monday to Friday · Tap to chat · Response time: 8am-6:30pm
                 </span>
               </a>
             </div>
@@ -193,9 +193,8 @@ export default function Contact() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
               <p className="text-cream leading-relaxed">
-                Free international shipping
+                Free UK and international shipping for orders over £100
                 <br />
-                Free UK shipping over £100
               </p>
             </div>
           </div>

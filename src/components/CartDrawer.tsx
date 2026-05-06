@@ -167,7 +167,7 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
                     </div>
 
                     <div className="text-right flex-shrink-0">
-                      <p className="font-display text-lg text-gold">
+                      <p className="font-sans text-lg text-gold">
                         {format(line.priceGBP * line.qty)}
                       </p>
                       <button
@@ -198,7 +198,7 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
 
               <div className="flex justify-between items-baseline">
                 <span className="text-xs uppercase tracking-luxe text-mauve">Subtotal</span>
-                <span className="font-display text-2xl text-gold">{format(totalGBP)}</span>
+                <span className="font-sans text-2xl text-gold">{format(totalGBP)}</span>
               </div>
 
               <button

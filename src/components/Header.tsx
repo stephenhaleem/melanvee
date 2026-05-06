@@ -36,8 +36,7 @@ export function Header() {
       {/* Free shipping bar */}
       <div className="bg-gold/10 border-b border-gold/20 overflow-hidden py-2">
         <div className="animate-marquee whitespace-nowrap text-[10px] uppercase tracking-luxe text-gold">
-          Free Worldwide shipping for orders over £100 · Worldwide delivery · Free Worldwide
-          shipping for orders over £100 · Worldwide delivery
+          Free UK and international shipping for orders over £100
         </div>
       </div>
 

@@ -93,7 +93,10 @@ export function Footer() {
               woman@melanvee.com{" "}
               <span className="text-[10px] uppercase tracking-wider text-gold/70">(collabs)</span>
             </li>
-            <li>WhatsApp: +44 0000 000 000 <span className="text-mauve/70">(Mon–Fri)</span></li>
+            <li>
+              WhatsApp: +44 0000 000 000{" "}
+              <span className="text-mauve/70">(Mon–Fri) 8am-18:30pm</span>
+            </li>
             <li>London · Worldwide shipping</li>
           </ul>
         </div>
