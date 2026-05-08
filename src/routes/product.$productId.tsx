@@ -13,7 +13,7 @@ import {
   type ShopifyProduct,
   type ShopifyVariant,
 } from "@/lib/shopify";
-import capSizeImg from "@/assets/cap-size.jpeg";
+import capSizeImg from "@/assets/cap.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 
 export const Route = createFileRoute("/product/$productId")({

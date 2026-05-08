@@ -88,7 +88,7 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
 
           {/* Drawer */}
           <aside
-            className="absolute right-0 top-0 h-screen w-full max-w-md flex flex-col animate-in slide-in-from-right duration-300"
+            className="absolute right-0 top-0 h-[100dvh] w-full max-w-md flex flex-col animate-in slide-in-from-right duration-300"
             style={{ backgroundColor: "#1c1c1e" }}
           >
             {/* Header */}
@@ -184,7 +184,7 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
             </div>
 
             {/* Footer */}
-            <div className="flex-shrink-0 border-t border-white/10 px-6 py-5 space-y-4">
+            <div className="flex-shrink-0 border-t border-white/10 px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4">
               {lines.length > 0 &&
                 (remaining > 0 ? (
                   <div className="rounded border border-gold/30 bg-black/40 px-4 py-3 text-[11px] uppercase tracking-wider text-gold">

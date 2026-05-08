@@ -77,7 +77,8 @@ async function fetchLiveRates(): Promise<void> {
     const codes = Object.keys(CURRENCIES)
       .filter((c) => c !== "GBP")
       .join(",");
-    const res = await fetch(`https://api.frankfurter.app/latest?base=GBP&symbols=${codes}`);
+    // Use server-side proxy to avoid CORS issues
+    const res = await fetch(`/api/rates?symbols=${encodeURIComponent(codes)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     const rates: Record<string, number> = data.rates ?? {};

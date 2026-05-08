@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import type { ShopifyImage } from "@/lib/shopify";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Props = {
   images: { node: ShopifyImage }[];
@@ -64,17 +65,23 @@ export function ProductImageGallery({ images, productTitle, textureBadge }: Prop
           onMouseMove={handleMouseMove}
           onMouseLeave={() => setZoomed(false)}
         >
-          <img
-            key={activeImage.url}
-            src={activeImage.url}
-            alt={activeImage.altText ?? productTitle}
-            width={activeImage.width}
-            height={activeImage.height}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.02]"
-            style={{
-              transformOrigin: zoomed ? `${zoomPos.x}% ${zoomPos.y}%` : "center",
-            }}
-          />
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeImage.url}
+              src={activeImage.url}
+              alt={activeImage.altText ?? productTitle}
+              width={activeImage.width}
+              height={activeImage.height}
+              className="w-full h-full object-cover"
+              style={{
+                transformOrigin: zoomed ? `${zoomPos.x}% ${zoomPos.y}%` : "center",
+              }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </AnimatePresence>
 
           {/* Texture badge */}
           {textureBadge && (
@@ -195,11 +202,15 @@ export function ProductImageGallery({ images, productTitle, textureBadge }: Prop
 
           {/* Main lightbox image */}
           <div className="max-w-2xl w-full px-16 md:px-24" onClick={(e) => e.stopPropagation()}>
-            <img
+            <motion.img
               key={activeImage.url}
               src={activeImage.url}
               alt={activeImage.altText ?? productTitle}
               className="w-full h-auto max-h-[85vh] object-contain"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             />
             {activeImage.altText && (
               <p className="text-center text-[10px] uppercase tracking-luxe text-mauve mt-4">

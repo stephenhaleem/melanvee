@@ -7,7 +7,7 @@ import { Reviews } from "@/components/Reviews";
 import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
 import { subscribeToNewsletter } from "@/lib/newsletter";
 import heroImg from "@/assets/hero.jpg";
-import aboutImg from "@/assets/about.jpg";
+import aboutImg from "@/assets/3.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
