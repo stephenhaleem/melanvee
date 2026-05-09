@@ -14,6 +14,25 @@ const nav = [
 
 const BRAND = "M E L A N V É E";
 
+// Inline hover helper to avoid Tailwind conflicts with inline style colours
+function NavLink({ to, label, onClick }: { to: string; label: string; onClick?: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      to={to}
+      onClick={onClick}
+      className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative after:absolute after:bottom-[-3px] after:left-0 after:h-px after:bg-[#c47a4a] after:transition-all after:duration-300 hover:after:w-full after:w-0"
+      style={{ color: hovered ? "#c47a4a" : "#6b4c36" }}
+      activeProps={{ style: { color: "#c47a4a" }, className: "after:w-full" }}
+      activeOptions={{ exact: true }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {label}
+    </Link>
+  );
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -26,95 +45,116 @@ export function Header() {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-ink/90 backdrop-blur-xl border-b border-border"
-          : "bg-ink/40 backdrop-blur-sm"
-      }`}
-    >
-      {/* Free shipping bar */}
-      <div className="bg-gold/10 border-b border-gold/20 overflow-hidden py-2">
-        <div className="animate-marquee whitespace-nowrap text-[10px] uppercase tracking-luxe text-gold">
-          Free UK and international shipping for orders over £100
+    <header className="fixed top-0 inset-x-0 z-50">
+      {/* ── Announcement bar ─── deep espresso, easy to read ── */}
+      <div style={{ backgroundColor: "#2c1a0e" }} className="overflow-hidden py-[9px]">
+        <div
+          className="animate-marquee whitespace-nowrap text-[10px] uppercase tracking-luxe"
+          style={{ color: "#d9c4ae" }}
+        >
+          {/* Repeated so the marquee loop looks seamless */}
+          Free UK &amp; international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium
+          virgin human hair · 4A to 4C textures &nbsp;&nbsp;·&nbsp;&nbsp; Free UK &amp;
+          international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium virgin human
+          hair · 4A to 4C textures &nbsp;&nbsp;·&nbsp;&nbsp;
         </div>
       </div>
 
-      {/* Main bar */}
-      <div className="max-w-7xl mx-auto px-5 lg:px-10 h-16 lg:h-20 flex items-center justify-between gap-4">
-        {/* Brand */}
-        <Link to="/" className="flex-shrink-0 group">
-          <span className="font-display text-base md:text-xl tracking-[0.3em] text-cream group-hover:text-gold transition-colors duration-300">
-            {BRAND}
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-7">
-          {nav.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="text-[11px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-300 relative after:absolute after:bottom-[-3px] after:left-0 after:w-0 after:h-px after:bg-gold after:transition-all after:duration-300 hover:after:w-full"
-              activeProps={{ className: "text-gold after:w-full" }}
-              activeOptions={{ exact: true }}
+      {/* ── Main bar ─── parchment, full opacity once scrolled ── */}
+      <div
+        style={{
+          backgroundColor: scrolled ? "rgba(250,246,240,0.97)" : "rgba(250,246,240,0.88)",
+          backdropFilter: "blur(18px)",
+          WebkitBackdropFilter: "blur(18px)",
+          borderBottom: scrolled
+            ? "1px solid rgba(44,26,14,0.13)"
+            : "1px solid rgba(44,26,14,0.07)",
+          transition: "background-color 0.4s, border-color 0.4s, box-shadow 0.4s",
+          boxShadow: scrolled ? "0 2px 20px rgba(44,26,14,0.08)" : "none",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-5 lg:px-10 h-16 lg:h-20 flex items-center justify-between gap-4">
+          {/* Brand wordmark */}
+          <Link to="/" className="flex-shrink-0">
+            <span
+              className="font-display text-base md:text-xl tracking-[0.3em] transition-colors duration-300 hover:text-[#c47a4a]"
+              style={{ color: "#2c1a0e" }}
             >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right actions */}
-        <div className="flex items-center gap-4">
-          <Link
-            to="/collection"
-            className="hidden lg:inline-flex text-[11px] uppercase tracking-luxe border border-gold/40 px-4 py-2 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
-          >
-            Shop Now
+              {BRAND}
+            </span>
           </Link>
 
-          <CartButton />
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-7">
+            {nav.map((item) => (
+              <NavLink key={item.to} to={item.to} label={item.label} />
+            ))}
+          </nav>
 
-          {/* Hamburger */}
-          <button
-            aria-label="Menu"
-            onClick={() => setOpen((v) => !v)}
-            className="lg:hidden text-cream p-1"
-          >
-            <div className="w-6 flex flex-col gap-[5px]">
-              <span
-                className={`block h-px bg-current transition-all duration-300 origin-center ${open ? "translate-y-[7px] rotate-45" : ""}`}
-              />
-              <span
-                className={`block h-px bg-current transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`}
-              />
-              <span
-                className={`block h-px bg-current transition-all duration-300 origin-center ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
-              />
-            </div>
-          </button>
+          {/* Right: CTA + cart + hamburger */}
+          <div className="flex items-center gap-4">
+            {/* Filled amber-brown CTA button */}
+            <Link
+              to="/collection"
+              className="hidden lg:inline-flex items-center text-[11px] uppercase tracking-luxe px-5 py-2.5 transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+              style={{
+                backgroundColor: "#c47a4a",
+                color: "#faf6f0",
+              }}
+            >
+              Shop Now
+            </Link>
+
+            {/* Cart — inherits espresso colour from wrapper */}
+            <span style={{ color: "#2c1a0e" }} className="hover:text-[#c47a4a] transition-colors">
+              <CartButton />
+            </span>
+
+            {/* Hamburger */}
+            <button
+              aria-label="Toggle menu"
+              onClick={() => setOpen((v) => !v)}
+              className="lg:hidden p-1 transition-colors"
+              style={{ color: "#2c1a0e" }}
+            >
+              <div className="w-6 flex flex-col gap-[5px]">
+                <span
+                  className={`block h-px bg-current origin-center transition-all duration-300 ${open ? "translate-y-[7px] rotate-45" : ""}`}
+                />
+                <span
+                  className={`block h-px bg-current transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`}
+                />
+                <span
+                  className={`block h-px bg-current origin-center transition-all duration-300 ${open ? "-translate-y-[7px] -rotate-45" : ""}`}
+                />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile nav */}
+      {/* ── Mobile dropdown ── */}
       {open && (
-        <div className="lg:hidden border-t border-border bg-ink/95 backdrop-blur-xl">
+        <div
+          style={{
+            backgroundColor: "#faf6f0",
+            borderBottom: "1px solid rgba(44,26,14,0.12)",
+          }}
+        >
           <nav className="flex flex-col px-5 py-6 gap-5">
             {nav.map((item) => (
-              <Link
+              <NavLink
                 key={item.to}
                 to={item.to}
+                label={item.label}
                 onClick={() => setOpen(false)}
-                className="text-[11px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors duration-200"
-                activeProps={{ className: "text-gold" }}
-              >
-                {item.label}
-              </Link>
+              />
             ))}
             <Link
               to="/collection"
               onClick={() => setOpen(false)}
-              className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe border border-gold/40 px-4 py-2 text-gold hover:bg-gold hover:text-primary-foreground transition-all duration-300"
+              className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe px-5 py-2.5 transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "#c47a4a", color: "#faf6f0" }}
             >
               Shop Now
             </Link>

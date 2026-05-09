@@ -20,7 +20,10 @@ export function CartIcon({ count }: { count: number }) {
         <path d="M9 7V5a3 3 0 1 1 6 0v2" />
       </svg>
       {count > 0 && (
-        <span className="absolute -top-2 -right-2 bg-gold text-primary-foreground text-[10px] rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center font-medium">
+        <span
+          className="absolute -top-2 -right-2 text-[10px] rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center font-medium"
+          style={{ backgroundColor: "#c47a4a", color: "#faf6f0" }}
+        >
           {count}
         </span>
       )}
@@ -39,9 +42,8 @@ export function openCart() {
 const FREE_SHIPPING_THRESHOLD = 100;
 
 // ─── Cart Button + Drawer ──────────────────────────────────────────────────
-// Wrapped in memo so cart state updates don't propagate re-renders up to Layout/Header
 
-export const CartButton = memo(function CartButton({ inverted = false }: { inverted?: boolean }) {
+export const CartButton = memo(function CartButton() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
     <>
       <button
         onClick={() => setOpen(true)}
-        className={`${inverted ? "text-cream" : "text-cream"} hover:text-gold transition-colors`}
+        className="text-[#2c1a0e] hover:text-[#c47a4a] transition-colors"
         aria-label={`Open cart, ${count} items`}
       >
         <CartIcon count={count} />
@@ -82,24 +84,24 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#2c1a0e]/40 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
 
           {/* Drawer */}
           <aside
             className="absolute right-0 top-0 h-[100dvh] w-full max-w-md flex flex-col animate-in slide-in-from-right duration-300"
-            style={{ backgroundColor: "#1c1c1e" }}
+            style={{ backgroundColor: "#faf6f0" }}
           >
             {/* Header */}
-            <div className="flex-shrink-0 flex items-center justify-between px-6 py-5 border-b border-white/10">
-              <p className="font-display text-2xl text-cream">
+            <div className="flex-shrink-0 flex items-center justify-between px-6 py-5 border-b border-[#2c1a0e1a]">
+              <p className="font-display text-2xl text-[#2c1a0e]">
                 Your Cart
-                {count > 0 && <span className="text-gold text-base ml-2">({count})</span>}
+                {count > 0 && <span className="text-[#c47a4a] text-base ml-2">({count})</span>}
               </p>
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 flex items-center justify-center text-cream text-2xl leading-none hover:text-gold transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-[#2c1a0e] text-2xl leading-none hover:text-[#c47a4a] transition-colors"
                 aria-label="Close cart"
               >
                 ×
@@ -110,23 +112,23 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
             <div className="flex-1 min-h-0 overflow-y-auto px-6 py-6 space-y-6">
               {loading && lines.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="text-xs uppercase tracking-luxe text-mauve animate-pulse">
+                  <p className="text-xs uppercase tracking-luxe text-[#7a5c44] animate-pulse">
                     Loading…
                   </p>
                 </div>
               ) : lines.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="font-display text-xl text-cream mb-3">Your cart is empty</p>
-                  <p className="text-sm text-mauve">Add a piece to begin.</p>
+                  <p className="font-display text-xl text-[#2c1a0e] mb-3">Your cart is empty</p>
+                  <p className="text-sm text-[#7a5c44]">Add a piece to begin.</p>
                 </div>
               ) : (
                 lines.map((line) => (
                   <div
                     key={line.lineId}
-                    className="flex justify-between gap-4 border-b border-white/10 pb-5 last:border-0"
+                    className="flex justify-between gap-4 border-b border-[#2c1a0e1a] pb-5 last:border-0"
                   >
                     {line.image && (
-                      <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-noir">
+                      <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-[#ede0d2]">
                         <img
                           src={line.image}
                           alt={line.name}
@@ -136,29 +138,29 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
                     )}
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-display text-lg text-cream leading-snug truncate">
+                      <p className="font-display text-lg text-[#2c1a0e] leading-snug truncate">
                         {line.name}
                       </p>
                       {line.variantTitle && line.variantTitle !== "Default Title" && (
-                        <p className="text-xs text-mauve mt-1">{line.variantTitle}</p>
+                        <p className="text-xs text-[#7a5c44] mt-1">{line.variantTitle}</p>
                       )}
 
                       <div className="mt-3 flex items-center gap-2">
                         <button
                           onClick={() => updateQty(line.lineId, line.qty - 1)}
                           disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors disabled:opacity-40"
+                          className="w-7 h-7 flex items-center justify-center border border-[#2c1a0e20] text-[#2c1a0e] hover:border-[#c47a4a] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
                           aria-label="Decrease quantity"
                         >
                           −
                         </button>
-                        <span className="text-sm w-6 text-center text-cream tabular-nums">
+                        <span className="text-sm w-6 text-center text-[#2c1a0e] tabular-nums">
                           {line.qty}
                         </span>
                         <button
                           onClick={() => updateQty(line.lineId, line.qty + 1)}
                           disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center border border-white/20 text-cream hover:border-gold hover:text-gold transition-colors disabled:opacity-40"
+                          className="w-7 h-7 flex items-center justify-center border border-[#2c1a0e20] text-[#2c1a0e] hover:border-[#c47a4a] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
                           aria-label="Increase quantity"
                         >
                           +
@@ -167,13 +169,13 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
                     </div>
 
                     <div className="text-right flex-shrink-0">
-                      <p className="font-sans text-lg text-gold">
+                      <p className="font-sans text-lg text-[#c47a4a]">
                         {format(line.priceGBP * line.qty)}
                       </p>
                       <button
                         onClick={() => removeLine(line.lineId)}
                         disabled={loading}
-                        className="mt-2 text-[10px] uppercase tracking-luxe text-mauve hover:text-gold transition-colors disabled:opacity-40"
+                        className="mt-2 text-[10px] uppercase tracking-luxe text-[#7a5c44] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
                       >
                         Remove
                       </button>
@@ -184,32 +186,33 @@ export const CartButton = memo(function CartButton({ inverted = false }: { inver
             </div>
 
             {/* Footer */}
-            <div className="flex-shrink-0 border-t border-white/10 px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4">
+            <div className="flex-shrink-0 border-t border-[#2c1a0e1a] px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4">
               {lines.length > 0 &&
                 (remaining > 0 ? (
-                  <div className="rounded border border-gold/30 bg-black/40 px-4 py-3 text-[11px] uppercase tracking-wider text-gold">
+                  <div className="rounded border border-[#c47a4a]/30 bg-[#c47a4a]/8 px-4 py-3 text-[11px] uppercase tracking-wider text-[#c47a4a]">
                     Add {format(remaining)} more for free UK shipping
                   </div>
                 ) : (
-                  <div className="rounded border border-gold/30 bg-black/40 px-4 py-3 text-[11px] uppercase tracking-wider text-gold">
+                  <div className="rounded border border-[#c47a4a]/30 bg-[#c47a4a]/8 px-4 py-3 text-[11px] uppercase tracking-wider text-[#c47a4a]">
                     ✓ Free UK shipping unlocked
                   </div>
                 ))}
 
               <div className="flex justify-between items-baseline">
-                <span className="text-xs uppercase tracking-luxe text-mauve">Subtotal</span>
-                <span className="font-sans text-2xl text-gold">{format(totalGBP)}</span>
+                <span className="text-xs uppercase tracking-luxe text-[#7a5c44]">Subtotal</span>
+                <span className="font-sans text-2xl text-[#c47a4a]">{format(totalGBP)}</span>
               </div>
 
               <button
                 disabled={lines.length === 0 || loading}
                 onClick={checkout}
-                className="w-full bg-gold text-primary-foreground py-4 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full py-4 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ backgroundColor: "#c47a4a", color: "#faf6f0" }}
               >
                 {loading ? "Updating…" : `Checkout — ${format(totalGBP)}`}
               </button>
 
-              <p className="text-[10px] text-center text-mauve leading-relaxed">
+              <p className="text-[10px] text-center text-[#7a5c44] leading-relaxed">
                 Secure checkout · Free UK shipping over £100 · All prices charged in GBP
               </p>
             </div>

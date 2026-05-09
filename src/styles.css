@@ -6,9 +6,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MELANVÉE — warm dark editorial.
- * Lifted charcoal/cocoa base, generous warm cream type, rose-gold accents.
- * Premium but never harsh. Less black, more brown.
+ * MELANVÉE — off-white & brown editorial light theme.
+ * Warm parchment base, rich espresso type, rose-gold accents.
+ * Refined, airy, luxurious.
  */
 
 @theme inline {
@@ -53,47 +53,48 @@
 :root {
   --radius: 0.25rem;
 
-  /* Warmer, lifted dark palette — cocoa & espresso */
-  --ink: #2c211d; /* deepest base, warm */
-  --charcoal: oklch(0.32 0.02 42); /* primary surface, warm cocoa */
-  --noir: oklch(0.4 0.022 40); /* elevated surface */
-  --cream: oklch(0.97 0.022 78); /* warm cream type */
-  --ivory: oklch(0.93 0.025 72);
-  --rose: oklch(0.8 0.095 32);
-  --mauve: oklch(0.78 0.03 38); /* lifted secondary text */
+  /* Calm off-white & brown light palette */
+  --ink: #2c1a0e; /* deep espresso — headlines, body text */
+  --charcoal: #efe9e0; /* warm off-white — primary surface */
+  --noir: #eee6db; /* slightly deeper parchment — elevated surface */
+  --cream: #fffaf6; /* soft cream — subtle surfaces */
+  --ivory: #fbf7f2; /* the lightest parchment */
+  --mauve: #7a5c44; /* warm mid-brown — secondary text */
 
-  /* Rose-gold accent — warm, slightly brighter */
-  --gold: #f69e7e;
-  --gold-soft: oklch(0.85 0.085 36);
+  /* Accent */
+  --gold: #b6784a; /* warm amber-brown accent */
+  --gold-soft: #d2a37a;
 
-  --background: oklch(0.26 0.018 45);
-  --foreground: oklch(0.97 0.022 78);
+  /* Semantic tokens — light theme */
+  --background: var(--ivory); /* warm parchment page */
+  --foreground: var(--ink); /* espresso text */
 
-  --card: oklch(0.3 0.018 42);
-  --card-foreground: oklch(0.97 0.022 78);
-  --popover: oklch(0.3 0.018 42);
-  --popover-foreground: oklch(0.97 0.022 78);
+  --card: var(--charcoal); /* slightly tinted card surface */
+  --card-foreground: var(--foreground);
 
-  --primary: oklch(0.78 0.115 40);
-  --primary-foreground: oklch(0.22 0.018 45);
-  --secondary: oklch(0.36 0.018 42);
-  --secondary-foreground: oklch(0.97 0.022 78);
-  --muted: oklch(0.36 0.018 42);
-  --muted-foreground: oklch(0.78 0.03 38);
-  --accent: oklch(0.78 0.115 40);
-  --accent-foreground: oklch(0.22 0.018 45);
-  --destructive: oklch(0.6 0.2 27);
-  --destructive-foreground: oklch(0.98 0 0);
+  --popover: var(--charcoal);
+  --popover-foreground: var(--foreground);
 
-  --border: oklch(0.97 0.022 78 / 14%);
-  --input: oklch(0.97 0.022 78 / 18%);
-  --ring: oklch(0.78 0.115 40 / 50%);
+  --primary: var(--gold); /* amber-brown CTA */
+  --primary-foreground: var(--ivory); /* light text on primary */
+  --secondary: var(--noir);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--noir);
+  --muted-foreground: var(--mauve);
+  --accent: var(--gold);
+  --accent-foreground: var(--ivory);
+  --destructive: #cc6b4a;
+  --destructive-foreground: var(--ivory);
 
-  --chart-1: oklch(0.78 0.115 40);
-  --chart-2: oklch(0.8 0.095 32);
-  --chart-3: oklch(0.78 0.03 38);
-  --chart-4: oklch(0.86 0.04 32);
-  --chart-5: oklch(0.55 0.05 28);
+  --border: rgba(44, 26, 14, 0.08); /* subtle espresso border */
+  --input: rgba(44, 26, 14, 0.06);
+  --ring: rgba(182, 120, 74, 0.4);
+
+  --chart-1: var(--gold);
+  --chart-2: var(--gold-soft);
+  --chart-3: var(--mauve);
+  --chart-4: #a0724e;
+  --chart-5: #e8c9a8;
 
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
@@ -104,10 +105,10 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  --gradient-rose: linear-gradient(135deg, oklch(0.85 0.085 36), oklch(0.78 0.115 40));
-  --gradient-dark: linear-gradient(180deg, oklch(0.26 0.018 45), oklch(0.32 0.02 42));
-  --shadow-luxe: 0 30px 80px -30px oklch(0 0 0 / 0.5), 0 0 0 1px oklch(0.97 0.022 78 / 0.06);
-  --shadow-rose-glow: 0 0 60px -10px oklch(0.78 0.115 40 / 0.5);
+  --gradient-rose: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  --gradient-dark: linear-gradient(180deg, var(--charcoal), var(--noir));
+  --shadow-luxe: 0 30px 80px -30px rgba(44, 26, 14, 0.12), 0 0 0 1px rgba(44, 26, 14, 0.04);
+  --shadow-rose-glow: 0 0 60px -10px rgba(180, 116, 68, 0.18);
 }
 
 @keyframes marquee {
@@ -153,7 +154,7 @@
 
   ::selection {
     background: var(--gold);
-    color: var(--ink);
+    color: var(--ivory);
   }
 }
 
@@ -170,27 +171,30 @@
   .border-gold {
     border-color: var(--gold);
   }
+  /* cream = soft surface; use foreground for readable text */
   .text-cream {
-    color: var(--cream);
+    color: var(--foreground);
   }
   .text-ivory {
     color: var(--ivory);
   }
   .text-noir {
-    color: var(--cream);
+    color: var(--foreground);
   }
   .text-mauve {
     color: var(--mauve);
   }
   .bg-ivory {
-    background-color: var(--cream);
+    background-color: var(--ivory);
   }
   .bg-cream {
     background-color: var(--cream);
   }
+  /* charcoal = the warm off-white section background */
   .bg-charcoal {
     background-color: var(--charcoal);
   }
+  /* ink = deep espresso (headers, hero overlay bg) */
   .bg-ink {
     background-color: var(--ink);
   }

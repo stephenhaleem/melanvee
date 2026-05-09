@@ -130,7 +130,7 @@ function Home() {
             </motion.p>
             <motion.h1
               variants={fade}
-              className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-cream"
+              className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-white"
             >
               Made to feel <span className="italic text-gradient-rose">like yours</span>.
             </motion.h1>
