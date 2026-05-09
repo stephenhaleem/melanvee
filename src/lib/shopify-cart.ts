@@ -16,12 +16,13 @@ import {
   type ShopifyCart,
   type ShopifyCartLine,
 } from "./shopify";
+import { SITE_URL } from "@/lib/site";
 
 const CART_ID_KEY = "melanvee_shopify_cart_id";
 const EVT = "melanvee:shopify-cart";
 
 // The React site URL we want Shopify to return users to after checkout
-const STORE_URL = "https://melanvee.com";
+const STORE_URL = SITE_URL;
 
 // ─── Internal state (module-level, shared across hooks) ────────────────────
 

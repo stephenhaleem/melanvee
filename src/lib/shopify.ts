@@ -1,3 +1,5 @@
+import { SITE_URL } from "@/lib/site";
+
 const SHOPIFY_DOMAIN = "m-e-l-a-n-v-e-e.myshopify.com";
 const SHOPIFY_STOREFRONT_TOKEN = "17020e1b4e93b3ca085e35baa2389925";
 const API_VERSION = "2024-01";
@@ -367,7 +369,7 @@ export async function setCartReturnUrl(cartId: string): Promise<void> {
   try {
     await shopifyFetch(query, {
       cartId,
-      attributes: [{ key: "_return_url", value: "https://melanvee.com" }],
+      attributes: [{ key: "_return_url", value: SITE_URL }],
     });
   } catch (err) {
     // Non-fatal — the return_to query param on checkoutUrl is the primary mechanism
