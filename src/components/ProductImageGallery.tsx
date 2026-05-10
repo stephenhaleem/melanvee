@@ -84,11 +84,6 @@ export function ProductImageGallery({ images, productTitle, textureBadge }: Prop
           </AnimatePresence>
 
           {/* Texture badge */}
-          {textureBadge && (
-            <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5 pointer-events-none">
-              {textureBadge}
-            </div>
-          )}
 
           {/* Image counter */}
           {count > 1 && (

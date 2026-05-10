@@ -350,7 +350,7 @@ function ProductPage() {
                     src={capSizeImg}
                     alt="Wig cap size diagram"
                     loading="lazy"
-                    className="w-full h-auto mix-blend-lighten opacity-90"
+                    className="w-full h-auto opacity-90"
                   />
                 </div>
               </div>

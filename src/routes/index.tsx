@@ -221,11 +221,6 @@ function Home() {
                         height={1280}
                         className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
                       />
-                      {p.productType && (
-                        <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
-                          {p.productType}
-                        </div>
-                      )}
                     </div>
                     <div className="pt-6 flex justify-between items-start">
                       <div>

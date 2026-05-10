@@ -104,11 +104,6 @@ function Collection() {
                         className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
                       />
                       {/* Texture badge from tags e.g. tag "texture:4A-4B" */}
-                      {p.productType && (
-                        <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-cream text-[10px] uppercase tracking-luxe px-3 py-1.5">
-                          {p.productType}
-                        </div>
-                      )}
                     </div>
                     <div className="pt-6">
                       <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
