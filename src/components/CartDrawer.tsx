@@ -2,7 +2,14 @@ import { useState, useEffect, memo } from "react";
 import { useShopifyCart } from "@/lib/shopify-cart";
 import { useCurrency } from "@/lib/currency";
 
-// ─── Cart Icon ─────────────────────────────────────────────────────────────
+const BLUSH = "#D7B6B2";
+const BLUSH_D = "#b8928d";
+const CREAM = "#F0E6DC";
+const MAUVE = "#c9b5a8";
+const DARK = "#1e1009";
+const SURFACE = "#2a1810";
+const SURFACE2 = "#352219";
+const BORDER = "rgba(240,230,220,0.1)";
 
 export function CartIcon({ count }: { count: number }) {
   return (
@@ -22,7 +29,7 @@ export function CartIcon({ count }: { count: number }) {
       {count > 0 && (
         <span
           className="absolute -top-2 -right-2 text-[10px] rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center font-medium"
-          style={{ backgroundColor: "#c47a4a", color: "#faf6f0" }}
+          style={{ backgroundColor: BLUSH, color: DARK }}
         >
           {count}
         </span>
@@ -31,17 +38,12 @@ export function CartIcon({ count }: { count: number }) {
   );
 }
 
-// ─── Global open trigger ───────────────────────────────────────────────────
-
 const openSetterRef = { current: null as ((v: boolean) => void) | null };
-
 export function openCart() {
   openSetterRef.current?.(true);
 }
 
 const FREE_SHIPPING_THRESHOLD = 100;
-
-// ─── Cart Button + Drawer ──────────────────────────────────────────────────
 
 export const CartButton = memo(function CartButton() {
   const [open, setOpen] = useState(false);
@@ -62,15 +64,14 @@ export const CartButton = memo(function CartButton() {
 
   const { lines, count, totalGBP, loading, updateQty, removeLine, checkout } = useShopifyCart();
   const { format } = useCurrency();
-
   const remaining = FREE_SHIPPING_THRESHOLD - totalGBP;
 
   return (
     <>
       <button
         onClick={() => setOpen(true)}
-        className="text-[#2c1a0e] hover:text-[#c47a4a] transition-colors"
         aria-label={`Open cart, ${count} items`}
+        style={{ color: "inherit" }}
       >
         <CartIcon count={count} />
       </button>
@@ -82,53 +83,73 @@ export const CartButton = memo(function CartButton() {
           aria-modal="true"
           aria-label="Shopping cart"
         >
-          {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-[#2c1a0e]/40 backdrop-blur-sm"
+            className="absolute inset-0"
+            style={{ backgroundColor: "rgba(0,0,0,0.65)", backdropFilter: "blur(6px)" }}
             onClick={() => setOpen(false)}
           />
 
-          {/* Drawer */}
           <aside
             className="absolute right-0 top-0 h-[100dvh] w-full max-w-md flex flex-col animate-in slide-in-from-right duration-300"
-            style={{ backgroundColor: "#faf6f0" }}
+            style={{ backgroundColor: SURFACE }}
           >
             {/* Header */}
-            <div className="flex-shrink-0 flex items-center justify-between px-6 py-5 border-b border-[#2c1a0e1a]">
-              <p className="font-display text-2xl text-[#2c1a0e]">
+            <div
+              className="flex-shrink-0 flex items-center justify-between px-6 py-5"
+              style={{ borderBottom: `1px solid ${BORDER}` }}
+            >
+              <p className="font-display text-2xl" style={{ color: CREAM }}>
                 Your Cart
-                {count > 0 && <span className="text-[#c47a4a] text-base ml-2">({count})</span>}
+                {count > 0 && (
+                  <span className="text-base ml-2" style={{ color: BLUSH }}>
+                    ({count})
+                  </span>
+                )}
               </p>
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 flex items-center justify-center text-[#2c1a0e] text-2xl leading-none hover:text-[#c47a4a] transition-colors"
+                className="w-8 h-8 flex items-center justify-center text-2xl leading-none transition-colors"
+                style={{ color: CREAM }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = BLUSH)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = CREAM)}
                 aria-label="Close cart"
               >
                 ×
               </button>
             </div>
 
-            {/* Item list */}
+            {/* Items */}
             <div className="flex-1 min-h-0 overflow-y-auto px-6 py-6 space-y-6">
               {loading && lines.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="text-xs uppercase tracking-luxe text-[#7a5c44] animate-pulse">
+                  <p
+                    className="text-xs uppercase tracking-luxe animate-pulse"
+                    style={{ color: MAUVE }}
+                  >
                     Loading…
                   </p>
                 </div>
               ) : lines.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="font-display text-xl text-[#2c1a0e] mb-3">Your cart is empty</p>
-                  <p className="text-sm text-[#7a5c44]">Add a piece to begin.</p>
+                  <p className="font-display text-xl mb-3" style={{ color: CREAM }}>
+                    Your cart is empty
+                  </p>
+                  <p className="text-sm" style={{ color: MAUVE }}>
+                    Add a piece to begin.
+                  </p>
                 </div>
               ) : (
                 lines.map((line) => (
                   <div
                     key={line.lineId}
-                    className="flex justify-between gap-4 border-b border-[#2c1a0e1a] pb-5 last:border-0"
+                    className="flex justify-between gap-4 pb-5 last:border-0"
+                    style={{ borderBottom: `1px solid ${BORDER}` }}
                   >
                     {line.image && (
-                      <div className="w-16 h-20 flex-shrink-0 overflow-hidden bg-[#ede0d2]">
+                      <div
+                        className="w-16 h-20 flex-shrink-0 overflow-hidden"
+                        style={{ backgroundColor: SURFACE2 }}
+                      >
                         <img
                           src={line.image}
                           alt={line.name}
@@ -136,46 +157,66 @@ export const CartButton = memo(function CartButton() {
                         />
                       </div>
                     )}
-
                     <div className="flex-1 min-w-0">
-                      <p className="font-display text-lg text-[#2c1a0e] leading-snug truncate">
+                      <p
+                        className="font-display text-lg leading-snug truncate"
+                        style={{ color: CREAM }}
+                      >
                         {line.name}
                       </p>
                       {line.variantTitle && line.variantTitle !== "Default Title" && (
-                        <p className="text-xs text-[#7a5c44] mt-1">{line.variantTitle}</p>
+                        <p className="text-xs mt-1" style={{ color: MAUVE }}>
+                          {line.variantTitle}
+                        </p>
                       )}
-
                       <div className="mt-3 flex items-center gap-2">
-                        <button
-                          onClick={() => updateQty(line.lineId, line.qty - 1)}
-                          disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center border border-[#2c1a0e20] text-[#2c1a0e] hover:border-[#c47a4a] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
-                          aria-label="Decrease quantity"
-                        >
-                          −
-                        </button>
-                        <span className="text-sm w-6 text-center text-[#2c1a0e] tabular-nums">
-                          {line.qty}
-                        </span>
-                        <button
-                          onClick={() => updateQty(line.lineId, line.qty + 1)}
-                          disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center border border-[#2c1a0e20] text-[#2c1a0e] hover:border-[#c47a4a] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
-                          aria-label="Increase quantity"
-                        >
-                          +
-                        </button>
+                        {[
+                          { label: "−", action: () => updateQty(line.lineId, line.qty - 1) },
+                          null,
+                          { label: "+", action: () => updateQty(line.lineId, line.qty + 1) },
+                        ].map((btn, i) =>
+                          btn === null ? (
+                            <span
+                              key="qty"
+                              className="text-sm w-6 text-center tabular-nums"
+                              style={{ color: CREAM }}
+                            >
+                              {line.qty}
+                            </span>
+                          ) : (
+                            <button
+                              key={btn.label}
+                              onClick={btn.action}
+                              disabled={loading}
+                              className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
+                              style={{ border: `1px solid ${BORDER}`, color: CREAM }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = BLUSH;
+                                e.currentTarget.style.color = BLUSH;
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = BORDER;
+                                e.currentTarget.style.color = CREAM;
+                              }}
+                              aria-label={i === 0 ? "Decrease quantity" : "Increase quantity"}
+                            >
+                              {btn.label}
+                            </button>
+                          ),
+                        )}
                       </div>
                     </div>
-
                     <div className="text-right flex-shrink-0">
-                      <p className="font-sans text-lg text-[#c47a4a]">
+                      <p className="font-sans text-lg" style={{ color: BLUSH }}>
                         {format(line.priceGBP * line.qty)}
                       </p>
                       <button
                         onClick={() => removeLine(line.lineId)}
                         disabled={loading}
-                        className="mt-2 text-[10px] uppercase tracking-luxe text-[#7a5c44] hover:text-[#c47a4a] transition-colors disabled:opacity-40"
+                        className="mt-2 text-[10px] uppercase tracking-luxe transition-colors disabled:opacity-40"
+                        style={{ color: MAUVE }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = BLUSH)}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = MAUVE)}
                       >
                         Remove
                       </button>
@@ -186,34 +227,45 @@ export const CartButton = memo(function CartButton() {
             </div>
 
             {/* Footer */}
-            <div className="flex-shrink-0 border-t border-[#2c1a0e1a] px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4">
-              {lines.length > 0 &&
-                (remaining > 0 ? (
-                  <div className="rounded border border-[#c47a4a]/30 bg-[#c47a4a]/8 px-4 py-3 text-[11px] uppercase tracking-wider text-[#c47a4a]">
-                    Add {format(remaining)} more for free UK shipping
-                  </div>
-                ) : (
-                  <div className="rounded border border-[#c47a4a]/30 bg-[#c47a4a]/8 px-4 py-3 text-[11px] uppercase tracking-wider text-[#c47a4a]">
-                    ✓ Free UK shipping unlocked
-                  </div>
-                ))}
+            <div
+              className="flex-shrink-0 px-6 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4"
+              style={{ borderTop: `1px solid ${BORDER}` }}
+            >
+              {lines.length > 0 && (
+                <div
+                  className="px-4 py-3 text-[11px] uppercase tracking-wider"
+                  style={{
+                    border: `1px solid rgba(215,182,178,0.25)`,
+                    backgroundColor: "rgba(215,182,178,0.07)",
+                    color: BLUSH,
+                  }}
+                >
+                  {remaining > 0
+                    ? `Add ${format(remaining)} more for free UK shipping`
+                    : "✓ Free UK shipping unlocked"}
+                </div>
+              )}
 
               <div className="flex justify-between items-baseline">
-                <span className="text-xs uppercase tracking-luxe text-[#7a5c44]">Subtotal</span>
-                <span className="font-sans text-2xl text-[#c47a4a]">{format(totalGBP)}</span>
+                <span className="text-xs uppercase tracking-luxe" style={{ color: MAUVE }}>
+                  Subtotal
+                </span>
+                <span className="font-sans text-2xl" style={{ color: BLUSH }}>
+                  {format(totalGBP)}
+                </span>
               </div>
 
               <button
                 disabled={lines.length === 0 || loading}
                 onClick={checkout}
-                className="w-full py-4 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ backgroundColor: "#c47a4a", color: "#faf6f0" }}
+                className="w-full py-4 text-xs uppercase tracking-luxe transition-opacity hover:opacity-85 disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ backgroundColor: BLUSH, color: DARK }}
               >
                 {loading ? "Updating…" : `Checkout — ${format(totalGBP)}`}
               </button>
 
-              <p className="text-[10px] text-center text-[#7a5c44] leading-relaxed">
-                Secure checkout · Free UK shipping over £100 · All prices charged in GBP
+              <p className="text-[10px] text-center leading-relaxed" style={{ color: MAUVE }}>
+                Secure checkout · Free UK shipping over £100 · All prices in GBP
               </p>
             </div>
           </aside>

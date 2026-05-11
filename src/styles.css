@@ -6,9 +6,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MELANVÉE — off-white & brown editorial light theme.
- * Warm parchment base, rich espresso type, rose-gold accents.
- * Refined, airy, luxurious.
+ * MELANVÉE — Dark theme · Cocoa #4B362E · Dusty Blush #D7B6B2
+ * Deep warm-dark backgrounds, cocoa surfaces, blush accents, cream type.
  */
 
 @theme inline {
@@ -53,48 +52,60 @@
 :root {
   --radius: 0.25rem;
 
-  /* Calm off-white & brown light palette */
-  --ink: #2c1a0e; /* deep espresso — headlines, body text */
-  --charcoal: #efe9e0; /* warm off-white — primary surface */
-  --noir: #eee6db; /* slightly deeper parchment — elevated surface */
-  --cream: #fffaf6; /* soft cream — subtle surfaces */
-  --ivory: #fbf7f2; /* the lightest parchment */
-  --mauve: #7a5c44; /* warm mid-brown — secondary text */
+  /* ── Brand palette ───────────────────────────────────────── */
+  --blush: #d7b6b2; /* primary accent — highlights, CTAs, labels */
+  --blush-deep: #b8928d; /* hover / deeper blush */
+  --cocoa: #4b362e; /* surface colour — cards, sections */
+  --cocoa-dark: #352219; /* deeper surface */
+  --cocoa-darkest: #1e1009; /* near-black base */
+  --cream-warm: #f0e6dc; /* primary text — warm off-white */
+  --cream-mid: #c9b5a8; /* secondary text — muted warm */
 
-  /* Accent */
-  --gold: #b6784a; /* warm amber-brown accent */
-  --gold-soft: #d2a37a;
+  /* ── Semantic aliases (keeps all existing utility classes working) ── */
+  --ink: #1e1009; /* bg-ink → near-black base */
+  --charcoal: #2a1810; /* bg-charcoal → deep section bg */
+  --noir: #352219; /* bg-noir → slightly elevated surface */
+  --cream: #f0e6dc; /* text-cream → warm off-white type */
+  --ivory: #f7f0ea;
+  --rose: #d7b6b2;
+  --mauve: #c9b5a8; /* text-mauve → muted secondary text */
+  --gold: #d7b6b2; /* text-gold / bg-gold → blush accent */
+  --gold-soft: #b8928d;
 
-  /* Semantic tokens — light theme */
-  --background: var(--ivory); /* warm parchment page */
-  --foreground: var(--ink); /* espresso text */
+  /* ── Semantic tokens ─────────────────────────────────────── */
+  --background: #1e1009; /* near-black warm base */
+  --foreground: #f0e6dc; /* warm cream text */
 
-  --card: var(--charcoal); /* slightly tinted card surface */
-  --card-foreground: var(--foreground);
+  --card: #2a1810;
+  --card-foreground: #f0e6dc;
 
-  --popover: var(--charcoal);
-  --popover-foreground: var(--foreground);
+  --popover: #2a1810;
+  --popover-foreground: #f0e6dc;
 
-  --primary: var(--gold); /* amber-brown CTA */
-  --primary-foreground: var(--ivory); /* light text on primary */
-  --secondary: var(--noir);
-  --secondary-foreground: var(--foreground);
-  --muted: var(--noir);
-  --muted-foreground: var(--mauve);
-  --accent: var(--gold);
-  --accent-foreground: var(--ivory);
-  --destructive: #cc6b4a;
-  --destructive-foreground: var(--ivory);
+  --primary: #d7b6b2; /* blush as primary CTA */
+  --primary-foreground: #1e1009;
 
-  --border: rgba(44, 26, 14, 0.08); /* subtle espresso border */
-  --input: rgba(44, 26, 14, 0.06);
-  --ring: rgba(182, 120, 74, 0.4);
+  --secondary: #352219;
+  --secondary-foreground: #f0e6dc;
 
-  --chart-1: var(--gold);
-  --chart-2: var(--gold-soft);
-  --chart-3: var(--mauve);
-  --chart-4: #a0724e;
-  --chart-5: #e8c9a8;
+  --muted: #352219;
+  --muted-foreground: #c9b5a8;
+
+  --accent: #d7b6b2;
+  --accent-foreground: #1e1009;
+
+  --destructive: #c0392b;
+  --destructive-foreground: #f0e6dc;
+
+  --border: rgba(240, 230, 220, 0.1);
+  --input: rgba(240, 230, 220, 0.12);
+  --ring: rgba(215, 182, 178, 0.4);
+
+  --chart-1: #d7b6b2;
+  --chart-2: #b8928d;
+  --chart-3: #c9b5a8;
+  --chart-4: #4b362e;
+  --chart-5: #352219;
 
   --sidebar: var(--card);
   --sidebar-foreground: var(--foreground);
@@ -105,23 +116,24 @@
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 
-  --gradient-rose: linear-gradient(135deg, var(--gold-soft), var(--gold));
-  --gradient-dark: linear-gradient(180deg, var(--charcoal), var(--noir));
-  --shadow-luxe: 0 30px 80px -30px rgba(44, 26, 14, 0.12), 0 0 0 1px rgba(44, 26, 14, 0.04);
-  --shadow-rose-glow: 0 0 60px -10px rgba(180, 116, 68, 0.18);
+  /* ── Visual extras ───────────────────────────────────────── */
+  --gradient-rose: linear-gradient(135deg, #d7b6b2, #b8928d);
+  --gradient-dark: linear-gradient(180deg, #2a1810, #1e1009);
+  --shadow-luxe: 0 30px 80px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(240, 230, 220, 0.06);
+  --shadow-rose-glow: 0 0 60px -10px rgba(215, 182, 178, 0.35);
 }
 
 @keyframes marquee {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 @layer base {
@@ -153,8 +165,8 @@
   }
 
   ::selection {
-    background: var(--gold);
-    color: var(--ivory);
+    background: #d7b6b2;
+    color: #1e1009;
   }
 }
 
@@ -162,45 +174,52 @@
   .font-display {
     font-family: var(--font-display);
   }
+
+  /* Blush accent */
   .text-gold {
-    color: var(--gold);
+    color: #d7b6b2;
   }
   .bg-gold {
-    background-color: var(--gold);
+    background-color: #d7b6b2;
   }
   .border-gold {
-    border-color: var(--gold);
+    border-color: #d7b6b2;
   }
-  /* cream = soft surface; use foreground for readable text */
+
+  /* Cream — warm off-white text */
   .text-cream {
-    color: var(--foreground);
+    color: #f0e6dc;
   }
   .text-ivory {
-    color: var(--ivory);
+    color: #f7f0ea;
   }
   .text-noir {
-    color: var(--foreground);
+    color: #f0e6dc;
   }
+
+  /* Mauve — muted secondary */
   .text-mauve {
-    color: var(--mauve);
+    color: #c9b5a8;
   }
+
+  /* Dark surfaces */
   .bg-ivory {
-    background-color: var(--ivory);
+    background-color: #f7f0ea;
   }
   .bg-cream {
-    background-color: var(--cream);
+    background-color: #f0e6dc;
   }
-  /* charcoal = the warm off-white section background */
   .bg-charcoal {
-    background-color: var(--charcoal);
+    background-color: #2a1810;
   }
-  /* ink = deep espresso (headers, hero overlay bg) */
   .bg-ink {
-    background-color: var(--ink);
+    background-color: #1e1009;
   }
   .bg-noir {
-    background-color: var(--noir);
+    background-color: #352219;
   }
+
+  /* Effects */
   .gradient-rose {
     background: var(--gradient-rose);
   }
@@ -213,6 +232,7 @@
   .shadow-rose-glow {
     box-shadow: var(--shadow-rose-glow);
   }
+
   .text-gradient-rose {
     background: var(--gradient-rose);
     -webkit-background-clip: text;
@@ -225,13 +245,16 @@
     background-clip: text;
     color: transparent;
   }
+
   .tracking-luxe {
     letter-spacing: 0.32em;
   }
+
   .hairline {
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    background: linear-gradient(90deg, transparent, #d7b6b2, transparent);
   }
+
   .grain::before {
     content: "";
     position: absolute;
