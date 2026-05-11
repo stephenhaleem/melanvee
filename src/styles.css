@@ -6,8 +6,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * MELANVÉE — Dark theme · Cocoa #4B362E · Dusty Blush #D7B6B2
- * Deep warm-dark backgrounds, cocoa surfaces, blush accents, cream type.
+ * MELANVÉE — Dark theme · Cocoa #4B362E · Bright Rose-Pink #E8938A
  */
 
 @theme inline {
@@ -53,28 +52,28 @@
   --radius: 0.25rem;
 
   /* ── Brand palette ───────────────────────────────────────── */
-  --blush: #d7b6b2; /* primary accent — highlights, CTAs, labels */
-  --blush-deep: #b8928d; /* hover / deeper blush */
-  --cocoa: #4b362e; /* surface colour — cards, sections */
-  --cocoa-dark: #352219; /* deeper surface */
-  --cocoa-darkest: #1e1009; /* near-black base */
-  --cream-warm: #f0e6dc; /* primary text — warm off-white */
-  --cream-mid: #c9b5a8; /* secondary text — muted warm */
+  --blush: #e8938a; /* bright warm rose-pink — primary accent */
+  --blush-deep: #d4706a; /* hover / pressed state */
+  --cocoa: #4b362e;
+  --cocoa-dark: #352219;
+  --cocoa-darkest: #1e1009;
+  --cream-warm: #f0e6dc;
+  --cream-mid: #c9b5a8;
 
-  /* ── Semantic aliases (keeps all existing utility classes working) ── */
-  --ink: #1e1009; /* bg-ink → near-black base */
-  --charcoal: #2a1810; /* bg-charcoal → deep section bg */
-  --noir: #352219; /* bg-noir → slightly elevated surface */
-  --cream: #f0e6dc; /* text-cream → warm off-white type */
+  /* ── Semantic aliases ────────────────────────────────────── */
+  --ink: #1e1009;
+  --charcoal: #2a1810;
+  --noir: #352219;
+  --cream: #f0e6dc;
   --ivory: #f7f0ea;
-  --rose: #d7b6b2;
-  --mauve: #c9b5a8; /* text-mauve → muted secondary text */
-  --gold: #d7b6b2; /* text-gold / bg-gold → blush accent */
-  --gold-soft: #b8928d;
+  --rose: #e8938a;
+  --mauve: #c9b5a8;
+  --gold: #e8938a;
+  --gold-soft: #d4706a;
 
   /* ── Semantic tokens ─────────────────────────────────────── */
-  --background: #1e1009; /* near-black warm base */
-  --foreground: #f0e6dc; /* warm cream text */
+  --background: #1e1009;
+  --foreground: #f0e6dc;
 
   --card: #2a1810;
   --card-foreground: #f0e6dc;
@@ -82,7 +81,7 @@
   --popover: #2a1810;
   --popover-foreground: #f0e6dc;
 
-  --primary: #d7b6b2; /* blush as primary CTA */
+  --primary: #e8938a;
   --primary-foreground: #1e1009;
 
   --secondary: #352219;
@@ -91,7 +90,7 @@
   --muted: #352219;
   --muted-foreground: #c9b5a8;
 
-  --accent: #d7b6b2;
+  --accent: #e8938a;
   --accent-foreground: #1e1009;
 
   --destructive: #c0392b;
@@ -99,10 +98,10 @@
 
   --border: rgba(240, 230, 220, 0.1);
   --input: rgba(240, 230, 220, 0.12);
-  --ring: rgba(215, 182, 178, 0.4);
+  --ring: rgba(232, 147, 138, 0.4);
 
-  --chart-1: #d7b6b2;
-  --chart-2: #b8928d;
+  --chart-1: #e8938a;
+  --chart-2: #d4706a;
   --chart-3: #c9b5a8;
   --chart-4: #4b362e;
   --chart-5: #352219;
@@ -117,10 +116,10 @@
   --sidebar-ring: var(--ring);
 
   /* ── Visual extras ───────────────────────────────────────── */
-  --gradient-rose: linear-gradient(135deg, #d7b6b2, #b8928d);
+  --gradient-rose: linear-gradient(135deg, #e8938a, #d4706a);
   --gradient-dark: linear-gradient(180deg, #2a1810, #1e1009);
   --shadow-luxe: 0 30px 80px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(240, 230, 220, 0.06);
-  --shadow-rose-glow: 0 0 60px -10px rgba(215, 182, 178, 0.35);
+  --shadow-rose-glow: 0 0 60px -10px rgba(232, 147, 138, 0.4);
 }
 
 @keyframes marquee {
@@ -165,7 +164,7 @@
   }
 
   ::selection {
-    background: #d7b6b2;
+    background: #e8938a;
     color: #1e1009;
   }
 }
@@ -175,18 +174,16 @@
     font-family: var(--font-display);
   }
 
-  /* Blush accent */
   .text-gold {
-    color: #d7b6b2;
+    color: #e8938a;
   }
   .bg-gold {
-    background-color: #d7b6b2;
+    background-color: #e8938a;
   }
   .border-gold {
-    border-color: #d7b6b2;
+    border-color: #e8938a;
   }
 
-  /* Cream — warm off-white text */
   .text-cream {
     color: #f0e6dc;
   }
@@ -196,13 +193,10 @@
   .text-noir {
     color: #f0e6dc;
   }
-
-  /* Mauve — muted secondary */
   .text-mauve {
     color: #c9b5a8;
   }
 
-  /* Dark surfaces */
   .bg-ivory {
     background-color: #f7f0ea;
   }
@@ -219,7 +213,6 @@
     background-color: #352219;
   }
 
-  /* Effects */
   .gradient-rose {
     background: var(--gradient-rose);
   }
@@ -252,7 +245,7 @@
 
   .hairline {
     height: 1px;
-    background: linear-gradient(90deg, transparent, #d7b6b2, transparent);
+    background: linear-gradient(90deg, transparent, #e8938a, transparent);
   }
 
   .grain::before {

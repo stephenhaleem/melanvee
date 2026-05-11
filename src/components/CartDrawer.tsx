@@ -2,8 +2,8 @@ import { useState, useEffect, memo } from "react";
 import { useShopifyCart } from "@/lib/shopify-cart";
 import { useCurrency } from "@/lib/currency";
 
-const BLUSH = "#D7B6B2";
-const BLUSH_D = "#b8928d";
+const PINK = "#E8938A";
+const PINK_D = "#D4706A";
 const CREAM = "#F0E6DC";
 const MAUVE = "#c9b5a8";
 const DARK = "#1e1009";
@@ -29,7 +29,7 @@ export function CartIcon({ count }: { count: number }) {
       {count > 0 && (
         <span
           className="absolute -top-2 -right-2 text-[10px] rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center font-medium"
-          style={{ backgroundColor: BLUSH, color: DARK }}
+          style={{ backgroundColor: PINK, color: DARK }}
         >
           {count}
         </span>
@@ -101,7 +101,7 @@ export const CartButton = memo(function CartButton() {
               <p className="font-display text-2xl" style={{ color: CREAM }}>
                 Your Cart
                 {count > 0 && (
-                  <span className="text-base ml-2" style={{ color: BLUSH }}>
+                  <span className="text-base ml-2" style={{ color: PINK }}>
                     ({count})
                   </span>
                 )}
@@ -110,7 +110,7 @@ export const CartButton = memo(function CartButton() {
                 onClick={() => setOpen(false)}
                 className="w-8 h-8 flex items-center justify-center text-2xl leading-none transition-colors"
                 style={{ color: CREAM }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = BLUSH)}
+                onMouseEnter={(e) => (e.currentTarget.style.color = PINK)}
                 onMouseLeave={(e) => (e.currentTarget.style.color = CREAM)}
                 aria-label="Close cart"
               >
@@ -170,44 +170,50 @@ export const CartButton = memo(function CartButton() {
                         </p>
                       )}
                       <div className="mt-3 flex items-center gap-2">
-                        {[
-                          { label: "−", action: () => updateQty(line.lineId, line.qty - 1) },
-                          null,
-                          { label: "+", action: () => updateQty(line.lineId, line.qty + 1) },
-                        ].map((btn, i) =>
-                          btn === null ? (
-                            <span
-                              key="qty"
-                              className="text-sm w-6 text-center tabular-nums"
-                              style={{ color: CREAM }}
-                            >
-                              {line.qty}
-                            </span>
-                          ) : (
-                            <button
-                              key={btn.label}
-                              onClick={btn.action}
-                              disabled={loading}
-                              className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
-                              style={{ border: `1px solid ${BORDER}`, color: CREAM }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = BLUSH;
-                                e.currentTarget.style.color = BLUSH;
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = BORDER;
-                                e.currentTarget.style.color = CREAM;
-                              }}
-                              aria-label={i === 0 ? "Decrease quantity" : "Increase quantity"}
-                            >
-                              {btn.label}
-                            </button>
-                          ),
-                        )}
+                        <button
+                          onClick={() => updateQty(line.lineId, line.qty - 1)}
+                          disabled={loading}
+                          className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
+                          style={{ border: `1px solid ${BORDER}`, color: CREAM }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = PINK;
+                            e.currentTarget.style.color = PINK;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = BORDER;
+                            e.currentTarget.style.color = CREAM;
+                          }}
+                          aria-label="Decrease quantity"
+                        >
+                          −
+                        </button>
+                        <span
+                          className="text-sm w-6 text-center tabular-nums"
+                          style={{ color: CREAM }}
+                        >
+                          {line.qty}
+                        </span>
+                        <button
+                          onClick={() => updateQty(line.lineId, line.qty + 1)}
+                          disabled={loading}
+                          className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
+                          style={{ border: `1px solid ${BORDER}`, color: CREAM }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = PINK;
+                            e.currentTarget.style.color = PINK;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = BORDER;
+                            e.currentTarget.style.color = CREAM;
+                          }}
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="font-sans text-lg" style={{ color: BLUSH }}>
+                      <p className="font-sans text-lg" style={{ color: PINK }}>
                         {format(line.priceGBP * line.qty)}
                       </p>
                       <button
@@ -215,7 +221,7 @@ export const CartButton = memo(function CartButton() {
                         disabled={loading}
                         className="mt-2 text-[10px] uppercase tracking-luxe transition-colors disabled:opacity-40"
                         style={{ color: MAUVE }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = BLUSH)}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = PINK)}
                         onMouseLeave={(e) => (e.currentTarget.style.color = MAUVE)}
                       >
                         Remove
@@ -235,9 +241,9 @@ export const CartButton = memo(function CartButton() {
                 <div
                   className="px-4 py-3 text-[11px] uppercase tracking-wider"
                   style={{
-                    border: `1px solid rgba(215,182,178,0.25)`,
-                    backgroundColor: "rgba(215,182,178,0.07)",
-                    color: BLUSH,
+                    border: `1px solid rgba(232,147,138,0.3)`,
+                    backgroundColor: "rgba(232,147,138,0.08)",
+                    color: PINK,
                   }}
                 >
                   {remaining > 0
@@ -250,7 +256,7 @@ export const CartButton = memo(function CartButton() {
                 <span className="text-xs uppercase tracking-luxe" style={{ color: MAUVE }}>
                   Subtotal
                 </span>
-                <span className="font-sans text-2xl" style={{ color: BLUSH }}>
+                <span className="font-sans text-2xl" style={{ color: PINK }}>
                   {format(totalGBP)}
                 </span>
               </div>
@@ -258,8 +264,10 @@ export const CartButton = memo(function CartButton() {
               <button
                 disabled={lines.length === 0 || loading}
                 onClick={checkout}
-                className="w-full py-4 text-xs uppercase tracking-luxe transition-opacity hover:opacity-85 disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{ backgroundColor: BLUSH, color: DARK }}
+                className="w-full py-4 text-xs uppercase tracking-luxe transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                style={{ backgroundColor: PINK, color: DARK }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = PINK_D)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = PINK)}
               >
                 {loading ? "Updating…" : `Checkout — ${format(totalGBP)}`}
               </button>
