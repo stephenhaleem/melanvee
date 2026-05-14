@@ -19,7 +19,7 @@ const CREAM = "#F0E6DC";
 const MAUVE = "#c9b5a8";
 const DARK = "#1e1009";
 const SURFACE = "#2a1810";
-const COCOA = "#4B362E";
+const COCOA = "#7A5F55";
 const BORDER = "rgba(240,230,220,0.1)";
 
 export function Header() {

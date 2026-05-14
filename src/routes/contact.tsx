@@ -16,7 +16,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mgodwgyg";
-const WHATSAPP_HREF = "https://wa.me/440000000000";
+const WHATSAPP_HREF =
+  "https://wa.me/44760317678?text=Hi%20MELANV%C3%89E%2C%20I'd%20love%20to%20know%20more%20about%20your%20wigs.";
 
 // Isolated in its own memoized component so parent re-renders don't touch it
 const ContactForm = memo(function ContactForm() {

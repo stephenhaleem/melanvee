@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 
 export const Route = createFileRoute("/policies")({
@@ -21,14 +21,26 @@ export const Route = createFileRoute("/policies")({
 type Tab = "shipping" | "returns" | "exchange" | "all";
 
 const tabs: { id: Tab; label: string }[] = [
+  { id: "all", label: "All Policies" },
   { id: "shipping", label: "Shipping" },
   { id: "returns", label: "Returns" },
   { id: "exchange", label: "Exchange" },
-  { id: "all", label: "All Policies" },
 ];
 
 function Policies() {
-  const [active, setActive] = useState<Tab>("shipping");
+  const [active, setActive] = useState<Tab>(() => {
+    try {
+      if (typeof window === "undefined") return "all" as Tab;
+      const params = new URLSearchParams(window.location.search);
+      const p = params.get("tab");
+      if (p === "shipping" || p === "returns" || p === "exchange" || p === "all") return p as Tab;
+      const h = window.location.hash.replace("#", "");
+      if (h === "shipping" || h === "returns" || h === "exchange" || h === "all") return h as Tab;
+      return "all" as Tab;
+    } catch {
+      return "all" as Tab;
+    }
+  });
 
   return (
     <Layout>

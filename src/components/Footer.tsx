@@ -94,7 +94,7 @@ export function Footer() {
               </span>
             </li>
             <li>
-              WhatsApp: +44 0000 000 000 <span style={{ opacity: 0.7 }}>(Mon–Fri) 8am–6:30pm</span>
+              WhatsApp: +44760317678 <span style={{ opacity: 0.7 }}>(Mon–Fri) 9am–4pm</span>
             </li>
             <li>London · Worldwide shipping</li>
           </ul>
