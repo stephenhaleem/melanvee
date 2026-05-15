@@ -133,7 +133,7 @@ const ContactForm = memo(function ContactForm() {
 
         {status === "error" && (
           <p className="text-[11px] text-rose-400 uppercase tracking-wider mb-6">
-            Something went wrong — please email customerservice@melanvee.com
+            Something went wrong — please email customercare@melanvee.com
           </p>
         )}
 
@@ -185,7 +185,7 @@ export default function Contact() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email · Anytime</p>
               <p className="text-cream leading-relaxed">
-                customerservice@melanvee.com
+                customercare@melanvee.com
                 <br />
                 <span className="text-mauve text-sm">hello@melanvee.com (collabs)</span>
               </p>

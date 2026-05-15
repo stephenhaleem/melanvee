@@ -86,7 +86,7 @@ export function Footer() {
             Contact
           </p>
           <ul className="space-y-3 text-sm" style={{ color: MAUVE }}>
-            <li>hello@melanvee.com</li>
+            <li>customercare@melanvee.com</li>
             <li>
               woman@melanvee.com{" "}
               <span className="text-[10px] uppercase tracking-wider" style={{ color: PINK }}>
