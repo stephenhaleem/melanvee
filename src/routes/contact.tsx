@@ -174,10 +174,10 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="text-cream hover:text-gold transition-colors leading-relaxed block"
               >
-                +44 0000 000 000
+                +44 7603 17678
                 <br />
                 <span className="text-xs uppercase tracking-luxe text-mauve">
-                  Monday to Friday · Tap to chat · Response time: 8am-6:30pm
+                  Monday to Friday · Tap to chat · Response time: 9am-4pm
                 </span>
               </a>
             </div>
@@ -187,7 +187,7 @@ export default function Contact() {
               <p className="text-cream leading-relaxed">
                 hello@melanvee.com
                 <br />
-                <span className="text-mauve text-sm">woman@melanvee.com (collabs)</span>
+                <span className="text-mauve text-sm">hello@melanvee.com (collabs)</span>
               </p>
             </div>
             <div className="hairline w-20" />
