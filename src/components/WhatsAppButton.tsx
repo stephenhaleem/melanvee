@@ -1,6 +1,6 @@
 // Replace with your real WhatsApp number (international format, no '+' or spaces)
 // e.g. for +44 7123 456789 use "447123456789"
-const WHATSAPP_NUMBER = "+44760317678";
+const WHATSAPP_NUMBER = "+447760317678";
 const WHATSAPP_MESSAGE = encodeURIComponent("Hi MELANVÉE, I'd love to know more about your wigs.");
 
 export function WhatsAppButton() {

@@ -7,7 +7,7 @@ const MAUVE = "#c9b5a8";
 const SURFACE = "#2a1810";
 const BORDER = "rgba(240,230,220,0.1)";
 
-const IG_URL = "https://instagram.com/melanvee";
+const IG_URL = "https://instagram.com/melanvee.hair";
 const TIKTOK_URL = "https://tiktok.com/@melanvee";
 
 export function Footer() {
@@ -94,7 +94,7 @@ export function Footer() {
               </span>
             </li>
             <li>
-              WhatsApp: +44760317678 <span style={{ opacity: 0.7 }}>(Mon–Fri) 9am–4pm</span>
+              WhatsApp: +447760317678<span style={{ opacity: 0.7 }}>(Mon–Fri) 9am–4pm</span>
             </li>
             <li>London · Worldwide shipping</li>
           </ul>
