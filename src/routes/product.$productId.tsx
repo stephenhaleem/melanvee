@@ -40,7 +40,7 @@ export const Route = createFileRoute("/product/$productId")({
   notFoundComponent: () => (
     <Layout>
       <section className="py-32 text-center">
-        <h1 className="font-display text-4xl text-cream mb-4">Piece not found</h1>
+        <h1 className="font-display text-4xl text-cream mb-4">Piece not found.</h1>
         <Link to="/collection" className="text-gold border-b border-gold/40">
           Back to collection
         </Link>
