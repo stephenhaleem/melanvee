@@ -14,6 +14,7 @@ import {
   type ShopifyVariant,
 } from "@/lib/shopify";
 import capSizeImg from "@/assets/cap.jpeg";
+import hairLengthImg from "@/assets/hairlength.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 
 export const Route = createFileRoute("/product/$productId")({
@@ -53,7 +54,6 @@ function ProductPage() {
   const { product } = Route.useLoaderData();
   const { format } = useCurrency();
   const { addToCart, loading: cartLoading } = useShopifyCart();
-  const [tab, setTab] = useState<"features" | "how" | "care">("features");
   const [adding, setAdding] = useState(false);
 
   const variants = getVariants(product);
@@ -81,7 +81,6 @@ function ProductPage() {
   };
 
   const price = parsePrice(selectedVariant.price.amount);
-  const heroImage = product.images.edges[0]?.node;
 
   // Get texture from productType or tags
   const textureBadge =
@@ -115,6 +114,7 @@ function ProductPage() {
                 textureBadge={textureBadge}
               />
             </motion.div>
+
             {/* Details */}
             <div>
               <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
@@ -201,6 +201,19 @@ function ProductPage() {
                 </div>
               ) : null}
 
+              {/* Hair length reference image */}
+              <div className="mt-8">
+                <img
+                  src={hairLengthImg}
+                  alt="Hair length reference guide"
+                  className="w-full rounded-sm opacity-90"
+                  loading="lazy"
+                />
+                <p className="mt-2 text-[10px] uppercase tracking-luxe text-mauve text-center leading-relaxed">
+                  For reference only — does not depict actual MELANVÉE products
+                </p>
+              </div>
+
               {/* Price + CTA */}
               <div className="mt-10 flex items-end justify-between border-t border-border pt-8 gap-6">
                 <div>
@@ -230,88 +243,16 @@ function ProductPage() {
         </div>
       </section>
 
-      {/* Tabs */}
+      {/* Stacked sections — Key Features, How to Wear, Care */}
       <section className="py-16 bg-charcoal border-y border-border">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="flex flex-wrap gap-2 border-b border-border mb-10">
-            {[
-              { id: "how" as const, label: "How to Wear" },
-              { id: "care" as const, label: "Care" },
-              { id: "features" as const, label: "Key Features" },
-            ].map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
-                className={`px-5 py-3 text-xs uppercase tracking-luxe transition-all ${
-                  tab === t.id
-                    ? "text-gold border-b-2 border-gold -mb-px"
-                    : "text-mauve hover:text-cream"
-                }`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-
-          {tab === "how" && (
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-luxe text-gold mb-6">
-                How to wear your {product.productType?.toLowerCase()}
-              </p>
-              <ol className="space-y-4">
-                {[
-                  "Slick your hair into a low bun, or cornrow it flat. Leave a small section out at the front to blend.",
-                  "Slip her on. Adjust the inner straps until she sits snug without pressing.",
-                  "Lock her in with the built-in combs at the crown and nape.",
-                  "Smooth your leave-out through with curl custard or styling cream.",
-                  "Lay your edges, spritz a little water to wake the curls, and go.",
-                ].map((step, idx) => (
-                  <li key={idx} className="flex gap-4 text-mauve leading-loose">
-                    <span className="font-display text-2xl text-gold flex-shrink-0 w-8">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ol>
-              <Link
-                to="/how-to-wear"
-                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
-              >
-                Full wear & care guide
-              </Link>
-            </div>
-          )}
-
-          {tab === "care" && (
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-luxe text-gold mb-6">Care recommendations</p>
-              <ul className="space-y-3">
-                {[
-                  "Co-wash or use a sulfate-free shampoo every 2 to 3 weeks.",
-                  "Deep condition every wash. 20 to 30 minutes, rinse cool.",
-                  "Detangle damp with fingers first, then a wide-tooth comb.",
-                  "Air dry on a stand. Refresh with a water and leave-in mist.",
-                  "Sleep satin. Store on a stand, or back in her box.",
-                ].map((c, i) => (
-                  <li key={i} className="flex gap-3 text-mauve leading-loose">
-                    <span className="mt-2.5 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/how-to-wear"
-                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
-              >
-                Full wear & care guide
-              </Link>
-            </div>
-          )}
-          {tab === "features" && (
+        <div className="max-w-5xl mx-auto px-6 space-y-16">
+          {/* Key Features */}
+          <div>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
+              Key Features
+            </p>
             <div className="grid md:grid-cols-2 gap-10">
               <div>
-                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Key Features</p>
                 <ul className="space-y-3">
                   {[
                     "No lace, no glue",
@@ -355,7 +296,73 @@ function ProductPage() {
                 </div>
               </div>
             </div>
-          )}
+          </div>
+
+          {/* How to Wear */}
+          <div>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
+              How to Wear
+            </p>
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
+                How to wear your {product.productType?.toLowerCase()}
+              </p>
+              <ol className="space-y-4">
+                {[
+                  "Slick your hair into a low bun, or cornrow it flat. Leave a small section out at the front to blend.",
+                  "Slip her on. Adjust the inner straps until she sits snug without pressing.",
+                  "Lock her in with the built-in combs at the crown and nape.",
+                  "Smooth your leave-out through with curl custard or styling cream.",
+                  "Lay your edges, spritz a little water to wake the curls, and go.",
+                ].map((step, idx) => (
+                  <li key={idx} className="flex gap-4 text-mauve leading-loose">
+                    <span className="font-display text-2xl text-gold flex-shrink-0 w-8">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+              <Link
+                to="/how-to-wear"
+                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
+              >
+                Full wear & care guide
+              </Link>
+            </div>
+          </div>
+
+          {/* Care */}
+          <div>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
+              Care
+            </p>
+            <div className="max-w-3xl">
+              <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
+                Care recommendations
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Co-wash or use a sulfate-free shampoo every 2 to 3 weeks.",
+                  "Deep condition every wash. 20 to 30 minutes, rinse cool.",
+                  "Detangle damp with fingers first, then a wide-tooth comb.",
+                  "Air dry on a stand. Refresh with a water and leave-in mist.",
+                  "Sleep satin. Store on a stand, or back in her box.",
+                ].map((c, i) => (
+                  <li key={i} className="flex gap-3 text-mauve leading-loose">
+                    <span className="mt-2.5 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/how-to-wear"
+                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
+              >
+                Full wear & care guide
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </Layout>
