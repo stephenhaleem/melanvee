@@ -14,8 +14,10 @@ import {
   type ShopifyVariant,
 } from "@/lib/shopify";
 import capSizeImg from "@/assets/cap.jpeg";
-import hairLengthImg from "@/assets/hairlength.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
+
+// Hair length reference image — place hairlength.jpeg in /public and reference via path
+const HAIR_LENGTH_IMG = "/hairlength.jpeg";
 
 export const Route = createFileRoute("/product/$productId")({
   loader: async ({ params }) => {
@@ -40,7 +42,7 @@ export const Route = createFileRoute("/product/$productId")({
   notFoundComponent: () => (
     <Layout>
       <section className="py-32 text-center">
-        <h1 className="font-display text-4xl text-cream mb-4">Piece not found.</h1>
+        <h1 className="font-display text-4xl text-cream mb-4">Piece not found</h1>
         <Link to="/collection" className="text-gold border-b border-gold/40">
           Back to collection
         </Link>
@@ -204,7 +206,7 @@ function ProductPage() {
               {/* Hair length reference image */}
               <div className="mt-8">
                 <img
-                  src={hairLengthImg}
+                  src={HAIR_LENGTH_IMG}
                   alt="Hair length reference guide"
                   className="w-full rounded-sm opacity-90"
                   loading="lazy"
