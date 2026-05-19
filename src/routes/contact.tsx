@@ -174,7 +174,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="text-cream hover:text-gold transition-colors leading-relaxed block"
               >
-                +44 7603 17678
+                +44 77603 17678
                 <br />
                 <span className="text-xs uppercase tracking-luxe text-mauve">
                   Monday to Friday · Tap to chat · Response time: 9am-4pm

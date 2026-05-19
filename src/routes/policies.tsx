@@ -138,8 +138,8 @@ function Returns() {
       </p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
-          Returns are accepted within <strong className="text-cream">14 days of delivery</strong>{" "}
-          on unopened, unworn pieces in their original packaging.
+          Returns are accepted within <strong className="text-cream">14 days of delivery</strong> on
+          unopened, unworn pieces in their original packaging.
         </Item>
         <Item>
           All returns are <strong className="text-cream">subject to a quality inspection</strong>.
@@ -147,8 +147,8 @@ function Returns() {
           washing, styling, dye or alteration.
         </Item>
         <Item>
-          Once a wig has been worn, installed, washed, dyed or altered, we cannot accept it back
-          for hygiene reasons.
+          Once a wig has been worn, installed, washed, dyed or altered, we cannot accept it back for
+          hygiene reasons.
         </Item>
         <Item>
           <strong className="text-cream">Return shipping is the customer's responsibility</strong>,
@@ -156,8 +156,8 @@ function Returns() {
           case we cover the full cost.
         </Item>
         <Item>
-          Approved refunds are issued to your original payment method within 5 to 7 working days
-          of our inspection team receiving and approving the return.
+          Approved refunds are issued to your original payment method within 5 to 7 working days of
+          our inspection team receiving and approving the return.
         </Item>
       </ul>
       <p className="text-sm">
@@ -180,12 +180,10 @@ function Exchange() {
           Exchanges are accepted within <strong className="text-cream">7 days of delivery</strong>{" "}
           on unopened, unworn pieces in original packaging.
         </Item>
+        <Item>You can exchange for a different texture, length, or take store credit.</Item>
         <Item>
-          You can exchange for a different texture, length, or take store credit.
-        </Item>
-        <Item>
-          <strong className="text-cream">Customer covers return shipping.</strong> We cover the
-          cost of sending the new piece.
+          <strong className="text-cream">Customer covers return shipping.</strong> We cover the cost
+          of sending the new piece.
         </Item>
         <Item>
           If the new piece is more expensive, you will be invoiced for the difference. If it is
@@ -202,7 +200,7 @@ function PrivacyTerms() {
       <Section title="Privacy Policy">
         <p>
           We collect only what we need to fulfil your order: name, email, delivery address, payment
-          details (processed securely by Stripe). We never sell your data.
+          details. We never sell your data.
         </p>
         <p>
           If you sign up to our mailing list, you can unsubscribe at any time using the link in any
@@ -215,8 +213,8 @@ function PrivacyTerms() {
           and charged in GBP at checkout regardless of the display currency you have selected.
         </p>
         <p>
-          Product images are styled professionally. Natural variation in human hair (slight shade
-          or curl pattern differences) is normal.
+          Product images are styled professionally. Natural variation in human hair (slight shade or
+          curl pattern differences) is normal.
         </p>
       </Section>
     </>
