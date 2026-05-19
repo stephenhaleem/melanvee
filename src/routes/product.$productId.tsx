@@ -14,10 +14,8 @@ import {
   type ShopifyVariant,
 } from "@/lib/shopify";
 import capSizeImg from "@/assets/cap.jpeg";
+import hairLengthImg from "@/assets/hairlength.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
-
-// Hair length reference image — place hairlength.jpeg in /public and reference via path
-const HAIR_LENGTH_IMG = "/hairlength.jpeg";
 
 export const Route = createFileRoute("/product/$productId")({
   loader: async ({ params }) => {
@@ -206,7 +204,7 @@ function ProductPage() {
               {/* Hair length reference image */}
               <div className="mt-8">
                 <img
-                  src={HAIR_LENGTH_IMG}
+                  src={hairLengthImg}
                   alt="Hair length reference guide"
                   className="w-full rounded-sm opacity-90"
                   loading="lazy"
