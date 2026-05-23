@@ -22,7 +22,7 @@ export const Route = createFileRoute("/collaborate")({
   component: Collaborate,
 });
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mvzlpeqg";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mwvzbjaj";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
