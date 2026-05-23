@@ -15,7 +15,7 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/mgodwgyg";
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xaqkjzaq";
 const WHATSAPP_HREF =
   "https://wa.me/447760317678?text=Hi%20MELANV%C3%89E%2C%20I'd%20love%20to%20know%20more%20about%20your%20wigs.";
 
