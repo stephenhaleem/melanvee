@@ -181,7 +181,7 @@ function Collaborate() {
 
                 {state === "error" && (
                   <p className="text-[11px] text-rose-400 uppercase tracking-wider">
-                    Something went wrong — please email us at hello@melanvee.com
+                    Something went wrong — please email us at collab@melanvee.com
                   </p>
                 )}
 
@@ -195,8 +195,8 @@ function Collaborate() {
 
                 <p className="text-[10px] text-center text-mauve">
                   Or email us directly:{" "}
-                  <a href="mailto:hello@melanvee.com" className="text-gold">
-                    hello@melanvee.com
+                  <a href="mailto:collab@melanvee.com" className="text-gold">
+                    collab@melanvee.com
                   </a>
                 </p>
               </form>
