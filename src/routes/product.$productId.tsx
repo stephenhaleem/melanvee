@@ -201,19 +201,6 @@ function ProductPage() {
                 </div>
               ) : null}
 
-              {/* Hair length reference image */}
-              <div className="mt-8">
-                <img
-                  src={hairLengthImg}
-                  alt="Hair length reference guide"
-                  className="w-full rounded-sm opacity-90"
-                  loading="lazy"
-                />
-                <p className="mt-2 text-[10px] uppercase tracking-luxe text-mauve text-center leading-relaxed">
-                  For reference only — does not depict actual MELANVÉE products
-                </p>
-              </div>
-
               {/* Price + CTA */}
               <div className="mt-10 flex items-end justify-between border-t border-border pt-8 gap-6">
                 <div>
@@ -238,6 +225,18 @@ function ProductPage() {
               </div>
 
               <PaymentBadges className="mt-6" />
+              {/* Hair length reference image */}
+              <div className="mt-8">
+                <img
+                  src={hairLengthImg}
+                  alt="Hair length reference guide"
+                  className="w-full rounded-sm opacity-90"
+                  loading="lazy"
+                />
+                <p className="mt-2 text-[10px] uppercase tracking-luxe text-mauve text-center leading-relaxed">
+                  For reference only — does not depict actual length
+                </p>
+              </div>
             </div>
           </div>
         </div>
