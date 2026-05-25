@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
@@ -50,11 +50,20 @@ export const Route = createFileRoute("/product/$productId")({
   component: ProductPage,
 });
 
+type Tab = "features" | "how-to-wear" | "care";
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: "features", label: "Key Features" },
+  { id: "how-to-wear", label: "How to Wear" },
+  { id: "care", label: "Care" },
+];
+
 function ProductPage() {
   const { product } = Route.useLoaderData();
   const { format } = useCurrency();
   const { addToCart, loading: cartLoading } = useShopifyCart();
   const [adding, setAdding] = useState(false);
+  const [activeTab, setActiveTab] = useState<Tab>("features");
 
   const variants = getVariants(product);
   const [selectedVariant, setSelectedVariant] = useState<ShopifyVariant>(
@@ -225,143 +234,183 @@ function ProductPage() {
               </div>
 
               <PaymentBadges className="mt-6" />
-              {/* Hair length reference image */}
-              <div className="mt-8">
-                <img
-                  src={hairLengthImg}
-                  alt="Hair length reference guide"
-                  className="w-full rounded-sm opacity-90"
-                  loading="lazy"
-                />
-                <p className="mt-2 text-[10px] uppercase tracking-luxe text-mauve text-center leading-relaxed">
-                  For reference only — does not depict actual length
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stacked sections — Key Features, How to Wear, Care */}
+      {/* Tabbed sections — Key Features, How to Wear, Care */}
       <section className="py-16 bg-charcoal border-y border-border">
-        <div className="max-w-5xl mx-auto px-6 space-y-16">
-          {/* Key Features */}
-          <div>
-            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
-              Key Features
-            </p>
-            <div className="grid md:grid-cols-2 gap-10">
-              <div>
+        <div className="max-w-5xl mx-auto px-6">
+          {/* Tab Bar */}
+          <div className="flex border-b border-border mb-12">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative text-[10px] uppercase tracking-luxe px-6 py-4 transition-colors duration-300 ${
+                  activeTab === tab.id ? "text-gold" : "text-mauve hover:text-cream"
+                }`}
+              >
+                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.span
+                    layoutId="tab-underline"
+                    className="absolute bottom-0 left-0 right-0 h-px bg-gold"
+                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <AnimatePresence mode="wait">
+            {activeTab === "features" && (
+              <motion.div
+                key="features"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="grid md:grid-cols-2 gap-10"
+              >
+                <div>
+                  <ul className="space-y-3">
+                    {[
+                      "No lace, no glue",
+                      "Beginner friendly install",
+                      "Breathable for all-day wear",
+                      "100% premium virgin human hair",
+                    ].map((f) => (
+                      <li key={f} className="flex gap-3 text-mauve leading-relaxed">
+                        <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
+                  <p className="text-mauve leading-loose">
+                    Universal cap with adjustable inner straps and built-in combs.
+                  </p>
+                  <ul className="mt-4 space-y-2 text-mauve text-sm">
+                    <li className="flex gap-3 items-center">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                      Circumference: 22" / 56cm
+                    </li>
+                    <li className="flex gap-3 items-center">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                      Front to nape: 13" to 14"
+                    </li>
+                    <li className="flex gap-3 items-center">
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                      Ear to ear: 11" to 12"
+                    </li>
+                  </ul>
+                  <div className="mt-6 max-w-[260px] overflow-hidden">
+                    <img
+                      src={capSizeImg}
+                      alt="Wig cap size diagram"
+                      loading="lazy"
+                      className="w-full h-auto opacity-90"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {activeTab === "how-to-wear" && (
+              <motion.div
+                key="how-to-wear"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="max-w-3xl"
+              >
+                <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
+                  How to wear your {product.productType?.toLowerCase()}
+                </p>
+                <ol className="space-y-4">
+                  {[
+                    "Slick your hair into a low bun, or cornrow it flat. Leave a small section out at the front to blend.",
+                    "Slip her on. Adjust the inner straps until she sits snug without pressing.",
+                    "Lock her in with the built-in combs at the crown and nape.",
+                    "Smooth your leave-out through with curl custard or styling cream.",
+                    "Lay your edges, spritz a little water to wake the curls, and go.",
+                  ].map((step, idx) => (
+                    <li key={idx} className="flex gap-4 text-mauve leading-loose">
+                      <span className="font-display text-2xl text-gold flex-shrink-0 w-8">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+                <Link
+                  to="/how-to-wear"
+                  className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
+                >
+                  Full wear & care guide
+                </Link>
+              </motion.div>
+            )}
+
+            {activeTab === "care" && (
+              <motion.div
+                key="care"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25 }}
+                className="max-w-3xl"
+              >
+                <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
+                  Care recommendations
+                </p>
                 <ul className="space-y-3">
                   {[
-                    "No lace, no glue",
-                    "Beginner friendly install",
-                    "Breathable for all-day wear",
-                    "100% premium virgin human hair",
-                  ].map((f) => (
-                    <li key={f} className="flex gap-3 text-mauve leading-relaxed">
-                      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      <span>{f}</span>
+                    "Co-wash or use a sulfate-free shampoo every 2 to 3 weeks.",
+                    "Deep condition every wash. 20 to 30 minutes, rinse cool.",
+                    "Detangle damp with fingers first, then a wide-tooth comb.",
+                    "Air dry on a stand. Refresh with a water and leave-in mist.",
+                    "Sleep satin. Store on a stand, or back in her box.",
+                  ].map((c, i) => (
+                    <li key={i} className="flex gap-3 text-mauve leading-loose">
+                      <span className="mt-2.5 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                      <span>{c}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
-                <p className="text-mauve leading-loose">
-                  Universal cap with adjustable inner straps and built-in combs.
-                </p>
-                <ul className="mt-4 space-y-2 text-mauve text-sm">
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Circumference: 22" / 56cm
-                  </li>
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Front to nape: 13" to 14"
-                  </li>
-                  <li className="flex gap-3 items-center">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    Ear to ear: 11" to 12"
-                  </li>
-                </ul>
-                <div className="mt-6 max-w-[260px] overflow-hidden">
-                  <img
-                    src={capSizeImg}
-                    alt="Wig cap size diagram"
-                    loading="lazy"
-                    className="w-full h-auto opacity-90"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
+                <Link
+                  to="/how-to-wear"
+                  className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
+                >
+                  Full wear & care guide
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
 
-          {/* How to Wear */}
-          <div>
-            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
-              How to Wear
-            </p>
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
-                How to wear your {product.productType?.toLowerCase()}
-              </p>
-              <ol className="space-y-4">
-                {[
-                  "Slick your hair into a low bun, or cornrow it flat. Leave a small section out at the front to blend.",
-                  "Slip her on. Adjust the inner straps until she sits snug without pressing.",
-                  "Lock her in with the built-in combs at the crown and nape.",
-                  "Smooth your leave-out through with curl custard or styling cream.",
-                  "Lay your edges, spritz a little water to wake the curls, and go.",
-                ].map((step, idx) => (
-                  <li key={idx} className="flex gap-4 text-mauve leading-loose">
-                    <span className="font-display text-2xl text-gold flex-shrink-0 w-8">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <span>{step}</span>
-                  </li>
-                ))}
-              </ol>
-              <Link
-                to="/how-to-wear"
-                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
-              >
-                Full wear & care guide
-              </Link>
-            </div>
-          </div>
-
-          {/* Care */}
-          <div>
-            <p className="text-xs uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
-              Care
-            </p>
-            <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-luxe text-mauve mb-6">
-                Care recommendations
-              </p>
-              <ul className="space-y-3">
-                {[
-                  "Co-wash or use a sulfate-free shampoo every 2 to 3 weeks.",
-                  "Deep condition every wash. 20 to 30 minutes, rinse cool.",
-                  "Detangle damp with fingers first, then a wide-tooth comb.",
-                  "Air dry on a stand. Refresh with a water and leave-in mist.",
-                  "Sleep satin. Store on a stand, or back in her box.",
-                ].map((c, i) => (
-                  <li key={i} className="flex gap-3 text-mauve leading-loose">
-                    <span className="mt-2.5 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                    <span>{c}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/how-to-wear"
-                className="mt-8 inline-flex text-xs uppercase tracking-luxe text-gold border-b border-gold/40"
-              >
-                Full wear & care guide
-              </Link>
-            </div>
-          </div>
+      {/* Hair length reference — last thing users see */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-[10px] uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
+            Length Reference
+          </p>
+          <img
+            src={hairLengthImg}
+            alt="Hair length reference guide"
+            className="w-full rounded-sm opacity-90"
+            loading="lazy"
+          />
+          <p className="mt-4 text-[10px] uppercase tracking-luxe text-mauve text-center leading-relaxed">
+            For reference only — does not depict actual length
+          </p>
         </div>
       </section>
     </Layout>
