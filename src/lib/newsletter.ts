@@ -1,13 +1,8 @@
-/**
- * MELANVÉE — Klaviyo newsletter signup
- * Uses Klaviyo's v3 client-side Subscribe API (public key only, no server needed)
- *
- * The client/subscriptions endpoint does NOT accept a `subscriptions` field —
- * email consent is implied by the call itself. Just profile email + list relationship.
- */
-
 const KLAVIYO_PUBLIC_KEY = "U3UEq8";
-const KLAVIYO_LIST_ID = "XQSGhF";
+const KLAVIYO_LISTS: Record<"homepage" | "popup", string> = {
+  homepage: "XQSGhF",
+  popup: "WEMkLX",
+};
 
 export async function subscribeToNewsletter(
   email: string,
@@ -40,7 +35,7 @@ export async function subscribeToNewsletter(
               list: {
                 data: {
                   type: "list",
-                  id: KLAVIYO_LIST_ID,
+                  id: KLAVIYO_LISTS[source],
                 },
               },
             },

@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { useCurrency } from "@/lib/currency";
@@ -9,6 +9,7 @@ import { showToast } from "@/components/ToastHost";
 import {
   getProductByHandle,
   getVariants,
+  findVariant,
   parsePrice,
   type ShopifyProduct,
   type ShopifyVariant,
@@ -70,7 +71,21 @@ function ProductPage() {
     variants.find((v) => v.availableForSale) ?? variants[0],
   );
 
-  // Find the "Length" option if it exists
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>(() => {
+    const sv = variants.find((v) => v.availableForSale) ?? variants[0];
+    const map: Record<string, string> = {};
+    sv.selectedOptions.forEach((o) => (map[o.name] = o.value));
+    product.options.forEach((opt) => {
+      if (!map[opt.name]) map[opt.name] = opt.values[0];
+    });
+    return map;
+  });
+
+  useEffect(() => {
+    const found = findVariant(product, selectedOptions);
+    if (found) setSelectedVariant(found);
+  }, [selectedOptions, product]);
+
   const lengthOption = product.options.find(
     (o) => o.name.toLowerCase() === "length" || o.name.toLowerCase() === "size",
   );
@@ -91,7 +106,6 @@ function ProductPage() {
 
   const price = parsePrice(selectedVariant.price.amount);
 
-  // Get texture from productType or tags
   const textureBadge =
     product.productType ||
     product.tags.find((t) => t.startsWith("texture:"))?.replace("texture:", "") ||
@@ -111,7 +125,6 @@ function ProductPage() {
           </nav>
 
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start">
-            {/* Image */}
             <motion.div
               initial={{ opacity: 0, scale: 1.03 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -124,7 +137,6 @@ function ProductPage() {
               />
             </motion.div>
 
-            {/* Details */}
             <div>
               <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
                 {product.productType}
@@ -136,7 +148,6 @@ function ProductPage() {
 
               <p className="mt-8 text-mauve leading-loose">{product.description}</p>
 
-              {/* Tags as feature badges */}
               {product.tags.length > 0 && (
                 <div className="mt-8 flex flex-wrap gap-2">
                   {product.tags
@@ -152,36 +163,39 @@ function ProductPage() {
                 </div>
               )}
 
-              {/* Variant / Length picker */}
-              {lengthOption ? (
+              {product.options.length > 0 ? (
                 <div className="mt-10">
-                  <p className="text-xs uppercase tracking-luxe text-cream mb-4">
-                    {lengthOption.name}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {variants.map((v) => {
-                      const active = v.id === selectedVariant?.id;
-                      const lengthVal = v.selectedOptions.find(
-                        (o) => o.name.toLowerCase() === "length" || o.name.toLowerCase() === "size",
-                      )?.value;
-                      return (
-                        <button
-                          key={v.id}
-                          onClick={() => setSelectedVariant(v)}
-                          disabled={!v.availableForSale}
-                          className={`text-xs uppercase tracking-wider px-4 py-2 border transition-all ${
-                            active
-                              ? "bg-gold text-primary-foreground border-gold"
-                              : v.availableForSale
-                                ? "bg-transparent text-mauve border-border hover:border-gold hover:text-gold"
-                                : "bg-transparent text-mauve/40 border-border/40 cursor-not-allowed line-through"
-                          }`}
-                        >
-                          {lengthVal ?? v.title}
-                        </button>
-                      );
-                    })}
-                  </div>
+                  {product.options.map((option) => (
+                    <div key={option.name} className="mb-6">
+                      <p className="text-xs uppercase tracking-luxe text-cream mb-4">
+                        {option.name}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {option.values.map((val) => {
+                          const active = selectedOptions[option.name] === val;
+                          const candidate = { ...selectedOptions, [option.name]: val };
+                          const variantForVal = findVariant(product, candidate);
+                          const available = variantForVal ? variantForVal.availableForSale : false;
+                          return (
+                            <button
+                              key={val}
+                              onClick={() => setSelectedOptions((s) => ({ ...s, [option.name]: val }))}
+                              disabled={!available}
+                              className={`text-xs uppercase tracking-wider px-4 py-2 border transition-all ${
+                                active
+                                  ? "bg-gold text-primary-foreground border-gold"
+                                  : available
+                                    ? "bg-transparent text-mauve border-border hover:border-gold hover:text-gold"
+                                    : "bg-transparent text-mauve/40 border-border/40 cursor-not-allowed line-through"
+                              }`}
+                            >
+                              {val}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : variants.length > 1 ? (
                 <div className="mt-10">
@@ -210,7 +224,6 @@ function ProductPage() {
                 </div>
               ) : null}
 
-              {/* Price + CTA */}
               <div className="mt-10 flex items-end justify-between border-t border-border pt-8 gap-6">
                 <div>
                   <p className="text-[10px] uppercase tracking-luxe text-mauve mb-1">
@@ -239,10 +252,8 @@ function ProductPage() {
         </div>
       </section>
 
-      {/* Tabbed sections — Key Features, How to Wear, Care */}
       <section className="py-16 bg-charcoal border-y border-border">
         <div className="max-w-5xl mx-auto px-6">
-          {/* Tab Bar */}
           <div className="flex border-b border-border mb-12">
             {TABS.map((tab) => (
               <button
@@ -264,7 +275,6 @@ function ProductPage() {
             ))}
           </div>
 
-          {/* Tab Content */}
           <AnimatePresence mode="wait">
             {activeTab === "features" && (
               <motion.div
@@ -396,7 +406,6 @@ function ProductPage() {
         </div>
       </section>
 
-      {/* Hair length reference — last thing users see */}
       <section className="py-16">
         <div className="max-w-5xl mx-auto px-6">
           <p className="text-[10px] uppercase tracking-luxe text-gold mb-8 pb-4 border-b border-border">
