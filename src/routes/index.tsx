@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { Reviews } from "@/components/Reviews";
-import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
+import { getCollections, type ShopifyCollection } from "@/lib/shopify";
 import { subscribeToNewsletter } from "@/lib/newsletter";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/3.jpeg";
@@ -96,10 +96,10 @@ function NewsletterForm() {
 }
 
 function Home() {
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
 
   useEffect(() => {
-    getProducts(3).then(setProducts).catch(console.error);
+    getCollections(6).then(setCollections).catch(console.error);
   }, []);
 
   return (
@@ -200,22 +200,22 @@ function Home() {
             </p>
           </motion.div>
 
-          {products.length > 0 ? (
+          {collections.length > 0 ? (
             <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-              {products.map((p, i) => (
+              {collections.map((c, i) => (
                 <motion.div
-                  key={p.id}
+                  key={c.id}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                   className="group"
                 >
-                  <Link to="/product/$productId" params={{ productId: p.handle }} className="block">
+                  <Link to="/collection/$collectionHandle" params={{ collectionHandle: c.handle }} className="block">
                     <div className="aspect-[3/4] overflow-hidden bg-card relative">
                       <img
-                        src={getProductImage(p)}
-                        alt={p.images.edges[0]?.node.altText ?? p.title}
+                        src={c.image?.url ?? '/assets/hero.jpg'}
+                        alt={c.image?.altText ?? c.title}
                         loading="lazy"
                         width={1024}
                         height={1280}
@@ -224,17 +224,13 @@ function Home() {
                     </div>
                     <div className="pt-6 flex justify-between items-start">
                       <div>
-                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
-                          N° 0{i + 1}
-                        </p>
+                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">· Collection</p>
                         <h3 className="font-display text-2xl text-cream group-hover:text-gold transition-colors duration-300">
-                          {p.title}
+                          {c.title}
                         </h3>
-                        <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
+                        <p className="text-sm text-mauve mt-1 line-clamp-1">{c.description}</p>
                       </div>
-                      <p className="font-sans text-lg text-gold whitespace-nowrap">
-                        from £{getStartingPrice(p).toFixed(0)}
-                      </p>
+                      <p className="font-sans text-lg text-gold whitespace-nowrap">View</p>
                     </div>
                   </Link>
                 </motion.div>

@@ -228,6 +228,56 @@ export async function getCollectionProducts(handle: string, first = 20): Promise
   return data.collection?.products.edges.map((e) => e.node) ?? [];
 }
 
+export type ShopifyCollection = {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  image?: ShopifyImage | null;
+};
+
+export async function getCollections(first = 10): Promise<ShopifyCollection[]> {
+  const query = `
+    query GetCollections($first: Int!) {
+      collections(first: $first) {
+        edges {
+          node {
+            id
+            handle
+            title
+            description
+            image { url altText width height }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch<{ collections: { edges: { node: ShopifyCollection }[] } }>(
+    query,
+    { first },
+  );
+
+  return data.collections.edges.map((e) => e.node);
+}
+
+export async function getCollection(handle: string): Promise<ShopifyCollection | null> {
+  const query = `
+    query GetCollectionMeta($handle: String!) {
+      collection(handle: $handle) {
+        id
+        handle
+        title
+        description
+        image { url altText width height }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch<{ collection: ShopifyCollection | null }>(query, { handle });
+  return data.collection;
+}
+
 export async function createCart(
   lines?: { merchandiseId: string; quantity: number }[],
 ): Promise<ShopifyCart> {
