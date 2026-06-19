@@ -211,7 +211,7 @@ function Home() {
                   transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                   className="group"
                 >
-                  <Link to="/collection/$collectionHandle" params={{ collectionHandle: c.handle }} className="block">
+                  <Link to={`/collection?handle=${encodeURIComponent(c.handle)}`} className="block">
                     <div className="aspect-[3/4] overflow-hidden bg-card relative">
                       <img
                         src={c.image?.url ?? '/assets/hero.jpg'}

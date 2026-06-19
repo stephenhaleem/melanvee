@@ -3,7 +3,14 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { useCurrency } from "@/lib/currency";
-import { getProducts, getProductImage, getStartingPrice, type ShopifyProduct } from "@/lib/shopify";
+import {
+  getProducts,
+  getCollection,
+  getCollectionProducts,
+  getProductImage,
+  getStartingPrice,
+  type ShopifyProduct,
+} from "@/lib/shopify";
 
 export const Route = createFileRoute("/collection")({
   head: () => ({
@@ -27,14 +34,43 @@ export const Route = createFileRoute("/collection")({
 function Collection() {
   const { format } = useCurrency();
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [title, setTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  async function loadForHandle(handle: string | null) {
+    setLoading(true);
+    setError(null);
+    try {
+      if (handle) {
+        const meta = await getCollection(handle);
+        if (meta) setTitle(meta.title);
+        const prods = await getCollectionProducts(handle, 50);
+        setProducts(prods);
+      } else {
+        setTitle(null);
+        const prods = await getProducts(20);
+        setProducts(prods);
+      }
+    } catch (err: any) {
+      setError(err?.message ?? String(err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
-    getProducts(20)
-      .then(setProducts)
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+    const params = new URLSearchParams(window.location.search);
+    const handle = params.get("handle");
+    loadForHandle(handle);
+
+    const onPop = () => {
+      const p = new URLSearchParams(window.location.search);
+      loadForHandle(p.get("handle"));
+    };
+
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   return (
