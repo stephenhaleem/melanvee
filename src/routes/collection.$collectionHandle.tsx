@@ -58,7 +58,7 @@ function CollectionPage() {
           )}
 
           {products.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
               {products.map((p, i) => (
                 <motion.article
                   key={p.id}

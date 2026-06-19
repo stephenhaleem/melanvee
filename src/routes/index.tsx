@@ -16,12 +16,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Half wigs and U-part wigs in true 4A to 4C textures. No lace, no glue, undetectable and made to feel like yours.",
+          "Half wigs and U-part wigs in true 3A to 4C textures. No lace, no glue, undetectable and made to feel like yours.",
       },
       { property: "og:title", content: "MELANVÉE · Made to feel like yours" },
       {
         property: "og:description",
-        content: "Luxury textured wigs for women of colour. 4A to 4C.",
+        content: "Luxury textured wigs for women of colour. 3A to 4C.",
       },
       { property: "og:image", content: heroImg },
       { name: "twitter:card", content: "summary_large_image" },
@@ -138,7 +138,7 @@ function Home() {
               variants={fade}
               className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
             >
-              Half wigs and U-part wigs designed for 4A to 4C textures. True to your hair, easy to
+              Half wigs and U-part wigs designed for 3A to 4C textures. True to your hair, easy to
               wear, and so natural no one has to know.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
@@ -171,7 +171,7 @@ function Home() {
           <span className="text-gold">▪</span>
           <span>U-Part Wigs</span>
           <span className="text-gold">▪</span>
-          <span>4A to 4C Textures</span>
+          <span>3A to 4C Textures</span>
           <span className="text-gold">▪</span>
           <span>Worldwide Shipping</span>
         </div>
@@ -214,7 +214,7 @@ function Home() {
                   <Link to={`/collection?handle=${encodeURIComponent(c.handle)}`} className="block">
                     <div className="aspect-[3/4] overflow-hidden bg-card relative">
                       <img
-                        src={c.image?.url ?? '/assets/hero.jpg'}
+                        src={c.image?.url ?? "/assets/hero.jpg"}
                         alt={c.image?.altText ?? c.title}
                         loading="lazy"
                         width={1024}
@@ -224,7 +224,9 @@ function Home() {
                     </div>
                     <div className="pt-6 flex justify-between items-start">
                       <div>
-                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">· Collection</p>
+                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
+                          · Collection
+                        </p>
                         <h3 className="font-display text-2xl text-cream group-hover:text-gold transition-colors duration-300">
                           {c.title}
                         </h3>

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/collection")({
       { property: "og:title", content: "The MELANVÉE Collection" },
       {
         property: "og:description",
-        content: "Half wigs and U-part wigs in true 4A to 4C textures.",
+        content: "Half wigs and U-part wigs in true 3A to 4C textures.",
       },
     ],
   }),
@@ -90,7 +90,7 @@ function Collection() {
       <section className="pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {loading && (
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
               {[1, 2, 3].map((n) => (
                 <div key={n} className="animate-pulse">
                   <div className="aspect-[3/4] bg-charcoal" />
@@ -119,7 +119,7 @@ function Collection() {
           )}
 
           {!loading && products.length > 0 && (
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
               {products.map((p, i) => (
                 <motion.article
                   key={p.id}

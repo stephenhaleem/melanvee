@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     q: "When will Type 3 (looser curl) textures launch?",
-    a: "We are starting with 4A to 4C because that is where the gap is widest. Type 3 textures are on the roadmap. Join the mailing list to be first to know.",
+    a: "We are starting with 3A to 4C because that is where the gap is widest. Type 3 textures are on the roadmap. Join the mailing list to be first to know.",
   },
 ];
 
@@ -79,7 +79,8 @@ function FAQ() {
           Asked & <em className="italic text-gradient-rose">answered</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Still wondering something? WhatsApp us Monday to Friday, or email us any time at hello@melanvee.com.
+          Still wondering something? WhatsApp us Monday to Friday, or email us any time at
+          hello@melanvee.com.
         </p>
       </section>
 
@@ -97,15 +98,13 @@ function FAQ() {
                   <span className="font-display text-lg md:text-xl text-cream group-hover:text-gold transition-colors">
                     {f.q}
                   </span>
-                  <span className={`text-gold text-2xl leading-none transition-transform ${isOpen ? "rotate-45" : ""}`}>
+                  <span
+                    className={`text-gold text-2xl leading-none transition-transform ${isOpen ? "rotate-45" : ""}`}
+                  >
                     +
                   </span>
                 </button>
-                {isOpen && (
-                  <p className="text-mauve leading-loose pb-6 -mt-2 max-w-prose">
-                    {f.a}
-                  </p>
-                )}
+                {isOpen && <p className="text-mauve leading-loose pb-6 -mt-2 max-w-prose">{f.a}</p>}
               </div>
             );
           })}

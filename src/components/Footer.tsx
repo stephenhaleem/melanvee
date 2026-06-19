@@ -25,7 +25,7 @@ export function Footer() {
             Made to feel like yours.
           </p>
           <p className="mt-4 text-sm max-w-sm leading-relaxed" style={{ color: MAUVE }}>
-            Half wigs and U-part wigs for women of colour. True 4A to 4C textures.
+            Half wigs and U-part wigs for women of colour. True 3A to 4C textures.
           </p>
           <div className="mt-6 flex items-center gap-3">
             <Social href={IG_URL} label="Instagram">

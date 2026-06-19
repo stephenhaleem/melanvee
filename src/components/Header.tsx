@@ -42,10 +42,10 @@ export function Header() {
           style={{ color: PINK }}
         >
           Free UK &amp; international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium
-          virgin human hair &nbsp;&nbsp;·&nbsp;&nbsp; True 4A to 4C textures
+          virgin human hair &nbsp;&nbsp;·&nbsp;&nbsp; True 3A to 4C textures
           &nbsp;&nbsp;·&nbsp;&nbsp; No lace · No glue &nbsp;&nbsp;·&nbsp;&nbsp; Free UK &amp;
           international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium virgin human
-          hair &nbsp;&nbsp;·&nbsp;&nbsp; True 4A to 4C textures &nbsp;&nbsp;·&nbsp;&nbsp; No lace ·
+          hair &nbsp;&nbsp;·&nbsp;&nbsp; True 3A to 4C textures &nbsp;&nbsp;·&nbsp;&nbsp; No lace ·
           No glue &nbsp;&nbsp;·&nbsp;&nbsp;
         </div>
       </div>
