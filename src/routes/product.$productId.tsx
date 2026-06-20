@@ -17,6 +17,7 @@ import {
 import capSizeImg from "@/assets/cap.jpeg";
 import hairLengthImg from "@/assets/hairlength.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
+import { ProductReviews } from "@/components/ProductReviews";
 
 export const Route = createFileRoute("/product/$productId")({
   loader: async ({ params }) => {
@@ -179,7 +180,9 @@ function ProductPage() {
                           return (
                             <button
                               key={val}
-                              onClick={() => setSelectedOptions((s) => ({ ...s, [option.name]: val }))}
+                              onClick={() =>
+                                setSelectedOptions((s) => ({ ...s, [option.name]: val }))
+                              }
                               disabled={!available}
                               className={`text-xs uppercase tracking-wider px-4 py-2 border transition-all ${
                                 active
@@ -254,7 +257,8 @@ function ProductPage() {
 
       <section className="py-16 bg-charcoal border-y border-border">
         <div className="max-w-5xl mx-auto px-6">
-          <div className="flex border-b border-border mb-12">
+          <ProductReviews productId={product.handle} productName={product.title} />
+          <div className="flex border-b border-border mb-12 flex-wrap">
             {TABS.map((tab) => (
               <button
                 key={tab.id}
@@ -402,6 +406,7 @@ function ProductPage() {
                 </Link>
               </motion.div>
             )}
+
           </AnimatePresence>
         </div>
       </section>
