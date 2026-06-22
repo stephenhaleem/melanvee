@@ -13,14 +13,12 @@ const nav = [
 ] as const;
 
 const BRAND = "M E L A N V É E";
-const PINK = "#E8938A";
-const PINK_D = "#D4706A";
-const CREAM = "#F0E6DC";
-const MAUVE = "#c9b5a8";
-const DARK = "#1e1009";
-const SURFACE = "#2a1810";
-const COCOA = "#7A5F55";
-const BORDER = "rgba(240,230,220,0.1)";
+const CREAM = "var(--ivory)";
+const MAUVE = "var(--mauve)";
+const DARK = "var(--burgundy)";
+const SURFACE = "var(--burgundy)";
+const COCOA = "var(--burgundy)";
+const BORDER = "rgba(255,243,229,0.1)";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -39,7 +37,7 @@ export function Header() {
       <div style={{ backgroundColor: COCOA }} className="overflow-hidden py-[9px]">
         <div
           className="animate-marquee whitespace-nowrap inline-block text-[10px] uppercase tracking-luxe"
-          style={{ color: PINK }}
+          style={{ color: CREAM }}
         >
           Free UK &amp; international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium
           virgin human hair &nbsp;&nbsp;·&nbsp;&nbsp; True 3A to 4C textures
@@ -53,7 +51,7 @@ export function Header() {
       {/* Main navbar */}
       <div
         style={{
-          backgroundColor: scrolled ? "rgba(30,16,9,0.97)" : "rgba(30,16,9,0.75)",
+          backgroundColor: scrolled ? "rgba(72,12,20,0.97)" : "rgba(72,12,20,0.75)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           borderBottom: `1px solid ${BORDER}`,
@@ -67,7 +65,7 @@ export function Header() {
             <span
               className="font-display text-base md:text-xl tracking-[0.3em] transition-colors duration-300"
               style={{ color: CREAM }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = PINK)}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--secondary)")}
               onMouseLeave={(e) => ((e.target as HTMLElement).style.color = CREAM)}
             >
               {BRAND}
@@ -81,16 +79,16 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
-                style={{ color: MAUVE }}
-                activeProps={{ style: { color: CREAM } }}
+                style={{ color: CREAM }}
+                activeProps={{ style: { color: "var(--secondary)" } }}
                 activeOptions={{ exact: true }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
               >
                 {item.label}
                 <span
                   className="absolute bottom-[-3px] left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: PINK }}
+                  style={{ backgroundColor: "var(--secondary)" }}
                 />
               </Link>
             ))}
@@ -101,18 +99,18 @@ export function Header() {
             <Link
               to="/collection"
               className="hidden lg:inline-flex items-center text-[11px] uppercase tracking-luxe px-5 py-2.5 transition-all duration-200"
-              style={{ backgroundColor: PINK, color: DARK }}
+              style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
               onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLElement).style.backgroundColor = PINK_D)
+                ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--cream-warm)")
               }
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = PINK)}
+              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--secondary)")}
             >
               Shop Now
             </Link>
 
             <span
               style={{ color: CREAM }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = PINK)}
+              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
               className="transition-colors duration-200"
             >
@@ -163,7 +161,7 @@ export function Header() {
               to="/collection"
               onClick={() => setOpen(false)}
               className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe px-5 py-2.5 hover:opacity-85 transition-opacity"
-              style={{ backgroundColor: PINK, color: DARK }}
+              style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
             >
               Shop Now
             </Link>

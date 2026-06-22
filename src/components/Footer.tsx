@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { CurrencySwitcher } from "./CurrencySwitcher";
 
-const PINK = "#E8938A";
-const CREAM = "#F0E6DC";
-const MAUVE = "#c9b5a8";
-const SURFACE = "#2a1810";
-const BORDER = "rgba(240,230,220,0.1)";
+const CREAM = "var(--ivory)";
+const MAUVE = "var(--secondary)";
+const SURFACE = "var(--burgundy)";
+const BORDER = "rgba(255,243,229,0.1)";
 
 const IG_URL = "https://instagram.com/melanvee.hair";
 const TIKTOK_URL = "https://tiktok.com/@melanvee";
@@ -13,15 +12,15 @@ const TIKTOK_URL = "https://tiktok.com/@melanvee";
 export function Footer() {
   return (
     <footer
-      className="mt-32"
-      style={{ backgroundColor: SURFACE, borderTop: `1px solid ${BORDER}` }}
+      className="mt-32 site-footer"
+      style={{ backgroundColor: "var(--burgundy)", borderTop: `1px solid ${BORDER}` }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
           <p className="font-display text-2xl tracking-[0.25em]" style={{ color: CREAM }}>
             M E L A N V É E
           </p>
-          <p className="mt-4 italic font-display text-lg" style={{ color: PINK }}>
+          <p className="mt-4 italic font-display text-lg" style={{ color: "var(--secondary)" }}>
             Made to feel like yours.
           </p>
           <p className="mt-4 text-sm max-w-sm leading-relaxed" style={{ color: MAUVE }}>
@@ -52,7 +51,7 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: PINK }}>
+          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: "var(--secondary)" }}>
             Explore
           </p>
           <ul className="space-y-3 text-sm">
@@ -71,8 +70,6 @@ export function Footer() {
                   to={to as any}
                   className="transition-colors duration-200"
                   style={{ color: MAUVE }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
                 >
                   {label}
                 </Link>
@@ -82,14 +79,14 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: PINK }}>
+          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: "var(--secondary)" }}>
             Contact
           </p>
           <ul className="space-y-3 text-sm" style={{ color: MAUVE }}>
             <li>customercare@melanvee.com</li>
             <li>
               woman@melanvee.com{" "}
-              <span className="text-[10px] uppercase tracking-wider" style={{ color: PINK }}>
+              <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--secondary)" }}>
                 (collabs)
               </span>
             </li>
@@ -155,18 +152,8 @@ function Social({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="w-10 h-10 inline-flex items-center justify-center transition-colors duration-200"
-      style={{ border: `1px solid rgba(240,230,220,0.15)`, color: CREAM }}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.color = PINK;
-        el.style.borderColor = PINK;
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLElement;
-        el.style.color = CREAM;
-        el.style.borderColor = "rgba(240,230,220,0.15)";
-      }}
+      className="w-10 h-10 inline-flex items-center justify-center transition-colors duration-200 social-link"
+      style={{ border: `1px solid rgba(255,243,229,0.15)`, color: CREAM }}
     >
       {children}
     </a>

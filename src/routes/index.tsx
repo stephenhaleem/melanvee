@@ -126,7 +126,7 @@ function Home() {
             className="max-w-2xl"
           >
             <motion.p variants={fade} className="text-xs uppercase tracking-luxe text-gold mb-6">
-              · The Inaugural Collection
+              · The Collection
             </motion.p>
             <motion.h1
               variants={fade}
@@ -190,8 +190,7 @@ function Home() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">· The Collection</p>
               <h2 className="font-display text-4xl md:text-6xl text-cream max-w-xl leading-tight">
-                The founding{" "}
-                <em className="text-gradient-rose not-italic font-normal italic">collection</em>.
+                The<em className="italic text-gradient-rose">collection</em>.
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
