@@ -158,10 +158,6 @@ function Home() {
             </motion.div>
           </motion.div>
         </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-luxe text-mauve">
-          Scroll
-        </div>
       </section>
 
       {/* MARQUEE */}
@@ -169,7 +165,7 @@ function Home() {
         <div className="flex justify-center items-center gap-8 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
           <span>Half Wigs</span>
           <span className="text-gold">▪</span>
-          <span>U-Part Wigs</span>
+          <span>V/U-Part Wigs</span>
           <span className="text-gold">▪</span>
           <span>3A to 4C Textures</span>
           <span className="text-gold">▪</span>
