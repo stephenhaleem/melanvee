@@ -118,15 +118,15 @@ export const products: Product[] = [
     lengths: buildLengths(149),
   },
   {
-    id: "lola-bouncy",
-    name: "Lola Bouncy",
+    id: "Layla-bouncy",
+    name: "Layla Bouncy",
     type: "U-Part Wig",
     texture: "Loose Wave",
     tagline: "Voluminous bouncy waves",
     shortDescription:
-      "Lola is bounce, body and movement. Soft loose waves with weightless volume, made to swing, catch light and feel effortlessly glamorous.",
+      "Layla is bounce, body and movement. Soft loose waves with weightless volume, made to swing, catch light and feel effortlessly glamorous.",
     longDescription:
-      "Lola Bouncy is our wave piece. A different mood from Kimi and Zora: where they hold a defined coil, Lola flows. Soft, loose, body-rich waves with the kind of bounce that moves when you move. Built as a U-part so you can pull your own hair through and blend seamlessly, she gives you full wig fullness with slip-on ease. The piece you reach for when you want to feel a little more put together without overthinking it.",
+      "Layla Bouncy is our wave piece. A different mood from Kimi and Zora: where they hold a defined coil, Layla flows. Soft, loose, body-rich waves with the kind of bounce that moves when you move. Built as a U-part so you can pull your own hair through and blend seamlessly, she gives you full wig fullness with slip-on ease. The piece you reach for when you want to feel a little more put together without overthinking it.",
     blendsWith: ["Short hair", "Long hair", "Relaxed hair", "Natural hair"],
     startingPriceGBP: 155,
     image: product3,

@@ -21,7 +21,7 @@ export const Route = createFileRoute("/faq")({
 const faqs = [
   {
     q: "How do I know which texture is right for me?",
-    a: "Kimi Curl matches 4A to 4B (soft springy curls). Zora Coil matches 4B to 4C (tighter, fuller afro coils). Lola Bouncy is a loose wave for anyone wanting soft volume. Visit our Texture Guide, or WhatsApp us a photo and we will match you.",
+    a: "Kimi Curl matches 4A to 4B (soft springy curls). Zora Coil matches 4B to 4C (tighter, fuller afro coils). Layla Bouncy is a loose wave for anyone wanting soft volume. Visit our Texture Guide, or WhatsApp us a photo and we will match you.",
   },
   {
     q: "Do these have lace? Do I need glue?",

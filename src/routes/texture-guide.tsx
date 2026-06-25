@@ -45,8 +45,8 @@ const types = [
     code: "Wave",
     name: "Loose Wave",
     desc: "Soft, bouncy S-waves with body and movement. For anyone wanting weightless volume and relaxed glamour.",
-    match: "lola-bouncy",
-    matchName: "Lola Bouncy",
+    match: "Layla-bouncy",
+    matchName: "Layla Bouncy",
   },
 ];
 
