@@ -47,7 +47,7 @@ function Policies() {
       <section className="py-20 md:py-28 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-5">— The Fine Print</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
-          Our <em className="italic text-gradient-rose">policies</em>.
+          Our <em className="italic text-gradient-blush">policies</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
           Clear, fair, written without jargon. Questions? WhatsApp us.

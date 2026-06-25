@@ -14,27 +14,24 @@ const reviews: Review[] = [
     name: "Amara O.",
     initials: "AO",
     texture: "4B natural",
-    product: "Zora Coil 18\"",
-    text:
-      "I cried. I have not seen a wig match my actual hair this well — ever. My coworkers couldn't tell. My mum couldn't tell. Worth every penny.",
+    product: 'Zora Coil 18"',
+    text: "I cried. I have not seen a wig match my actual hair this well — ever. My coworkers couldn't tell. My mum couldn't tell. Worth every penny.",
     rating: 5,
   },
   {
     name: "Tolu B.",
     initials: "TB",
     texture: "4A natural",
-    product: "Kimi Curl 20\"",
-    text:
-      "Finally a 'curly' wig that actually looks like Black hair. The blend with my own leave-out is undetectable. Slipped it on in five minutes.",
+    product: 'Kimi Curl 20"',
+    text: "Finally a 'curly' wig that actually looks like Black hair. The blend with my own leave-out is undetectable. Slipped it on in five minutes.",
     rating: 5,
   },
   {
     name: "Naomi K.",
     initials: "NK",
     texture: "Relaxed",
-    product: "Lola Bouncy 22\"",
-    text:
-      "The waves are so soft. I sleep in this thing. Already on my second one — bought a longer length for a wedding.",
+    product: 'Lola Bouncy 22"',
+    text: "The waves are so soft. I sleep in this thing. Already on my second one — bought a longer length for a wedding.",
     rating: 5,
   },
 ];
@@ -43,7 +40,9 @@ function Stars({ n }: { n: number }) {
   return (
     <div className="flex gap-0.5 text-gold" aria-label={`${n} out of 5`}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} className={i < n ? "" : "opacity-25"}>★</span>
+        <span key={i} className={i < n ? "" : "opacity-25"}>
+          ★
+        </span>
       ))}
     </div>
   );
@@ -57,7 +56,7 @@ export function Reviews() {
           <div>
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— She Said</p>
             <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight max-w-2xl">
-              Real women. <em className="italic text-gradient-rose">Real hair.</em>
+              Real women. <em className="italic text-gradient-blush">Real hair.</em>
             </h2>
           </div>
           <div className="flex items-center gap-4">

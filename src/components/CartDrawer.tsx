@@ -4,12 +4,12 @@ import { useCurrency } from "@/lib/currency";
 
 const PINK = "#E8938A";
 const PINK_D = "#D4706A";
-const CREAM = "#F0E6DC";
-const MAUVE = "#c9b5a8";
-const DARK = "#1e1009";
-const SURFACE = "#2a1810";
-const SURFACE2 = "#352219";
-const BORDER = "rgba(240,230,220,0.1)";
+const CREAM = "#F5E6D3";
+const MAUVE = "#D4B8A0";
+const DARK = "#3D0B12";
+const SURFACE = "#4A0F19";
+const SURFACE2 = "#480C14";
+const BORDER = "rgba(255,243,229,0.1)";
 
 export function CartIcon({ count }: { count: number }) {
   return (

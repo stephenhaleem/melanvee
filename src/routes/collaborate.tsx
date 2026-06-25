@@ -71,7 +71,7 @@ function Collaborate() {
       <section className="py-24 md:py-32 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Work with us</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-[1] max-w-4xl mx-auto px-6">
-          Women supporting <em className="italic text-gradient-rose">women</em>.
+          Women supporting <em className="italic text-gradient-blush">women</em>.
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
           MELANVÉE is built by women, for women — and we want to grow with you. Whether you create
@@ -103,7 +103,7 @@ function Collaborate() {
           <div className="text-center mb-12">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— Apply</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
-              Tell us <em className="italic text-gradient-rose">about you</em>.
+              Tell us <em className="italic text-gradient-blush">about you</em>.
             </h2>
             <p className="mt-4 text-mauve">We read every application. Reply within 5–7 days.</p>
           </div>

@@ -71,7 +71,7 @@ function NewsletterForm() {
       <button
         type="submit"
         disabled={state === "loading" || state === "success"}
-        className="bg-gold text-primary-foreground px-8 py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-gold text-primary-foreground px-8 py-3 text-xs uppercase tracking-luxe hover:shadow-blush-glow transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {state === "loading" ? "Subscribing…" : state === "success" ? "Subscribed ✓" : "Subscribe"}
       </button>
@@ -87,7 +87,7 @@ function NewsletterForm() {
         </p>
       )}
       {state === "error" && (
-        <p className="w-full text-[11px] uppercase tracking-luxe text-rose-400 -mt-2">
+        <p className="w-full text-[11px] uppercase tracking-luxe text-blush-400 -mt-2">
           Something went wrong — please try again.
         </p>
       )}
@@ -132,19 +132,19 @@ function Home() {
               variants={fade}
               className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-white"
             >
-              Made to feel <span className="italic text-gradient-rose">like yours</span>.
+              Made to feel <span className="italic text-gradient-blush">like yours</span>.
             </motion.h1>
             <motion.p
               variants={fade}
               className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
             >
-              Half wigs and U-part wigs designed for 3A to 4C textures. True to your hair, easy to
+              Half wigs and V/U-part wigs designed for 3A to 4C textures. True to your hair, easy to
               wear, and so natural no one has to know.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
               <Link
                 to="/collection"
-                className="inline-flex items-center gap-3 bg-gold text-primary-foreground px-8 py-4 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition-all duration-500"
+                className="inline-flex items-center gap-3 bg-gold text-primary-foreground px-8 py-4 text-xs uppercase tracking-luxe hover:shadow-blush-glow transition-all duration-500"
               >
                 Shop the Collection
                 <span aria-hidden>→</span>
@@ -190,12 +190,12 @@ function Home() {
             <div>
               <p className="text-xs uppercase tracking-luxe text-gold mb-4">· The Collection</p>
               <h2 className="font-display text-4xl md:text-6xl text-cream max-w-xl leading-tight">
-                The<em className="italic text-gradient-rose">collection</em>.
+                Every Texture,<em className="italic text-gradient-blush">Covered</em>.
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              Three textures. Each available 14&quot; to 24&quot;. No lace, no glue, half wigs and
-              U-parts built to live in.
+              A growing range of texture, each available in multiple lengths. No lace, no glue ,
+              half wigs and V/U-parts built to live in.
             </p>
           </motion.div>
 
@@ -281,7 +281,7 @@ function Home() {
           >
             <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Philosophy</p>
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-cream">
-              Made for <em className="text-gradient-rose not-italic italic">our textures</em>.
+              Made for <em className="text-gradient-blush not-italic italic">our textures</em>.
             </h2>
             <div className="hairline mt-10 w-24" />
             <p className="mt-10 text-mauve leading-loose text-lg">
@@ -304,7 +304,7 @@ function Home() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Before You Buy</p>
           <h2 className="font-display text-3xl md:text-5xl text-cream leading-tight">
-            Everything you need to <em className="italic text-gradient-rose">know</em>.
+            Everything you need to <em className="italic text-gradient-blush">know</em>.
           </h2>
           <p className="mt-6 text-mauve">
             Texture matching, install times, shipping, returns, all answered.
@@ -312,13 +312,13 @@ function Home() {
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Link
               to="/texture-guide"
-              className="text-xs uppercase tracking-luxe border border-gold/40 px-6 py-3 text-gold hover:bg-gold hover:text-primary-foreground transition-all"
+              className="text-xs uppercase tracking-luxe bg-gold text-primary-foreground px-6 py-3 hover:opacity-90 transition-all"
             >
               Texture Guide
             </Link>
             <Link
               to="/faq"
-              className="text-xs uppercase tracking-luxe border border-gold/40 px-6 py-3 text-gold hover:bg-gold hover:text-primary-foreground transition-all"
+              className="text-xs uppercase tracking-luxe bg-gold text-primary-foreground px-6 py-3 hover:opacity-90 transition-all"
             >
               Read the FAQ
             </Link>
@@ -331,7 +331,7 @@ function Home() {
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
           <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight">
-            Be first for <em className="text-gradient-rose not-italic italic">the launch</em>.
+            Be first for <em className="text-gradient-blush not-italic italic">the launch</em>.
           </h2>
           <p className="mt-6 text-mauve max-w-xl mx-auto">
             Early access, restock alerts, and first looks at new textures.

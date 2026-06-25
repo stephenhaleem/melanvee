@@ -155,7 +155,7 @@ export default function Contact() {
       <section className="py-24 md:py-32 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Get in Touch</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight max-w-3xl mx-auto px-6">
-          We'd love to <em className="italic text-gradient-rose">hear from you</em>.
+          We'd love to <em className="italic text-gradient-blush">hear from you</em>.
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
           Questions about texture, length, or shipping? WhatsApp us Monday to Friday, or drop us an

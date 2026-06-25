@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 
-
 export const Route = createFileRoute("/how-to-wear")({
   head: () => ({
     meta: [
@@ -106,7 +105,7 @@ function WearAndCare() {
           transition={{ duration: 0.9, delay: 0.1 }}
           className="font-display text-5xl md:text-7xl text-cream leading-[1.05]"
         >
-          Install. Wear. <em className="italic text-gradient-rose">Love her.</em>
+          Install. Wear. <em className="italic text-gradient-blush">Love her.</em>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -114,8 +113,8 @@ function WearAndCare() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="mt-8 text-mauve max-w-xl mx-auto leading-loose"
         >
-          No salon visits. No appointments. No damage to your own hair. A simple
-          routine from the moment she arrives, made to keep her soft for one to three years.
+          No salon visits. No appointments. No damage to your own hair. A simple routine from the
+          moment she arrives, made to keep her soft for one to three years.
         </motion.p>
       </section>
 
@@ -129,16 +128,8 @@ function WearAndCare() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
-            <Method
-              number="I"
-              kind="Half Wig"
-              steps={halfWig}
-            />
-            <Method
-              number="II"
-              kind="U-Part Wig"
-              steps={uPart}
-            />
+            <Method number="I" kind="Half Wig" steps={halfWig} />
+            <Method number="II" kind="U-Part Wig" steps={uPart} />
           </div>
         </div>
       </section>
@@ -148,18 +139,30 @@ function WearAndCare() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">The Cap</p>
           <h2 className="font-display text-4xl text-cream leading-tight">
-            Built to <em className="italic text-gradient-rose">breathe</em>.
+            Built to <em className="italic text-gradient-blush">breathe</em>.
           </h2>
           <p className="mt-6 text-mauve leading-loose">
-            Every MELANVÉE piece is built on a soft, breathable cap with adjustable inner straps
-            and built-in combs. No tightness, no itching, no pressure on your edges. She sits
-            light enough to forget you have her on, secure enough to live your day in.
+            Every MELANVÉE piece is built on a soft, breathable cap with adjustable inner straps and
+            built-in combs. No tightness, no itching, no pressure on your edges. She sits light
+            enough to forget you have her on, secure enough to live your day in.
           </p>
           <ul className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-mauve text-left max-w-md mx-auto">
-            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Breathable, no itch</li>
-            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Adjustable inner straps</li>
-            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Combs at crown and nape</li>
-            <li className="flex gap-3 items-center"><span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />Gentle on your edges</li>
+            <li className="flex gap-3 items-center">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+              Breathable, no itch
+            </li>
+            <li className="flex gap-3 items-center">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+              Adjustable inner straps
+            </li>
+            <li className="flex gap-3 items-center">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+              Combs at crown and nape
+            </li>
+            <li className="flex gap-3 items-center">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+              Gentle on your edges
+            </li>
           </ul>
         </div>
       </section>
@@ -169,9 +172,7 @@ function WearAndCare() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
             <p className="text-[10px] uppercase tracking-luxe text-mauve">Step Two</p>
-            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">
-              The Care
-            </h2>
+            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">The Care</h2>
             <p className="mt-5 text-mauve max-w-lg mx-auto leading-loose">
               She is 100% premium virgin human hair. Loved right, she wears for one to three years.
             </p>
@@ -204,7 +205,10 @@ function WearAndCare() {
             <p className="text-[10px] uppercase tracking-luxe text-gold mb-5">Love her like this</p>
             <ul className="space-y-4">
               {dos.map((d) => (
-                <li key={d} className="flex gap-3 text-mauve leading-loose border-b border-border/50 pb-3">
+                <li
+                  key={d}
+                  className="flex gap-3 text-mauve leading-loose border-b border-border/50 pb-3"
+                >
                   <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
                   <span>{d}</span>
                 </li>
@@ -215,7 +219,10 @@ function WearAndCare() {
             <p className="text-[10px] uppercase tracking-luxe text-mauve mb-5">Never</p>
             <ul className="space-y-4">
               {donts.map((d) => (
-                <li key={d} className="flex gap-3 text-mauve/80 leading-loose border-b border-border/50 pb-3">
+                <li
+                  key={d}
+                  className="flex gap-3 text-mauve/80 leading-loose border-b border-border/50 pb-3"
+                >
                   <span className="mt-2 inline-block h-1.5 w-1.5 border border-mauve/60 flex-shrink-0" />
                   <span>{d}</span>
                 </li>
@@ -228,7 +235,7 @@ function WearAndCare() {
       {/* OUTRO */}
       <section className="py-24 text-center max-w-2xl mx-auto px-6">
         <p className="font-display text-4xl text-cream leading-tight">
-          Safe to colour, curl <em className="italic text-gradient-rose">or heat style</em>.
+          Safe to colour, curl <em className="italic text-gradient-blush">or heat style</em>.
         </p>
         <p className="mt-6 text-mauve leading-loose">
           100% premium virgin human hair. Treat her with gentle products and a heat protectant. For
@@ -253,15 +260,7 @@ function WearAndCare() {
   );
 }
 
-function Method({
-  number,
-  kind,
-  steps,
-}: {
-  number: string;
-  kind: string;
-  steps: string[];
-}) {
+function Method({ number, kind, steps }: { number: string; kind: string; steps: string[] }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

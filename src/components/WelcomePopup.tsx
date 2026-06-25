@@ -71,7 +71,7 @@ export function WelcomePopup() {
           <div className="p-10 text-center">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— First Time Here?</p>
             <h3 className="font-display text-3xl text-cream leading-tight">
-              <em className="italic text-gradient-rose">5% off</em>
+              <em className="italic text-gradient-blush">5% off</em>
               <br /> your first order.
             </h3>
             <p className="mt-4 text-sm text-mauve leading-relaxed">
@@ -110,7 +110,7 @@ export function WelcomePopup() {
           <div className="p-10 text-center">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— Welcome to MELANVÉE</p>
             <h3 className="font-display text-3xl text-cream leading-tight">
-              Your <em className="italic text-gradient-rose">code</em>.
+              Your <em className="italic text-gradient-blush">code</em>.
             </h3>
             <p className="mt-4 text-sm text-mauve">
               Use this at checkout — first order, new customers only.

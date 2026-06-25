@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { products } from "@/data/products";
 
-
 export const Route = createFileRoute("/texture-guide")({
   head: () => ({
     meta: [
@@ -57,11 +56,11 @@ function TextureGuide() {
       <section className="pt-20 pb-12 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-5">· Texture Guide</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
-          Find your <em className="italic text-gradient-rose">match</em>.
+          Find your <em className="italic text-gradient-blush">match</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          MELANVÉE is built for Type 4 hair: the kinks, coils and curls the industry has
-          overlooked. Plus a loose wave for soft, romantic volume.
+          MELANVÉE is built for Type 4 hair: the kinks, coils and curls the industry has overlooked.
+          Plus a loose wave for soft, romantic volume.
         </p>
         <p className="mt-4 text-xs uppercase tracking-luxe text-mauve">
           Type 3 textures coming soon
@@ -124,7 +123,6 @@ function TextureGuide() {
           })}
         </div>
       </section>
-
 
       <div className="max-w-3xl mx-auto px-6 py-20 text-center">
         <p className="text-mauve leading-loose">
