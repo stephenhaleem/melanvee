@@ -257,7 +257,6 @@ function ProductPage() {
 
       <section className="py-16 bg-charcoal border-y border-border">
         <div className="max-w-5xl mx-auto px-6">
-          <ProductReviews productId={product.handle} productName={product.title} />
           <div className="flex border-b border-border mb-12 flex-wrap">
             {TABS.map((tab) => (
               <button
@@ -406,8 +405,8 @@ function ProductPage() {
                 </Link>
               </motion.div>
             )}
-
           </AnimatePresence>
+          <ProductReviews productId={product.handle} productName={product.title} />
         </div>
       </section>
 
