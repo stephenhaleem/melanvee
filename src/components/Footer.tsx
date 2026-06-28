@@ -23,7 +23,10 @@ export function Footer() {
           <p className="mt-4 italic font-display text-lg" style={{ color: "var(--secondary)" }}>
             Made to feel like yours.
           </p>
-          <p className="mt-4 text-sm max-w-sm leading-relaxed" style={{ color: MAUVE }}>
+          <p
+            className="mt-4 text-sm max-w-sm leading-relaxed"
+            style={{ color: "var(--cream-warm)" }}
+          >
             Half wigs and U-part wigs for women of colour. True 3A to 4C textures.
           </p>
           <div className="mt-6 flex items-center gap-3">
@@ -51,7 +54,10 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: "var(--secondary)" }}>
+          <p
+            className="text-xs uppercase tracking-luxe mb-4"
+            style={{ color: "var(--cream-warm)" }}
+          >
             Explore
           </p>
           <ul className="space-y-3 text-sm">
@@ -69,7 +75,7 @@ export function Footer() {
                 <Link
                   to={to as any}
                   className="transition-colors duration-200"
-                  style={{ color: MAUVE }}
+                  style={{ color: "var(--cream-warm)" }}
                 >
                   {label}
                 </Link>
@@ -79,14 +85,20 @@ export function Footer() {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: "var(--secondary)" }}>
+          <p
+            className="text-xs uppercase tracking-luxe mb-4"
+            style={{ color: "var(--cream-warm)" }}
+          >
             Contact
           </p>
-          <ul className="space-y-3 text-sm" style={{ color: MAUVE }}>
+          <ul className="space-y-3 text-sm" style={{ color: "var(--cream-warm)" }}>
             <li>customercare@melanvee.com</li>
             <li>
               woman@melanvee.com{" "}
-              <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--secondary)" }}>
+              <span
+                className="text-[10px] uppercase tracking-wider"
+                style={{ color: "var(--cream-warm)" }}
+              >
                 (collabs)
               </span>
             </li>
@@ -101,12 +113,15 @@ export function Footer() {
       <div style={{ borderTop: `1px solid ${BORDER}` }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <span className="text-[10px] uppercase tracking-luxe" style={{ color: MAUVE }}>
+            <span
+              className="text-[10px] uppercase tracking-luxe"
+              style={{ color: "var(--cream-warm)" }}
+            >
               Country / Currency
             </span>
             <CurrencySwitcher />
           </div>
-          <p className="text-[10px] uppercase tracking-luxe" style={{ color: MAUVE }}>
+          <p className="text-[10px] uppercase tracking-luxe" style={{ color: "var(--cream-warm)" }}>
             All orders charged in GBP at checkout
           </p>
         </div>
@@ -123,9 +138,11 @@ export function Footer() {
                 key={label}
                 to="/policies"
                 className="transition-colors duration-200"
-                style={{ color: MAUVE }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = PINK)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
+                style={{ color: "var(--cream-warm)" }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--gold)")}
+                onMouseLeave={(e) =>
+                  ((e.currentTarget as HTMLElement).style.color = "var(--cream-warm)")
+                }
               >
                 {label}
               </Link>

@@ -196,7 +196,7 @@ function Home() {
           </motion.div>
 
           {collections.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
               {collections.map((c, i) => (
                 <motion.div
                   key={c.id}
@@ -234,7 +234,7 @@ function Home() {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
               {[1, 2, 3].map((n) => (
                 <div key={n} className="animate-pulse">
                   <div className="aspect-[3/4] bg-charcoal" />
