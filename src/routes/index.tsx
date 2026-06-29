@@ -204,25 +204,25 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  className="group"
+                  className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
                 >
                   <Link to={`/collection?handle=${encodeURIComponent(c.handle)}`} className="block">
-                    <div className="aspect-[3/4] overflow-hidden bg-card relative">
+                    <div className="aspect-[3/4] overflow-hidden relative">
                       <img
                         src={c.image?.url ?? "/assets/hero.jpg"}
                         alt={c.image?.altText ?? c.title}
                         loading="lazy"
                         width={1024}
                         height={1280}
-                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105 rounded-t-xl"
                       />
                     </div>
-                    <div className="pt-6 flex flex-col justify-between items-start gap-6">
+                    <div className="p-4 sm:p-6 flex flex-col justify-between items-start gap-6">
                       <div>
                         <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
                           · Collection
                         </p>
-                        <h3 className="font-display text-2xl text-cream group-hover:text-gold transition-colors duration-300">
+                        <h3 className="font-display text-xl sm:text-2xl text-cream group-hover:text-gold transition-colors duration-300">
                           {c.title}
                         </h3>
                         <p className="text-sm text-mauve mt-1 line-clamp-1">{c.description}</p>

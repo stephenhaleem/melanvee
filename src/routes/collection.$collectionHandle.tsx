@@ -161,30 +161,30 @@ function CollectionPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.8, delay: i * 0.1 }}
-                  className="group"
+                  className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
                 >
                   <Link to="/product/$productId" params={{ productId: p.handle }} className="block">
-                    <div className="aspect-[3/4] overflow-hidden bg-card relative">
+                    <div className="aspect-[3/4] overflow-hidden relative">
                       <img
                         src={getProductImage(p)}
                         alt={p.images.edges[0]?.node.altText ?? p.title}
                         loading="lazy"
                         width={1024}
                         height={1280}
-                        className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105 rounded-t-xl"
                       />
                     </div>
-                    <div className="pt-6">
+                    <div className="p-4 sm:p-6">
                       <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
                         N° 0{i + 1} · {p.productType || "Wig"}
                       </p>
-                      <h2 className="font-display text-2xl text-cream group-hover:text-gold transition-colors">
+                      <h2 className="font-display text-xl sm:text-2xl text-cream group-hover:text-gold transition-colors">
                         {p.title}
                       </h2>
-                      <p className="text-sm text-mauve mt-1 line-clamp-1">{p.description}</p>
-                      <div className="mt-4 flex items-baseline justify-start gap-4">
-                        <p className="font-sans text-lg text-gold">{format(getStartingPrice(p))}</p>
-                        <span className="text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors">
+                      <p className="text-sm text-mauve mt-2 line-clamp-2 min-h-[2.6rem]">{p.description}</p>
+                      <div className="mt-4 flex items-center gap-3 min-w-0">
+                                              <p className="font-sans text-base sm:text-lg font-semibold text-gold flex-shrink-0">{format(getStartingPrice(p))}</p>
+                                              <span className="ml-auto inline-flex items-center text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors leading-none whitespace-nowrap">
                           View piece
                         </span>
                       </div>
