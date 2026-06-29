@@ -217,7 +217,7 @@ function Home() {
                         className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105"
                       />
                     </div>
-                    <div className="pt-6 flex justify-between items-start">
+                    <div className="pt-6 flex flex-col justify-between items-start gap-6">
                       <div>
                         <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
                           · Collection
