@@ -38,7 +38,6 @@ function Collection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<"default" | "a-z" | "price-low" | "price-high" | "newest">("default");
 
   async function loadForHandle(handle: string | null) {
     setLoading(true);
@@ -61,26 +60,11 @@ function Collection() {
     }
   }
 
-  const filteredProducts = products
-    .filter(
-      (p) =>
-        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.description?.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
-    .sort((a, b) => {
-      switch (sortBy) {
-        case "a-z":
-          return a.title.localeCompare(b.title);
-        case "price-low":
-          return getStartingPrice(a) - getStartingPrice(b);
-        case "price-high":
-          return getStartingPrice(b) - getStartingPrice(a);
-        case "newest":
-          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
-        default:
-          return 0;
-      }
-    });
+  const filteredProducts = products.filter(
+    (p) =>
+      p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description?.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -112,9 +96,8 @@ function Collection() {
 
       <section className="pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          {/* Search and Filters */}
-          <div className="mb-12 space-y-6">
-            {/* Search */}
+          {/* Search filter */}
+          <div className="mb-12">
             <input
               type="text"
               placeholder="Search products..."
@@ -122,60 +105,6 @@ function Collection() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-3 bg-card text-cream placeholder:text-mauve border border-border focus:border-gold outline-none transition-colors"
             />
-            
-            {/* Sort Options */}
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => setSortBy("default")}
-                className={`px-4 py-2 text-xs uppercase tracking-luxe transition-colors ${
-                  sortBy === "default"
-                    ? "bg-gold text-primary-foreground"
-                    : "border border-border text-cream hover:border-gold"
-                }`}
-              >
-                Default
-              </button>
-              <button
-                onClick={() => setSortBy("a-z")}
-                className={`px-4 py-2 text-xs uppercase tracking-luxe transition-colors ${
-                  sortBy === "a-z"
-                    ? "bg-gold text-primary-foreground"
-                    : "border border-border text-cream hover:border-gold"
-                }`}
-              >
-                A-Z
-              </button>
-              <button
-                onClick={() => setSortBy("price-low")}
-                className={`px-4 py-2 text-xs uppercase tracking-luxe transition-colors ${
-                  sortBy === "price-low"
-                    ? "bg-gold text-primary-foreground"
-                    : "border border-border text-cream hover:border-gold"
-                }`}
-              >
-                Price: Low to High
-              </button>
-              <button
-                onClick={() => setSortBy("price-high")}
-                className={`px-4 py-2 text-xs uppercase tracking-luxe transition-colors ${
-                  sortBy === "price-high"
-                    ? "bg-gold text-primary-foreground"
-                    : "border border-border text-cream hover:border-gold"
-                }`}
-              >
-                Price: High to Low
-              </button>
-              <button
-                onClick={() => setSortBy("newest")}
-                className={`px-4 py-2 text-xs uppercase tracking-luxe transition-colors ${
-                  sortBy === "newest"
-                    ? "bg-gold text-primary-foreground"
-                    : "border border-border text-cream hover:border-gold"
-                }`}
-              >
-                Newly Added
-              </button>
-            </div>
           </div>
           {loading && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
