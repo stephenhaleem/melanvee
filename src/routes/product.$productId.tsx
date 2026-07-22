@@ -233,7 +233,7 @@ function ProductPage() {
                     {selectedVariant?.title !== "Default Title" ? selectedVariant?.title : ""}
                   </p>
                   <p className="font-sans text-3xl text-gold">{format(price)}</p>
-                  <p className="text-[10px] text-mauve mt-1">Charged in GBP at checkout</p>
+
                   {!selectedVariant?.availableForSale && (
                     <p className="text-[10px] text-rose-400 uppercase tracking-luxe mt-2">
                       Out of stock

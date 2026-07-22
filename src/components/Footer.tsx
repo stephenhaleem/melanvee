@@ -121,9 +121,6 @@ export function Footer() {
             </span>
             <CurrencySwitcher />
           </div>
-          <p className="text-[10px] uppercase tracking-luxe" style={{ color: "var(--cream-warm)" }}>
-            All orders charged in GBP at checkout
-          </p>
         </div>
       </div>
 
