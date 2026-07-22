@@ -88,8 +88,9 @@ function Collection() {
           The<em className="italic text-gradient-blush"> collection</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Kimi (4A to 4B), Zora (4B to 4C), Layla (loose wave). Three textures, six lengths, endless
-          ways to feel like the softest version of yourself.
+          A growing collection of textures and styles-from tight coils to bouncy kinks , defined
+          curls to blowout textures. Multiple lengths, multiple constructions, all designed to feel
+          like yours
         </p>
         <div className="hairline mt-10 w-32 mx-auto" />
       </section>
@@ -163,7 +164,11 @@ function Collection() {
                         height={1280}
                         className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105 rounded-t-xl"
                       />
-                      {/* Texture badge from tags e.g. tag "texture:4A-4B" */}
+                      {p.tags.some((t) => t.toLowerCase() === "best seller") && (
+                        <span className="absolute top-3 right-3 bg-gold text-primary-foreground text-[10px] uppercase tracking-luxe px-3 py-1.5 rounded-sm shadow-lg z-10">
+                          Best Seller
+                        </span>
+                      )}
                     </div>
                     <div className="p-2 sm:p-6">
                       <h2 className="font-display text-xl sm:text-2xl text-cream group-hover:text-gold transition-colors">

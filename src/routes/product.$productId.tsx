@@ -139,9 +139,16 @@ function ProductPage() {
             </motion.div>
 
             <div>
-              <p className="text-[10px] uppercase tracking-luxe text-gold mb-3">
-                {product.productType}
-              </p>
+              <div className="flex items-center gap-3 flex-wrap mb-3">
+                <p className="text-[10px] uppercase tracking-luxe text-gold">
+                  {product.productType}
+                </p>
+                {product.tags.some((t) => t.toLowerCase() === "best seller") && (
+                  <span className="bg-gold text-primary-foreground text-[10px] uppercase tracking-luxe px-3 py-1.5 rounded-sm">
+                    Best Seller
+                  </span>
+                )}
+              </div>
               <h1 className="font-display text-4xl md:text-6xl text-cream leading-tight">
                 {product.title}
               </h1>

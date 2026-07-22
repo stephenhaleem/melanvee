@@ -86,7 +86,24 @@ export function Reviews() {
                   {r.initials}
                 </div>
                 <div>
-                  <p className="text-sm text-cream">{r.name}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm text-cream">{r.name}</p>
+                    <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-wider text-gold border border-gold/40 px-1.5 py-0.5 leading-none">
+                      <svg
+                        width="8"
+                        height="8"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      Verified
+                    </span>
+                  </div>
                   <p className="text-[10px] uppercase tracking-luxe text-mauve">
                     {r.texture} · {r.product}
                   </p>

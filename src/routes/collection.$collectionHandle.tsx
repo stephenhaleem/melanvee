@@ -37,7 +37,9 @@ function CollectionPage() {
     products: ShopifyProduct[];
   };
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<"default" | "a-z" | "price-low" | "price-high" | "newest">("default");
+  const [sortBy, setSortBy] = useState<"default" | "a-z" | "price-low" | "price-high" | "newest">(
+    "default",
+  );
 
   const filteredProducts = products
     .filter(
@@ -83,7 +85,7 @@ function CollectionPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-3 bg-card text-cream placeholder:text-mauve border border-border focus:border-gold outline-none transition-colors"
             />
-            
+
             {/* Sort Options */}
             <div className="flex flex-wrap gap-3">
               <button
@@ -173,6 +175,11 @@ function CollectionPage() {
                         height={1280}
                         className="w-full h-full object-cover transition-transform duration-[1.4s] group-hover:scale-105 rounded-t-xl"
                       />
+                      {p.tags.some((t) => t.toLowerCase() === "best seller") && (
+                        <span className="absolute top-3 right-3 bg-gold text-primary-foreground text-[10px] uppercase tracking-luxe px-3 py-1.5 rounded-sm shadow-lg z-10">
+                          Best Seller
+                        </span>
+                      )}
                     </div>
                     <div className="p-4 sm:p-6">
                       <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
@@ -181,10 +188,14 @@ function CollectionPage() {
                       <h2 className="font-display text-xl sm:text-2xl text-cream group-hover:text-gold transition-colors">
                         {p.title}
                       </h2>
-                      <p className="text-sm text-mauve mt-2 line-clamp-2 min-h-[2.6rem]">{p.description}</p>
+                      <p className="text-sm text-mauve mt-2 line-clamp-2 min-h-[2.6rem]">
+                        {p.description}
+                      </p>
                       <div className="mt-4 flex items-center gap-3 min-w-0">
-                                              <p className="font-sans text-base sm:text-lg font-semibold text-gold flex-shrink-0">{format(getStartingPrice(p))}</p>
-                                              <span className="ml-auto inline-flex items-center text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors leading-none whitespace-nowrap">
+                        <p className="font-sans text-base sm:text-lg font-semibold text-gold flex-shrink-0">
+                          {format(getStartingPrice(p))}
+                        </p>
+                        <span className="ml-auto inline-flex items-center text-[10px] uppercase tracking-luxe text-mauve border-b border-gold/40 pb-0.5 group-hover:text-gold group-hover:border-gold transition-colors leading-none whitespace-nowrap">
                           View piece
                         </span>
                       </div>
