@@ -190,8 +190,9 @@ function Home() {
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              A growing range of texture, each available in multiple lengths. No lace, no glue ,
-              half wigs and V/U-parts built to live in.
+              A growing collection of textures and styles-from tight coils to bouncy kinks , defined
+              curls to blowout textures. Multiple lengths, multiple constructions, all designed to
+              feel like yours
             </p>
           </motion.div>
 
