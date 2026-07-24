@@ -6,9 +6,10 @@ type Props = {
   images: { node: ShopifyImage }[];
   productTitle: string;
   textureBadge?: string;
+  activeImageUrl?: string | null;
 };
 
-export function ProductImageGallery({ images, productTitle, textureBadge }: Props) {
+export function ProductImageGallery({ images, productTitle, textureBadge, activeImageUrl }: Props) {
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
   const [zoomed, setZoomed] = useState(false);
@@ -19,6 +20,11 @@ export function ProductImageGallery({ images, productTitle, textureBadge }: Prop
   const prev = useCallback(() => setActive((i) => (i - 1 + count) % count), [count]);
   const next = useCallback(() => setActive((i) => (i + 1) % count), [count]);
 
+  useEffect(() => {
+    if (!activeImageUrl) return;
+    const idx = images.findIndex(({ node }) => node.url === activeImageUrl);
+    if (idx !== -1) setActive(idx);
+  }, [activeImageUrl, images]);
   // Keyboard navigation
   useEffect(() => {
     if (!lightbox) return;

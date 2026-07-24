@@ -56,6 +56,7 @@ export type ShopifyVariant = {
   price: { amount: string; currencyCode: string };
   compareAtPrice: { amount: string; currencyCode: string } | null;
   selectedOptions: { name: string; value: string }[];
+  image: ShopifyImage | null;
 };
 
 export type ShopifyProduct = {
@@ -117,7 +118,7 @@ const PRODUCT_FRAGMENT = `
       edges { node { url altText width height } }
     }
     options { name values }
-    variants(first: 30) {
+    variants(first: 250) {
       edges {
         node {
           id
@@ -126,22 +127,13 @@ const PRODUCT_FRAGMENT = `
           price { amount currencyCode }
           compareAtPrice { amount currencyCode }
           selectedOptions { name value }
+           image { url altText width height }
         }
       }
     }
   }
 `;
 
-/**
- * Cart fragment — always request price on the merchandise (variant) node.
- *
- * The `... on ProductVariant` inline fragment is required because `merchandise`
- * is a union type. Without it, Shopify may return __typename only and omit
- * `price`, causing the client to see amount = undefined → parsePrice → 0.
- *
- * We explicitly request `price { amount currencyCode }` inside the inline
- * fragment to guarantee the field is always present in the response.
- */
 const CART_FRAGMENT = `
   fragment CartFragment on Cart {
     id
@@ -447,13 +439,19 @@ export function getVariants(product: ShopifyProduct): ShopifyVariant[] {
   return product.variants.edges.map((e) => e.node);
 }
 
+const normalize = (s: string) => s.trim().replace(/\s+/g, " ");
+
 export function findVariant(
   product: ShopifyProduct,
   selectedOptions: Record<string, string>,
 ): ShopifyVariant | undefined {
-  return getVariants(product).find((v) =>
-    v.selectedOptions.every((o) => selectedOptions[o.name] === o.value),
-  );
+  return getVariants(product).find((variant) => {
+    console.log("Checking", variant.selectedOptions, "against", selectedOptions);
+
+    return variant.selectedOptions.every((option) => {
+      return (selectedOptions[option.name] ?? "").trim() === option.value.trim();
+    });
+  });
 }
 
 export function getStartingPrice(product: ShopifyProduct): number {

@@ -68,6 +68,11 @@ function ProductPage() {
   const [activeTab, setActiveTab] = useState<Tab>("features");
 
   const variants = getVariants(product);
+  console.log("Variant count:", variants.length);
+  console.log("Variant count:", variants.length);
+  console.log("Product options:", product.options);
+  console.log("First variant options:", variants[0].selectedOptions);
+  console.log("All variants:", variants);
   const [selectedVariant, setSelectedVariant] = useState<ShopifyVariant>(
     variants.find((v) => v.availableForSale) ?? variants[0],
   );
@@ -135,6 +140,7 @@ function ProductPage() {
                 images={product.images.edges}
                 productTitle={product.title}
                 textureBadge={textureBadge}
+                activeImageUrl={selectedVariant?.image?.url}
               />
             </motion.div>
 
@@ -183,7 +189,16 @@ function ProductPage() {
                           const active = selectedOptions[option.name] === val;
                           const candidate = { ...selectedOptions, [option.name]: val };
                           const variantForVal = findVariant(product, candidate);
+
                           const available = variantForVal ? variantForVal.availableForSale : false;
+
+                          console.log({
+                            optionName: option.name,
+                            value: val,
+                            candidate,
+                            found: variantForVal,
+                            available,
+                          });
                           return (
                             <button
                               key={val}
