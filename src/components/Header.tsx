@@ -18,7 +18,7 @@ const MAUVE = "var(--mauve)";
 const DARK = "var(--burgundy)";
 const SURFACE = "var(--burgundy)";
 const COCOA = "var(--burgundy)";
-const BORDER = "rgba(255,243,229,0.1)";
+const BORDER = "rgba(74,18,32,0.1)";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -51,7 +51,7 @@ export function Header() {
       {/* Main navbar */}
       <div
         style={{
-          backgroundColor: scrolled ? "rgba(72,12,20,0.97)" : "rgba(72,12,20,0.75)",
+          backgroundColor: scrolled ? "rgba(251,243,231,0.97)" : "rgba(251,243,231,0.85)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
           borderBottom: `1px solid ${BORDER}`,
@@ -82,7 +82,9 @@ export function Header() {
                 style={{ color: CREAM }}
                 activeProps={{ style: { color: "var(--secondary)" } }}
                 activeOptions={{ exact: true }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")}
+                onMouseEnter={(e) =>
+                  ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                }
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
               >
                 {item.label}
@@ -103,14 +105,18 @@ export function Header() {
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--cream-warm)")
               }
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--secondary)")}
+              onMouseLeave={(e) =>
+                ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--secondary)")
+              }
             >
               Shop Now
             </Link>
 
             <span
               style={{ color: CREAM }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")}
+              onMouseEnter={(e) =>
+                ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+              }
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
               className="transition-colors duration-200"
             >

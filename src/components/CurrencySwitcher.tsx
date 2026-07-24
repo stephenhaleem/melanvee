@@ -9,7 +9,12 @@ export function CurrencySwitcher() {
     <div className="relative inline-block">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-2 text-xs uppercase tracking-luxe text-mauve hover:text-gold transition-colors border border-border px-4 py-2"
+        className="inline-flex items-center gap-2 text-xs uppercase tracking-luxe transition-colors px-4 py-2 border"
+        style={{ color: "rgba(251,243,231,0.75)", borderColor: "rgba(255,255,255,0.18)" }}
+        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#E7A6B6")}
+        onMouseLeave={(e) =>
+          ((e.currentTarget as HTMLElement).style.color = "rgba(251,243,231,0.75)")
+        }
         aria-label="Change country and currency"
       >
         <span>{currency.flag}</span>

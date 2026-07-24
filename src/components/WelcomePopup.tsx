@@ -57,7 +57,11 @@ export function WelcomePopup() {
       role="dialog"
       aria-modal="true"
     >
-      <div className="absolute inset-0 bg-ink/80 backdrop-blur-sm" onClick={close} />
+      <div
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: "rgba(42,8,16,0.75)" }}
+        onClick={close}
+      />
       <div className="relative w-full max-w-md bg-charcoal border border-gold/30 shadow-luxe">
         <button
           onClick={close}

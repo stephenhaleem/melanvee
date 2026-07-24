@@ -105,7 +105,11 @@ function Home() {
   return (
     <Layout>
       {/* HERO */}
-      <section className="relative min-h-[92vh] -mt-20 pt-20 overflow-hidden bg-ink">
+      {/* HERO */}
+      <section
+        className="relative min-h-[92vh] -mt-20 pt-20 overflow-hidden"
+        style={{ backgroundColor: "#2A0810" }}
+      >
         <div className="absolute inset-0">
           <img
             src={heroImg}
@@ -114,8 +118,19 @@ function Home() {
             height={1280}
             className="w-full h-full object-cover object-center opacity-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(42,8,16,0.92), rgba(42,8,16,0.55) 60%, rgba(42,8,16,0.12))",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to top, rgba(42,8,16,0.55), transparent 55%)",
+            }}
+          />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-12 min-h-[92vh] flex items-center">

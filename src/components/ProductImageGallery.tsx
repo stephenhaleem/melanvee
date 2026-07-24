@@ -170,7 +170,8 @@ export function ProductImageGallery({ images, productTitle, textureBadge, active
       {/* ── Lightbox ──────────────────────────────────────── */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-[90] bg-ink/95 backdrop-blur-md flex items-center justify-center"
+          className="fixed inset-0 z-[90] backdrop-blur-md flex items-center justify-center"
+          style={{ backgroundColor: "rgba(42,8,16,0.95)" }}
           onClick={() => setLightbox(false)}
         >
           {/* Close */}

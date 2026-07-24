@@ -2,14 +2,14 @@ import { useState, useEffect, memo } from "react";
 import { useShopifyCart } from "@/lib/shopify-cart";
 import { useCurrency } from "@/lib/currency";
 
-const PINK = "#E8938A";
-const PINK_D = "#D4706A";
-const CREAM = "#F5E6D3";
-const MAUVE = "#D4B8A0";
-const DARK = "#3D0B12";
-const SURFACE = "#4A0F19";
-const SURFACE2 = "#480C14";
-const BORDER = "rgba(255,243,229,0.1)";
+const PINK = "#7C2740";
+const PINK_D = "#5B1A2C";
+const CREAM = "#4A1220";
+const MAUVE = "#8B5A62";
+const DARK = "#FBF3E7";
+const SURFACE = "#FFFBF3";
+const SURFACE2 = "#F5E8D4";
+const BORDER = "rgba(74,18,32,0.12)";
 
 export function CartIcon({ count }: { count: number }) {
   return (
