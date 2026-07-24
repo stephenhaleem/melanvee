@@ -132,14 +132,14 @@ function Home() {
               variants={fade}
               className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-white"
             >
-              Made to feel <span className="italic text-gradient-blush">like yours</span>.
+              Hair made for <span className="italic text-gradient-blush">textured hair</span>.
             </motion.h1>
             <motion.p
               variants={fade}
               className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
             >
-              Half wigs and V/U-part wigs designed for 3A to 4C textures. True to your hair, easy to
-              wear, and so natural no one has to know.
+              Designed to blend seamlessly with your coils, kinks and curls so you can leave the
+              house in minutes, skip the lace, and wear your hair with confidence.
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
               <Link
