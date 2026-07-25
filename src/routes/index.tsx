@@ -151,7 +151,7 @@ function Home() {
             </motion.h1>
             <motion.p
               variants={fade}
-              className="mt-8 text-base md:text-lg text-mauve max-w-lg leading-relaxed"
+              className="mt-8 text-base md:text-lg text-white max-w-lg leading-relaxed"
             >
               Designed to blend seamlessly with your coils, kinks and curls so you can leave the
               house in minutes, skip the lace, and wear your hair with confidence.
@@ -166,7 +166,7 @@ function Home() {
               </Link>
               <Link
                 to="/texture-guide"
-                className="inline-flex items-center text-xs uppercase tracking-luxe text-cream/80 border-b border-cream/30 pb-1 hover:text-gold hover:border-gold transition-colors"
+                className="inline-flex items-center text-xs uppercase tracking-luxe text-white/80 border-b border-cream/30 pb-1 hover:text-gold hover:border-gold transition-colors"
               >
                 Find Your Texture
               </Link>
@@ -178,12 +178,12 @@ function Home() {
       {/* MARQUEE */}
       <section className="border-y border-border py-6 bg-charcoal">
         <div className="flex justify-center items-center gap-8 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
-          <span>Half Wigs</span>
-          <span className="text-gold">▪</span>
-          <span>V/U-Part Wigs</span>
-          <span className="text-gold">▪</span>
-          <span>3A to 4C Textures</span>
-          <span className="text-gold">▪</span>
+          <span>Premium Virgin Human Hair</span>
+          <span className="text-gold">✓</span>
+          <span>Beginner Friendly</span>
+          <span className="text-gold">✓</span>
+          <span>Natural Texture Match</span>
+          <span className="text-gold">✓</span>
           <span>Worldwide Shipping</span>
         </div>
       </section>

@@ -7,7 +7,7 @@ const MUTED = "rgba(251,243,231,0.72)"; // body / list text
 const ACCENT = "#E7A6B6"; // soft blush accent — taglines, hover, labels
 const BORDER = "rgba(255,255,255,0.1)";
 
-const IG_URL = "https://instagram.com/melanvee.hair";
+const IG_URL = "https://instagram.com/melanveeofficial";
 const TIKTOK_URL = "https://tiktok.com/@melanvee";
 
 export function Footer() {
