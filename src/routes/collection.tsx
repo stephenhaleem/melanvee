@@ -19,7 +19,7 @@ export const Route = createFileRoute("/collection")({
       {
         name: "description",
         content:
-          'Three textures: Kimi Curl (4A to 4B), Zora Coil (4B to 4C), Layla Bouncy. Available 14" to 24".',
+          'Three textures: Kimi Curl (4A to 4B), Zora Coil (4B to 4C), Lola Bouncy. Available 14" to 24".',
       },
       { property: "og:title", content: "The MELANVÉE Collection" },
       {

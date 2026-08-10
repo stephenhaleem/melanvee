@@ -53,8 +53,8 @@ const products = [
     sort_order: 2,
   },
   {
-    id: "Layla-bouncy",
-    name: "Layla Bouncy",
+    id: "Lola-bouncy",
+    name: "Lola Bouncy",
     type: "Half Wig",
     texture: "Loose Wave",
     tagline: "Voluminous bouncy waves",

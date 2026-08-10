@@ -24,12 +24,12 @@ const values = [
   {
     n: "01",
     t: "True 3A–4C Textures",
-    d: "Every pattern is matched to real Type 4 hair - not a generic 'curly'. Type 3 coming soon.",
+    d: "Every pattern is matched to real Type 3 and Type 4 hair - not a generic 'curly'. ",
   },
   {
     n: "02",
     t: "Lace-Free Fit",
-    d: "Half wigs and U-part wigs you can put on yourself in minutes - no lace, no glue, no salon, no damage.",
+    d: "Half wigs, U-part, V-part wigs and crochet hair you can put on yourself in minutes — no lace, no glue, no salon, no damage.",
   },
   {
     n: "03",
@@ -84,10 +84,8 @@ function About() {
             single day.
           </p>
           <p>
-            We launched with three pieces: <strong className="text-cream">Kimi Curl</strong>,
-            <strong className="text-cream"> Zora Coil</strong>, and
-            <strong className="text-cream"> Layla Bouncy</strong> - half wigs and V/U-part wigs in
-            true 3A-4C textures, designed to slip on, blend in, and let you live your day.
+            What started as three pieces has grown into a full collection - each texture carefully
+            chosen, each piece designed to slip on, blend in, and let you live your day.
           </p>
         </div>
       </section>

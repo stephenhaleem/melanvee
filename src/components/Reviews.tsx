@@ -30,7 +30,7 @@ const reviews: Review[] = [
     name: "Naomi K.",
     initials: "NK",
     texture: "Relaxed",
-    product: 'Layla Bouncy 22"',
+    product: 'Lola Bouncy 22"',
     text: "The waves are so soft. I sleep in this thing. Already on my second one — bought a longer length for a wedding.",
     rating: 5,
   },

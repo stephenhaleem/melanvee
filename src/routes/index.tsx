@@ -147,7 +147,7 @@ function Home() {
               variants={fade}
               className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-white"
             >
-              Hair made for <span className="italic text-gradient-blush">textured hair</span>.
+              Hair made to <span className="italic text-gradient-blush">feel like yours</span>.
             </motion.h1>
             <motion.p
               variants={fade}
@@ -177,14 +177,17 @@ function Home() {
 
       {/* MARQUEE */}
       <section className="border-y border-border py-6 bg-charcoal">
-        <div className="flex justify-center items-center gap-8 md:gap-20 text-xs uppercase tracking-luxe text-mauve flex-wrap px-6">
-          <span>Premium Virgin Human Hair</span>
-          <span className="text-gold">✓</span>
-          <span>Beginner Friendly</span>
-          <span className="text-gold">✓</span>
-          <span>Natural Texture Match</span>
-          <span className="text-gold">✓</span>
-          <span>Worldwide Shipping</span>
+        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 md:gap-8 lg:gap-20 text-[10px] sm:text-xs uppercase tracking-luxe text-mauve px-6 text-center">
+          <span className="whitespace-nowrap">Premium Virgin Human Hair</span>
+          <span className="inline sm:hidden text-gold">•</span>
+          <span className="hidden sm:inline text-gold">✓</span>
+          <span className="whitespace-nowrap">Beginner Friendly</span>
+
+          <span className="hidden sm:inline text-gold">✓</span>
+          <span className="whitespace-nowrap">Natural Texture Match</span>
+          <span className="inline sm:hidden text-gold">•</span>
+          <span className="hidden sm:inline text-gold">✓</span>
+          <span className="whitespace-nowrap">Worldwide Shipping</span>
         </div>
       </section>
 

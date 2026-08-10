@@ -21,7 +21,7 @@ export const Route = createFileRoute("/faq")({
 const faqs = [
   {
     q: "How do I know which texture is right for me?",
-    a: "Kimi Curl matches 4A to 4B (soft springy curls). Zora Coil matches 4B to 4C (tighter, fuller afro coils). Layla Bouncy is a loose wave for anyone wanting soft volume. Visit our Texture Guide, or WhatsApp us a photo and we will match you.",
+    a: "Kimi Curl matches 4A to 4B (soft springy curls). Zora Coil matches 4B to 4C (tighter, fuller afro coils). Lola Bouncy is a loose wave for anyone wanting soft volume. Visit our Texture Guide, or WhatsApp us a photo and we will match you.",
   },
   {
     q: "Do these have lace? Do I need glue?",
@@ -62,10 +62,6 @@ const faqs = [
   {
     q: "Do you ship worldwide?",
     a: "Yes. We ship to the UK, EU, US, Canada, Africa, and most of the rest of the world. Customs duties are the buyer's responsibility outside the UK and EU.",
-  },
-  {
-    q: "When will Type 3 (looser curl) textures launch?",
-    a: "We are starting with 3A to 4C because that is where the gap is widest. Type 3 textures are on the roadmap. Join the mailing list to be first to know.",
   },
 ];
 

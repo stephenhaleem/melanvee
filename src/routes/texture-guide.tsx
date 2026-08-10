@@ -42,11 +42,18 @@ const types = [
     matchName: "Zora Coil",
   },
   {
-    code: "Wave",
-    name: "Loose Wave",
-    desc: "Soft, bouncy S-waves with body and movement. For anyone wanting weightless volume and relaxed glamour.",
-    match: "Layla-bouncy",
-    matchName: "Layla Bouncy",
+    code: "Bouncy",
+    name: "Bouncy",
+    desc: "Full, voluminous hair with natural lift and movement. Soft to the touch with a bounce that holds throughout the day. Looks effortless, feels weightless.",
+    match: "Lola-bouncy",
+    matchName: "Lola Bouncy ( or Alima Bouncy)",
+  },
+  {
+    code: "3A",
+    name: "Loose Spirals",
+    desc: "Big, open spirals with natural shine and movement. Low shrinkage with a curl pattern that falls freely. Light, bouncy and soft.",
+    match: "beach-curl",
+    matchName: "Beach Curl",
   },
 ];
 
@@ -59,11 +66,8 @@ function TextureGuide() {
           Find your <em className="italic text-gradient-blush">match</em>.
         </h1>
         <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          MELANVÉE is built for Type 4 hair: the kinks, coils and curls the industry has overlooked.
-          Plus a loose wave for soft, romantic volume.
-        </p>
-        <p className="mt-4 text-xs uppercase tracking-luxe text-mauve">
-          Type 3 textures coming soon
+          MELANVÉE is built for Type 3 and Type 4 hair: the kinks, coils and curls the industry has
+          overlooked. Plus a loose wave for soft, romantic volume.
         </p>
       </section>
 
@@ -71,6 +75,14 @@ function TextureGuide() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {types.map((t, i) => {
             const product = products.find((p) => p.id === t.match);
+            const fallbackImage = `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+              <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+                <rect width="128" height="128" fill="#171312" />
+                <text x="50%" y="44%" text-anchor="middle" dominant-baseline="middle" fill="#f1d2b0" font-size="24" font-family="Arial, sans-serif">${t.code}</text>
+                <text x="50%" y="72%" text-anchor="middle" dominant-baseline="middle" fill="#a96b2f" font-size="11" font-family="Arial, sans-serif">${t.matchName}</text>
+              </svg>
+            `)}`;
+
             return (
               <motion.div
                 key={t.code}
@@ -85,7 +97,7 @@ function TextureGuide() {
                   <p className="text-[10px] uppercase tracking-luxe text-mauve">{t.name}</p>
                 </div>
                 <p className="text-mauve leading-relaxed flex-1 text-sm">{t.desc}</p>
-                {product && (
+                {product ? (
                   <div className="mt-8 pt-6 border-t border-border">
                     <p className="text-[10px] uppercase tracking-luxe text-mauve mb-3">
                       Best match
@@ -116,6 +128,30 @@ function TextureGuide() {
                         </div>
                       </div>
                     </Link>
+                  </div>
+                ) : (
+                  <div className="mt-8 pt-6 border-t border-border">
+                    <p className="text-[10px] uppercase tracking-luxe text-mauve mb-3">
+                      Best match
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 overflow-hidden bg-noir flex-shrink-0">
+                        <img
+                          src={fallbackImage}
+                          alt={t.matchName}
+                          loading="lazy"
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <p className="font-display text-base text-cream">{t.matchName}</p>
+                        <p className="text-[10px] uppercase tracking-luxe text-gold">
+                          Suggested match
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 )}
               </motion.div>
