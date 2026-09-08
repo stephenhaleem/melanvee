@@ -19,7 +19,7 @@ import hairLengthImg from "@/assets/hairlength.jpeg";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { ProductReviews } from "@/components/ProductReviews";
 
-export const Route = createFileRoute("/product/$productId")({
+export const Route = createFileRoute("/products/$productId")({
   loader: async ({ params }) => {
     const product = await getProductByHandle(params.productId);
     if (!product) throw notFound();

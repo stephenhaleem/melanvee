@@ -19,7 +19,7 @@ import { Route as CollaborateRouteImport } from './routes/collaborate'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as ProductProductIdRouteImport } from './routes/product.$productId'
+import { Route as ProductProductIdRouteImport } from './routes/products.$productId'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 
 const TextureGuideRoute = TextureGuideRouteImport.update({
@@ -73,8 +73,8 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProductProductIdRoute = ProductProductIdRouteImport.update({
-  id: '/product/$productId',
-  path: '/product/$productId',
+  id: '/products/$productId',
+  path: '/products/$productId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -94,7 +94,7 @@ export interface FileRoutesByFullPath {
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/product/$productId': typeof ProductProductIdRoute
+  '/products/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -108,7 +108,7 @@ export interface FileRoutesByTo {
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/product/$productId': typeof ProductProductIdRoute
+  '/products/$productId': typeof ProductProductIdRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -123,7 +123,7 @@ export interface FileRoutesById {
   '/policies': typeof PoliciesRoute
   '/texture-guide': typeof TextureGuideRoute
   '/admin/dashboard': typeof AdminDashboardRoute
-  '/product/$productId': typeof ProductProductIdRoute
+  '/products/$productId': typeof ProductProductIdRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -139,7 +139,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
-    | '/product/$productId'
+    | '/products/$productId'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -153,7 +153,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
-    | '/product/$productId'
+    | '/products/$productId'
     | '/admin'
   id:
     | '__root__'
@@ -167,7 +167,7 @@ export interface FileRouteTypes {
     | '/policies'
     | '/texture-guide'
     | '/admin/dashboard'
-    | '/product/$productId'
+    | '/products/$productId'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -258,10 +258,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/product/$productId': {
-      id: '/product/$productId'
-      path: '/product/$productId'
-      fullPath: '/product/$productId'
+    '/products/$productId': {
+      id: '/products/$productId'
+      path: '/products/$productId'
+      fullPath: '/products/$productId'
       preLoaderRoute: typeof ProductProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }

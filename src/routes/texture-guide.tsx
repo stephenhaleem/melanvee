@@ -103,7 +103,7 @@ function TextureGuide() {
                       Best match
                     </p>
                     <Link
-                      to="/product/$productId"
+                      to="/products/$productId"
                       params={{ productId: product.id }}
                       className="block group"
                     >

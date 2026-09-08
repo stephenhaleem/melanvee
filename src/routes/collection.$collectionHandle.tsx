@@ -165,7 +165,7 @@ function CollectionPage() {
                   transition={{ duration: 0.8, delay: i * 0.1 }}
                   className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
                 >
-                  <Link to="/product/$productId" params={{ productId: p.handle }} className="block">
+                  <Link to="/products/$productId" params={{ productId: p.handle }} className="block">
                     <div className="aspect-[3/4] overflow-hidden relative">
                       <img
                         src={getProductImage(p)}
