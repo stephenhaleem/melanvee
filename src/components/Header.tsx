@@ -8,7 +8,7 @@ const nav = [
   { to: "/texture-guide", label: "Texture" },
   { to: "/how-to-wear", label: "Wear & Care" },
   { to: "/about", label: "About" },
-  { to: "/collaborate", label: "Collab" },
+  { href: "https://af.uppromote.com/0z2xz1-xk/register", label: "Collab" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
@@ -75,24 +75,43 @@ export function Header() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-7">
             {nav.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
-                style={{ color: CREAM }}
-                activeProps={{ style: { color: "var(--secondary)" } }}
-                activeOptions={{ exact: true }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
-                }
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-              >
-                {item.label}
-                <span
-                  className="absolute bottom-[-3px] left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-                  style={{ backgroundColor: "var(--secondary)" }}
-                />
-              </Link>
+              "href" in item ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
+                  style={{ color: CREAM }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                  }
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                >
+                  {item.label}
+                  <span
+                    className="absolute bottom-[-3px] left-0 h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ backgroundColor: "var(--secondary)" }}
+                  />
+                </a>
+              ) : (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
+                  style={{ color: CREAM }}
+                  activeProps={{ style: { color: "var(--secondary)" } }}
+                  activeOptions={{ exact: true }}
+                  onMouseEnter={(e) =>
+                    ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                  }
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                >
+                  {item.label}
+                  <span
+                    className="absolute bottom-[-3px] left-0 h-px w-0 group-hover:w-full transition-all duration-300"
+                    style={{ backgroundColor: "var(--secondary)" }}
+                  />
+                </Link>
+              )
             ))}
           </nav>
 
@@ -150,18 +169,32 @@ export function Header() {
         <div style={{ backgroundColor: SURFACE, borderBottom: `1px solid ${BORDER}` }}>
           <nav className="flex flex-col px-5 py-6 gap-5">
             {nav.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                style={{ color: MAUVE }}
-                activeProps={{ style: { color: CREAM } }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
-              >
-                {item.label}
-              </Link>
+              "href" in item ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
+                  style={{ color: MAUVE }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
+                  style={{ color: MAUVE }}
+                  activeProps={{ style: { color: CREAM } }}
+                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
+                >
+                  {item.label}
+                </Link>
+              )
             ))}
             <Link
               to="/collection"
