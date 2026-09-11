@@ -2,6 +2,9 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 
 import appCss from "../styles.css?url";
 
+const UPPROMOTE_PIXEL_URL =
+  "https://pixel.uppromote.com/collect/v1/collect?shop=m-e-l-a-n-v-e-e.myshopify.com";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -73,6 +76,7 @@ function RootComponent() {
   return (
     <>
       <HeadContent />
+      <script async src={UPPROMOTE_PIXEL_URL} />
       <Outlet />
       <Scripts />
     </>

@@ -24,6 +24,12 @@ const EVT = "melanvee:shopify-cart";
 // The React site URL we want Shopify to return users to after checkout
 const STORE_URL = SITE_URL;
 
+declare global {
+  interface Window {
+    upTag?: (...args: unknown[]) => unknown;
+  }
+}
+
 // ─── Internal state (module-level, shared across hooks) ────────────────────
 
 let _cart: ShopifyCart | null = null;
@@ -32,6 +38,9 @@ let _loading = false;
 function broadcast() {
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent(EVT, { detail: _cart }));
+    if (_cart) {
+      window.upTag?.("event", "cart_updated", _cart);
+    }
   }
 }
 
@@ -187,31 +196,24 @@ export async function shopifyRemoveLine(lineId: string): Promise<void> {
   }
 }
 
-function getCookie(name: string): string | null {
-  if (typeof document === "undefined") return null;
-
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  return parts.length === 2 ? parts.pop()?.split(";").shift() || null : null;
-}
-
 /**
  * Build the checkout URL.
  *
  * Shopify's checkout URL already contains the cart token. We append:
  * - `return_to` so the "Continue Shopping" / "Back to store" button on the
  *   thank-you page goes back to melanvee.com instead of the Shopify theme.
- * - UpPromote's referral token so affiliate attribution survives the
- *   redirect to Shopify checkout.
+ * - UpPromote's linker value so affiliate attribution survives the
+ *   redirect from the headless storefront to Shopify checkout.
  */
 function buildCheckoutUrl(rawCheckoutUrl: string): string {
   try {
     const url = new URL(rawCheckoutUrl);
     url.searchParams.set("return_to", STORE_URL);
 
-    const upPromoteToken = getCookie("_ska") || getCookie("sca_tracking");
-    if (upPromoteToken) {
-      url.searchParams.set("_ska", upPromoteToken);
+    const linkerValue =
+      typeof window !== "undefined" ? window.upTag?.("app", "linker") : null;
+    if (typeof linkerValue === "string" && linkerValue) {
+      url.searchParams.set("_upl", linkerValue);
     }
 
     return url.toString();
