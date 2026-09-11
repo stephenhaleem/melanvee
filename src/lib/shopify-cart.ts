@@ -187,22 +187,33 @@ export async function shopifyRemoveLine(lineId: string): Promise<void> {
   }
 }
 
+function getCookie(name: string): string | null {
+  if (typeof document === "undefined") return null;
+
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  return parts.length === 2 ? parts.pop()?.split(";").shift() || null : null;
+}
+
 /**
  * Build the checkout URL.
  *
  * Shopify's checkout URL already contains the cart token. We append:
  * - `return_to` so the "Continue Shopping" / "Back to store" button on the
  *   thank-you page goes back to melanvee.com instead of the Shopify theme.
- *
- * Additionally, for headless storefronts the checkout "Back" arrow in the
- * header uses the `shop_url` that is baked into the theme. We cannot change
- * that without editing the Shopify theme itself, but `return_to` covers the
- * post-purchase flow which matters most.
+ * - UpPromote's referral token so affiliate attribution survives the
+ *   redirect to Shopify checkout.
  */
 function buildCheckoutUrl(rawCheckoutUrl: string): string {
   try {
     const url = new URL(rawCheckoutUrl);
     url.searchParams.set("return_to", STORE_URL);
+
+    const upPromoteToken = getCookie("_ska") || getCookie("sca_tracking");
+    if (upPromoteToken) {
+      url.searchParams.set("_ska", upPromoteToken);
+    }
+
     return url.toString();
   } catch {
     // If URL parsing fails for any reason, return the original
