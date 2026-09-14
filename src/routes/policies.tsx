@@ -100,21 +100,22 @@ function Shipping() {
       <ul className="space-y-3 list-none pl-0">
         <Item>
           <strong className="text-cream">Dispatch:</strong> Within 24 to 72 hours of your order.
-          Times may vary slightly during busy periods.
+          Times may vary slightly during busy periods and weekends.
         </Item>
         <Item>
           <strong className="text-cream">UK & Europe:</strong> Delivered in 3 to 5 working days
           after dispatch.
         </Item>
         <Item>
-          <strong className="text-cream">Rest of world:</strong> Delivered in 5 to 10 working days
+          <strong className="text-cream">Rest of world:</strong> Delivered in 3 to 7 working days
           after dispatch.
         </Item>
         <Item>
           <strong className="text-cream">Free UK shipping</strong> on all orders over £100.
         </Item>
         <Item>
-          <strong className="text-cream">Free international shipping</strong> on all orders.
+          <strong className="text-cream">Free international shipping</strong> on all orders over
+          £100.
         </Item>
         <Item>
           All orders are <strong className="text-cream">tracked</strong>. You will receive a
@@ -209,12 +210,14 @@ function PrivacyTerms() {
       </Section>
       <Section title="Terms of Service">
         <p>
-          By placing an order with MELANVÉE you agree to these terms. All prices are listed in GBP
-          and charged in GBP at checkout regardless of the display currency you have selected.
+          By placing an order with MELANVÉE you agree to these terms. All prices are listed and
+          charged in GBP at checkout. Your display currency may vary but payment will always be
+          processed in GBP
         </p>
         <p>
-          Product images are styled professionally. Natural variation in human hair (slight shade or
-          curl pattern differences) is normal.
+          Our product images are professionally styled to showcase each texture at its best. As with
+          all natural human hair, slight variations in shade or curl pattern between batches are
+          completely normal and do not affect the quality of your hair.
         </p>
       </Section>
     </>
