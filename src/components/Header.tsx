@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CartButton } from "./CartDrawer";
+import { getCollections, type ShopifyCollection } from "@/lib/shopify";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -23,6 +24,11 @@ const BORDER = "rgba(74,18,32,0.1)";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
+  const [collectionsLoading, setCollectionsLoading] = useState(false);
+  const [collectionsError, setCollectionsError] = useState(false);
+  const [collectionsLoaded, setCollectionsLoaded] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -30,6 +36,24 @@ export function Header() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open || !shopOpen || collectionsLoaded || collectionsLoading) return;
+
+    setCollectionsLoading(true);
+    getCollections(20)
+      .then(setCollections)
+      .catch(() => setCollectionsError(true))
+      .finally(() => {
+        setCollectionsLoading(false);
+        setCollectionsLoaded(true);
+      });
+  }, [open, shopOpen, collectionsLoaded, collectionsLoading]);
+
+  const closeMenu = () => {
+    setOpen(false);
+    setShopOpen(false);
+  };
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -74,7 +98,7 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-7">
-            {nav.map((item) => (
+            {nav.map((item) =>
               "href" in item ? (
                 <a
                   key={item.href}
@@ -111,8 +135,8 @@ export function Header() {
                     style={{ backgroundColor: "var(--secondary)" }}
                   />
                 </Link>
-              )
-            ))}
+              ),
+            )}
           </nav>
 
           {/* Right */}
@@ -168,12 +192,78 @@ export function Header() {
       {open && (
         <div style={{ backgroundColor: SURFACE, borderBottom: `1px solid ${BORDER}` }}>
           <nav className="flex flex-col px-5 py-6 gap-5">
-            {nav.map((item) => (
-              "href" in item ? (
+            {nav.map((item) =>
+              item.label === "Shop" ? (
+                <div key={item.to} className="border-b border-[rgba(74,18,32,0.1)] pb-5">
+                  <button
+                    type="button"
+                    aria-expanded={shopOpen}
+                    aria-controls="mobile-shop-menu"
+                    onClick={() => setShopOpen((value) => !value)}
+                    className="flex w-full items-center justify-between text-left text-[11px] uppercase tracking-luxe transition-colors duration-200"
+                    style={{ color: shopOpen ? CREAM : MAUVE }}
+                  >
+                    <span>Shop</span>
+                    <span
+                      aria-hidden="true"
+                      className={`font-serif text-lg leading-none transition-transform duration-200 ${shopOpen ? "rotate-45" : ""}`}
+                    >
+                      +
+                    </span>
+                  </button>
+
+                  {shopOpen && (
+                    <div
+                      id="mobile-shop-menu"
+                      className="mt-4 max-h-[min(55vh,28rem)] overflow-y-auto border-l border-[rgba(74,18,32,0.14)] pl-4"
+                    >
+                      <Link
+                        to="/collection"
+                        onClick={closeMenu}
+                        className="block py-2 text-[11px] uppercase tracking-luxe transition-colors duration-200"
+                        style={{ color: CREAM }}
+                      >
+                        All products
+                      </Link>
+                      <p className="pb-1 pt-3 text-[10px] uppercase tracking-[0.2em] text-mauve/70">
+                        Collections
+                      </p>
+                      {collectionsLoading && (
+                        <p className="py-2 text-xs text-mauve">Loading collections...</p>
+                      )}
+                      {collectionsError && (
+                        <p className="py-2 text-xs text-mauve">
+                          Collections are temporarily unavailable.
+                        </p>
+                      )}
+                      {!collectionsLoading &&
+                        !collectionsError &&
+                        collections.map((collection) => (
+                          <Link
+                            key={collection.id}
+                            to="/collection"
+                            search={{ handle: collection.handle }}
+                            onClick={closeMenu}
+                            className="block py-2 text-[11px] uppercase tracking-luxe transition-colors duration-200"
+                            style={{ color: MAUVE }}
+                            onMouseEnter={(e) =>
+                              ((e.currentTarget as HTMLElement).style.color = CREAM)
+                            }
+                            onMouseLeave={(e) =>
+                              ((e.currentTarget as HTMLElement).style.color = MAUVE)
+                            }
+                          >
+                            {collection.title}
+                          </Link>
+                        ))}
+                    </div>
+                  )}
+                </div>
+              ) : "href" in item ? (
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={closeMenu}
                   className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
                   style={{ color: MAUVE }}
                   onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
@@ -185,7 +275,7 @@ export function Header() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  onClick={() => setOpen(false)}
+                  onClick={closeMenu}
                   className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
                   style={{ color: MAUVE }}
                   activeProps={{ style: { color: CREAM } }}
@@ -194,11 +284,11 @@ export function Header() {
                 >
                   {item.label}
                 </Link>
-              )
-            ))}
+              ),
+            )}
             <Link
               to="/collection"
-              onClick={() => setOpen(false)}
+              onClick={closeMenu}
               className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe px-5 py-2.5 hover:opacity-85 transition-opacity"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
             >
