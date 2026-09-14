@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
@@ -7,12 +7,17 @@ import {
   getProducts,
   getCollection,
   getCollectionProducts,
+  getCollections,
   getProductImage,
   getStartingPrice,
+  type ShopifyCollection,
   type ShopifyProduct,
 } from "@/lib/shopify";
 
 export const Route = createFileRoute("/collection")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    handle: typeof search.handle === "string" ? search.handle : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Collection · MELANVÉE" },
@@ -32,10 +37,15 @@ export const Route = createFileRoute("/collection")({
 });
 
 function Collection() {
+  const { handle } = Route.useSearch();
+  const navigate = useNavigate();
   const { format } = useCurrency();
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
   const [title, setTitle] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [collectionsLoading, setCollectionsLoading] = useState(true);
+  const [collectionsError, setCollectionsError] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -53,8 +63,8 @@ function Collection() {
         const prods = await getProducts(20);
         setProducts(prods);
       }
-    } catch (err: any) {
-      setError(err?.message ?? String(err));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : String(err));
     } finally {
       setLoading(false);
     }
@@ -67,17 +77,14 @@ function Collection() {
   );
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const handle = params.get("handle");
     loadForHandle(handle);
+  }, [handle]);
 
-    const onPop = () => {
-      const p = new URLSearchParams(window.location.search);
-      loadForHandle(p.get("handle"));
-    };
-
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
+  useEffect(() => {
+    getCollections(20)
+      .then(setCollections)
+      .catch(() => setCollectionsError(true))
+      .finally(() => setCollectionsLoading(false));
   }, []);
 
   return (
@@ -97,8 +104,8 @@ function Collection() {
 
       <section className="pb-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          {/* Search filter */}
-          <div className="mb-12">
+          {/* Collection and product filters */}
+          <div className="mb-12 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(14rem,20rem)]">
             <input
               type="text"
               placeholder="Search products..."
@@ -106,6 +113,40 @@ function Collection() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-3 bg-card text-cream placeholder:text-mauve border border-border focus:border-gold outline-none transition-colors"
             />
+            <label className="relative">
+              <span className="sr-only">Browse collections</span>
+              <select
+                value={handle ?? ""}
+                disabled={collectionsLoading}
+                onChange={(e) =>
+                  navigate({
+                    to: "/collection",
+                    search: e.target.value ? { handle: e.target.value } : {},
+                  })
+                }
+                className="w-full appearance-none border border-border bg-card px-6 py-3 pr-12 text-cream outline-none transition-colors focus:border-gold disabled:cursor-wait disabled:opacity-60"
+              >
+                <option value="" className="bg-card">
+                  All products
+                </option>
+                {collectionsError && (
+                  <option disabled className="bg-card">
+                    Collections unavailable
+                  </option>
+                )}
+                {collections.map((collection) => (
+                  <option key={collection.id} value={collection.handle} className="bg-card">
+                    {collection.title}
+                  </option>
+                ))}
+              </select>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-mauve"
+              >
+                ▾
+              </span>
+            </label>
           </div>
           {loading && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
@@ -154,7 +195,11 @@ function Collection() {
                   transition={{ duration: 0.8, delay: i * 0.1 }}
                   className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
                 >
-                  <Link to="/products/$productId" params={{ productId: p.handle }} className="block">
+                  <Link
+                    to="/products/$productId"
+                    params={{ productId: p.handle }}
+                    className="block"
+                  >
                     <div className="aspect-[3/4] overflow-hidden relative">
                       <img
                         src={getProductImage(p)}
