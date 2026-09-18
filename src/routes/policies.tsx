@@ -96,7 +96,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Shipping() {
   return (
     <Section title="Shipping Policy">
-      <p>All MELANVÉE orders are dispatched from our London studio.</p>
+      <p>All MELANVÉE orders are dispatched promptly upon processing,</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
           <strong className="text-cream">Dispatch:</strong> Within 24 to 72 hours of your order.
@@ -120,10 +120,6 @@ function Shipping() {
         <Item>
           All orders are <strong className="text-cream">tracked</strong>. You will receive a
           tracking link by email as soon as your order leaves us.
-        </Item>
-        <Item>
-          Customs duties and import taxes for orders outside the UK and EU are the buyer's
-          responsibility.
         </Item>
       </ul>
     </Section>

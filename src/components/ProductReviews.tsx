@@ -112,7 +112,7 @@ function ReviewCard({ review }: { review: Review }) {
                 >
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                Verified
+                Verified purchase
               </span>
             </div>
             <p className="text-[10px] uppercase tracking-luxe text-mauve mt-0.5">
