@@ -214,56 +214,32 @@ function WriteReviewForm({
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
-  const [videos, setVideos] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<Array<{ kind: "photo" | "video"; url: string }>>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    return () => previews.forEach((p) => URL.revokeObjectURL(p.url));
+    return () => previews.forEach((p) => URL.revokeObjectURL(p));
   }, [previews]);
-
-  const syncPreviews = (nextPhotos: File[], nextVideos: File[]) => {
-    previews.forEach((p) => URL.revokeObjectURL(p.url));
-    setPreviews([
-      ...nextPhotos.map((file) => ({ kind: "photo" as const, url: URL.createObjectURL(file) })),
-      ...nextVideos.map((file) => ({ kind: "video" as const, url: URL.createObjectURL(file) })),
-    ]);
-  };
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const incoming = Array.from(e.target.files ?? []);
     const imageFiles = incoming.filter((file) => file.type.startsWith("image/"));
-    const videoFiles = incoming.filter(
-      (file) => file.type.startsWith("video/") || /\.(mp4|mov|webm|m4v)$/i.test(file.name),
-    );
+    const combined = [...photos, ...imageFiles].slice(0, 6);
 
-    const nextPhotos = [...photos, ...imageFiles].slice(0, 6);
-    const nextVideos = [...videos, ...videoFiles].slice(0, Math.max(0, 6 - nextPhotos.length));
-
-    setPhotos(nextPhotos);
-    setVideos(nextVideos);
-    syncPreviews(nextPhotos, nextVideos);
+    setPhotos(combined);
+    previews.forEach((p) => URL.revokeObjectURL(p));
+    setPreviews(combined.map((f) => URL.createObjectURL(f)));
     e.target.value = "";
   };
 
   const removePhoto = (idx: number) => {
-    const nextPhotos = photos.filter((_, i) => i !== idx);
-    const nextVideos = videos.slice(0, Math.max(0, 6 - nextPhotos.length));
-
-    setPhotos(nextPhotos);
-    setVideos(nextVideos);
-    syncPreviews(nextPhotos, nextVideos);
-  };
-
-  const removeVideo = (idx: number) => {
-    const nextVideos = videos.filter((_, i) => i !== idx);
-    const nextPhotos = photos.slice(0, Math.max(0, 6 - nextVideos.length));
-
-    setPhotos(nextPhotos);
-    setVideos(nextVideos);
-    syncPreviews(nextPhotos, nextVideos);
+    setPhotos((p) => p.filter((_, i) => i !== idx));
+    setPreviews((p) => {
+      URL.revokeObjectURL(p[idx]);
+      return p.filter((_, i) => i !== idx);
+    });
   };
 
   const reset = () => {
@@ -272,9 +248,8 @@ function WriteReviewForm({
     setRating(5);
     setTitle("");
     setBody("");
-    previews.forEach((p) => URL.revokeObjectURL(p.url));
+    previews.forEach((p) => URL.revokeObjectURL(p));
     setPhotos([]);
-    setVideos([]);
     setPreviews([]);
   };
 
@@ -291,7 +266,6 @@ function WriteReviewForm({
         title: title || undefined,
         body,
         photos,
-        videos,
       });
       onSubmitted(review);
       showToast("Review posted — thank you");
@@ -440,19 +414,15 @@ function WriteReviewForm({
         />
       </div>
 
-      {/* Media */}
+      {/* Photos */}
       <div>
         <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
-          Add Photos or Video <span className="normal-case text-mauve">(optional, up to 6 total)</span>
+          Add Photos <span className="normal-case text-mauve">(optional, up to 6)</span>
         </label>
         <div className="flex flex-wrap gap-3">
-          {photos.map((file, i) => (
-            <div key={`photo-${file.name}-${i}`} className="relative w-20 h-20 flex-shrink-0">
-              <img
-                src={URL.createObjectURL(file)}
-                alt=""
-                className="w-full h-full object-cover"
-              />
+          {previews.map((src, i) => (
+            <div key={src} className="relative w-20 h-20 flex-shrink-0">
+              <img src={src} alt="" className="w-full h-full object-cover" />
               <button
                 type="button"
                 onClick={() => removePhoto(i)}
@@ -463,23 +433,7 @@ function WriteReviewForm({
               </button>
             </div>
           ))}
-          {videos.map((file, i) => (
-            <div key={`video-${file.name}-${i}`} className="relative w-28 h-20 flex-shrink-0">
-              <video src={URL.createObjectURL(file)} className="w-full h-full object-cover" muted />
-              <span className="absolute inset-0 flex items-center justify-center text-xl text-cream bg-black/20">
-                ▶
-              </span>
-              <button
-                type="button"
-                onClick={() => removeVideo(i)}
-                className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-ink border border-gold/40 text-cream text-xs flex items-center justify-center hover:text-gold"
-                aria-label="Remove video"
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          {photos.length + videos.length < 6 && (
+          {photos.length < 6 && (
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -493,7 +447,7 @@ function WriteReviewForm({
         <input
           ref={fileRef}
           type="file"
-          accept="image/*,video/*,.mp4,.mov,.webm,.m4v"
+          accept="image/*"
           multiple
           onChange={handleFiles}
           className="hidden"
