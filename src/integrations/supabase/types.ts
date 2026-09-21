@@ -153,6 +153,7 @@ export type Database = {
           title: string | null;
           body: string;
           photo_urls: string[];
+          video_urls: string[];
           created_at: string;
         };
         Insert: {
@@ -164,6 +165,7 @@ export type Database = {
           title?: string | null;
           body: string;
           photo_urls?: string[];
+          video_urls?: string[];
           created_at?: string;
         };
         Update: {
@@ -175,6 +177,7 @@ export type Database = {
           title?: string | null;
           body?: string;
           photo_urls?: string[];
+          video_urls?: string[];
           created_at?: string;
         };
         Relationships: [];

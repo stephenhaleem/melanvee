@@ -88,6 +88,7 @@ function StatsSummary({ stats }: { stats: ReviewStats }) {
 
 function ReviewCard({ review }: { review: Review }) {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const allMedia = [...review.photoUrls.map((url) => ({ url, type: "photo" as const })), ...review.videoUrls.map((url) => ({ url, type: "video" as const }))];
 
   return (
     <div className="border-b border-border pb-8 mb-8 last:border-0 last:mb-0 last:pb-0">
@@ -128,27 +129,40 @@ function ReviewCard({ review }: { review: Review }) {
       )}
       <p className="text-mauve leading-relaxed mt-2 whitespace-pre-line">{review.body}</p>
 
-      {review.photoUrls.length > 0 && (
+      {allMedia.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-2">
-          {review.photoUrls.map((url, i) => (
+          {allMedia.map((item, i) => (
             <button
-              key={url}
+              key={`${item.type}-${item.url}`}
               onClick={() => setLightboxIdx(i)}
-              className="w-20 h-20 overflow-hidden bg-noir flex-shrink-0"
-              aria-label={`View photo ${i + 1} from ${review.name}'s review`}
+              className={item.type === "video" ? "w-28 h-20 overflow-hidden bg-noir flex-shrink-0" : "w-20 h-20 overflow-hidden bg-noir flex-shrink-0"}
+              aria-label={`View ${item.type} ${i + 1} from ${review.name}'s review`}
             >
-              <img
-                src={url}
-                alt={`Photo from ${review.name}'s review`}
-                loading="lazy"
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
+              {item.type === "video" ? (
+                <div className="relative w-full h-full">
+                  <video
+                    src={item.url}
+                    className="w-full h-full object-cover"
+                    preload="metadata"
+                  />
+                  <span className="absolute inset-0 flex items-center justify-center text-2xl text-cream bg-black/20">
+                    ▶
+                  </span>
+                </div>
+              ) : (
+                <img
+                  src={item.url}
+                  alt={`Photo from ${review.name}'s review`}
+                  loading="lazy"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              )}
             </button>
           ))}
         </div>
       )}
 
-      {lightboxIdx !== null && (
+      {lightboxIdx !== null && allMedia[lightboxIdx] && (
         <div
           className="fixed inset-0 z-[90] backdrop-blur-md flex items-center justify-center"
           style={{ backgroundColor: "rgba(42,8,16,0.95)" }}
@@ -161,12 +175,22 @@ function ReviewCard({ review }: { review: Review }) {
           >
             ×
           </button>
-          <img
-            src={review.photoUrls[lightboxIdx]}
-            alt={`Photo from ${review.name}'s review`}
-            className="max-w-2xl w-full max-h-[85vh] object-contain"
-            onClick={(e) => e.stopPropagation()}
-          />
+          {allMedia[lightboxIdx].type === "video" ? (
+            <video
+              src={allMedia[lightboxIdx].url}
+              controls
+              autoPlay
+              className="max-w-3xl w-full max-h-[85vh] object-contain bg-black"
+              onClick={(e) => e.stopPropagation()}
+            />
+          ) : (
+            <img
+              src={allMedia[lightboxIdx].url}
+              alt={`Photo from ${review.name}'s review`}
+              className="max-w-2xl w-full max-h-[85vh] object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
         </div>
       )}
     </div>
@@ -190,30 +214,56 @@ function WriteReviewForm({
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [videos, setVideos] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<Array<{ kind: "photo" | "video"; url: string }>>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    return () => previews.forEach((p) => URL.revokeObjectURL(p));
+    return () => previews.forEach((p) => URL.revokeObjectURL(p.url));
   }, [previews]);
+
+  const syncPreviews = (nextPhotos: File[], nextVideos: File[]) => {
+    previews.forEach((p) => URL.revokeObjectURL(p.url));
+    setPreviews([
+      ...nextPhotos.map((file) => ({ kind: "photo" as const, url: URL.createObjectURL(file) })),
+      ...nextVideos.map((file) => ({ kind: "video" as const, url: URL.createObjectURL(file) })),
+    ]);
+  };
 
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const incoming = Array.from(e.target.files ?? []);
-    const combined = [...photos, ...incoming].slice(0, 6);
-    setPhotos(combined);
-    previews.forEach((p) => URL.revokeObjectURL(p));
-    setPreviews(combined.map((f) => URL.createObjectURL(f)));
+    const imageFiles = incoming.filter((file) => file.type.startsWith("image/"));
+    const videoFiles = incoming.filter(
+      (file) => file.type.startsWith("video/") || /\.(mp4|mov|webm|m4v)$/i.test(file.name),
+    );
+
+    const nextPhotos = [...photos, ...imageFiles].slice(0, 6);
+    const nextVideos = [...videos, ...videoFiles].slice(0, Math.max(0, 6 - nextPhotos.length));
+
+    setPhotos(nextPhotos);
+    setVideos(nextVideos);
+    syncPreviews(nextPhotos, nextVideos);
     e.target.value = "";
   };
 
   const removePhoto = (idx: number) => {
-    setPhotos((p) => p.filter((_, i) => i !== idx));
-    setPreviews((p) => {
-      URL.revokeObjectURL(p[idx]);
-      return p.filter((_, i) => i !== idx);
-    });
+    const nextPhotos = photos.filter((_, i) => i !== idx);
+    const nextVideos = videos.slice(0, Math.max(0, 6 - nextPhotos.length));
+
+    setPhotos(nextPhotos);
+    setVideos(nextVideos);
+    syncPreviews(nextPhotos, nextVideos);
+  };
+
+  const removeVideo = (idx: number) => {
+    const nextVideos = videos.filter((_, i) => i !== idx);
+    const nextPhotos = photos.slice(0, Math.max(0, 6 - nextVideos.length));
+
+    setPhotos(nextPhotos);
+    setVideos(nextVideos);
+    syncPreviews(nextPhotos, nextVideos);
   };
 
   const reset = () => {
@@ -222,8 +272,9 @@ function WriteReviewForm({
     setRating(5);
     setTitle("");
     setBody("");
-    previews.forEach((p) => URL.revokeObjectURL(p));
+    previews.forEach((p) => URL.revokeObjectURL(p.url));
     setPhotos([]);
+    setVideos([]);
     setPreviews([]);
   };
 
@@ -240,6 +291,7 @@ function WriteReviewForm({
         title: title || undefined,
         body,
         photos,
+        videos,
       });
       onSubmitted(review);
       showToast("Review posted — thank you");
@@ -388,15 +440,19 @@ function WriteReviewForm({
         />
       </div>
 
-      {/* Photos */}
+      {/* Media */}
       <div>
         <label className="block text-[10px] uppercase tracking-luxe text-gold mb-3">
-          Add Photos <span className="normal-case text-mauve">(optional, up to 6)</span>
+          Add Photos or Video <span className="normal-case text-mauve">(optional, up to 6 total)</span>
         </label>
         <div className="flex flex-wrap gap-3">
-          {previews.map((src, i) => (
-            <div key={src} className="relative w-20 h-20 flex-shrink-0">
-              <img src={src} alt="" className="w-full h-full object-cover" />
+          {photos.map((file, i) => (
+            <div key={`photo-${file.name}-${i}`} className="relative w-20 h-20 flex-shrink-0">
+              <img
+                src={URL.createObjectURL(file)}
+                alt=""
+                className="w-full h-full object-cover"
+              />
               <button
                 type="button"
                 onClick={() => removePhoto(i)}
@@ -407,7 +463,23 @@ function WriteReviewForm({
               </button>
             </div>
           ))}
-          {photos.length < 6 && (
+          {videos.map((file, i) => (
+            <div key={`video-${file.name}-${i}`} className="relative w-28 h-20 flex-shrink-0">
+              <video src={URL.createObjectURL(file)} className="w-full h-full object-cover" muted />
+              <span className="absolute inset-0 flex items-center justify-center text-xl text-cream bg-black/20">
+                ▶
+              </span>
+              <button
+                type="button"
+                onClick={() => removeVideo(i)}
+                className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-ink border border-gold/40 text-cream text-xs flex items-center justify-center hover:text-gold"
+                aria-label="Remove video"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          {photos.length + videos.length < 6 && (
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
@@ -421,7 +493,7 @@ function WriteReviewForm({
         <input
           ref={fileRef}
           type="file"
-          accept="image/*"
+          accept="image/*,video/*,.mp4,.mov,.webm,.m4v"
           multiple
           onChange={handleFiles}
           className="hidden"

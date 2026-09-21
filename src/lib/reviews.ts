@@ -9,6 +9,7 @@ export type Review = {
   title: string | null;
   body: string;
   photoUrls: string[];
+  videoUrls: string[];
   createdAt: string;
 };
 
@@ -18,8 +19,9 @@ export type ReviewStats = {
   breakdown: Record<1 | 2 | 3 | 4 | 5, number>;
 };
 
-const MAX_PHOTOS = 6;
+const MAX_MEDIA_ITEMS = 6;
 const MAX_PHOTO_BYTES = 8 * 1024 * 1024; // 8MB per photo
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024; // 50MB per video
 
 function mapRow(row: {
   id: string;
@@ -30,6 +32,7 @@ function mapRow(row: {
   title: string | null;
   body: string;
   photo_urls: string[] | null;
+  video_urls: string[] | null;
   created_at: string;
 }): Review {
   return {
@@ -41,6 +44,7 @@ function mapRow(row: {
     title: row.title,
     body: row.body,
     photoUrls: row.photo_urls ?? [],
+    videoUrls: row.video_urls ?? [],
     createdAt: row.created_at,
   };
 }
@@ -83,7 +87,7 @@ export async function uploadReviewPhotos(productId: string, files: File[]): Prom
   const usable = files
     .filter((f) => f.type.startsWith("image/"))
     .filter((f) => f.size <= MAX_PHOTO_BYTES)
-    .slice(0, MAX_PHOTOS);
+    .slice(0, MAX_MEDIA_ITEMS);
 
   const urls: string[] = [];
 
@@ -108,6 +112,40 @@ export async function uploadReviewPhotos(productId: string, files: File[]): Prom
   return urls;
 }
 
+/**
+ * Upload review videos to the public `review-videos` Supabase Storage bucket.
+ * Returns the public URLs in the same order as the input files.
+ * Silently skips unsupported files or files over the size limit.
+ */
+export async function uploadReviewVideos(productId: string, files: File[]): Promise<string[]> {
+  const usable = files
+    .filter((f) => f.type.startsWith("video/") || f.name.match(/\.(mp4|mov|webm|m4v)$/i))
+    .filter((f) => f.size <= MAX_VIDEO_BYTES)
+    .slice(0, MAX_MEDIA_ITEMS);
+
+  const urls: string[] = [];
+
+  for (const file of usable) {
+    const extension = file.name.split(".").pop()?.toLowerCase() || "mp4";
+    const path = `${productId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${extension}`;
+
+    const { error } = await supabase.storage.from("review-videos").upload(path, file, {
+      cacheControl: "31536000",
+      upsert: false,
+    });
+
+    if (error) {
+      console.error("[reviews] Video upload failed:", error);
+      continue;
+    }
+
+    const { data } = supabase.storage.from("review-videos").getPublicUrl(path);
+    urls.push(data.publicUrl);
+  }
+
+  return urls;
+}
+
 export type SubmitReviewInput = {
   productId: string;
   name: string;
@@ -116,9 +154,10 @@ export type SubmitReviewInput = {
   title?: string;
   body: string;
   photos?: File[];
+  videos?: File[];
 };
 
-/** Submit a new review, uploading any attached photos first. */
+/** Submit a new review, uploading attached photos/videos first. */
 export async function submitReview(input: SubmitReviewInput): Promise<Review> {
   const name = input.name.trim();
   const body = input.body.trim();
@@ -132,6 +171,11 @@ export async function submitReview(input: SubmitReviewInput): Promise<Review> {
     photoUrls = await uploadReviewPhotos(input.productId, input.photos);
   }
 
+  let videoUrls: string[] = [];
+  if (input.videos && input.videos.length > 0) {
+    videoUrls = await uploadReviewVideos(input.productId, input.videos);
+  }
+
   const { data, error } = await supabase
     .from("reviews")
     .insert({
@@ -142,6 +186,7 @@ export async function submitReview(input: SubmitReviewInput): Promise<Review> {
       title: input.title?.trim() || null,
       body,
       photo_urls: photoUrls,
+      video_urls: videoUrls,
     })
     .select()
     .single();
