@@ -160,7 +160,14 @@ function ProductPage() {
               </h1>
               <div className="hairline mt-8 w-20" />
 
-              <p className="mt-8 text-mauve leading-loose">{product.description}</p>
+              {product.descriptionHtml ? (
+                <div
+                  className="mt-8 text-mauve leading-loose [&_p]:mb-4 [&_p:last-child]:mb-0 [&_h2]:mb-3 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:text-cream [&_h3]:mb-2 [&_h3]:font-display [&_h3]:text-xl [&_h3]:text-cream [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-2 [&_a]:text-gold [&_a]:underline [&_a]:underline-offset-4 [&_strong]:text-cream [&_blockquote]:border-l-2 [&_blockquote]:border-gold [&_blockquote]:pl-4 [&_blockquote]:italic [&_hr]:my-6 [&_hr]:border-border [&_img]:h-auto [&_img]:max-w-full"
+                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                />
+              ) : (
+                <p className="mt-8 text-mauve leading-loose">{product.description}</p>
+              )}
 
               {product.tags.length > 0 && (
                 <div className="mt-8 flex flex-wrap gap-2">
