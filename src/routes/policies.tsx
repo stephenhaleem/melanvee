@@ -107,7 +107,7 @@ function Shipping() {
           after dispatch.
         </Item>
         <Item>
-          <strong className="text-cream">Rest of world:</strong> Delivered in 3 to 7 working days
+          <strong className="text-cream">Rest of world:</strong> Delivered in 3 to 8 working days
           after dispatch.
         </Item>
         <Item>
