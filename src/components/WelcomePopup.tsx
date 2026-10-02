@@ -75,7 +75,7 @@ export function WelcomePopup() {
           <div className="p-10 text-center">
             <p className="text-xs uppercase tracking-luxe text-gold mb-4">— First Time Here?</p>
             <h3 className="font-display text-3xl text-cream leading-tight">
-              <em className="italic text-gradient-blush">5% off</em>
+              <em className="italic text-gradient-blush">10% off</em>
               <br /> your first order.
             </h3>
             <p className="mt-4 text-sm text-mauve leading-relaxed">
@@ -100,7 +100,7 @@ export function WelcomePopup() {
                 disabled={stage === "submitting"}
                 className="w-full bg-gold text-primary-foreground py-3 text-xs uppercase tracking-luxe hover:shadow-rose-glow transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {stage === "submitting" ? "Subscribing…" : "Get my 5% off"}
+                {stage === "submitting" ? "Subscribing…" : "Get my 10% off"}
               </button>
             </form>
             <button
