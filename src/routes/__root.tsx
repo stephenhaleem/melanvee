@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { SiteCopyProvider } from "@/lib/site-copy";
 
 const UPPROMOTE_PIXEL_URL =
   "https://pixel.uppromote.com/collect/v1/collect?shop=m-e-l-a-n-v-e-e.myshopify.com";
@@ -77,7 +78,9 @@ function RootComponent() {
     <>
       <HeadContent />
       <script async src={UPPROMOTE_PIXEL_URL} />
-      <Outlet />
+      <SiteCopyProvider>
+        <Outlet />
+      </SiteCopyProvider>
       <Scripts />
     </>
   );

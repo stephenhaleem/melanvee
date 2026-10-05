@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { products } from "@/data/products";
+import { useSiteCopy } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/texture-guide")({
   head: () => ({
@@ -19,56 +20,53 @@ export const Route = createFileRoute("/texture-guide")({
   component: TextureGuide,
 });
 
-const types = [
-  {
-    code: "4A",
-    name: "Soft Coils",
-    desc: "Defined springy S-shaped coils. Soft to the touch with visible curl pattern. Shrinks but bounces back.",
-    match: "kimi-curl",
-    matchName: "Kimi Curl",
-  },
-  {
-    code: "4B",
-    name: "Z-Pattern Coils",
-    desc: "Tighter, less defined coils that bend in sharp Z-angles. Dense and cottony when dry, defined when wet.",
-    match: "kimi-curl",
-    matchName: "Kimi Curl (or Zora for fuller volume)",
-  },
-  {
-    code: "4C",
-    name: "Tight Afro Coils",
-    desc: "The tightest pattern: coily, dense, with maximum shrinkage. Holds its shape with the most fullness.",
-    match: "zora-coil",
-    matchName: "Zora Coil",
-  },
-  {
-    code: "Bouncy",
-    name: "Bouncy",
-    desc: "Full, voluminous hair with natural lift and movement. Soft to the touch with a bounce that holds throughout the day. Looks effortless, feels weightless.",
-    match: "Lola-bouncy",
-    matchName: "Lola Bouncy ( or Alima Bouncy)",
-  },
-  {
-    code: "3A",
-    name: "Loose Spirals",
-    desc: "Big, open spirals with natural shine and movement. Low shrinkage with a curl pattern that falls freely. Light, bouncy and soft.",
-    match: "beach-curl",
-    matchName: "Beach Curl",
-  },
-];
-
 function TextureGuide() {
+  const copy = useSiteCopy();
+  const types = [
+    {
+      code: "4A",
+      name: copy("texture.4a.name"),
+      desc: copy("texture.4a.description"),
+      match: "kimi-curl",
+      matchName: copy("texture.4a.match"),
+    },
+    {
+      code: "4B",
+      name: copy("texture.4b.name"),
+      desc: copy("texture.4b.description"),
+      match: "kimi-curl",
+      matchName: copy("texture.4b.match"),
+    },
+    {
+      code: "4C",
+      name: copy("texture.4c.name"),
+      desc: copy("texture.4c.description"),
+      match: "zora-coil",
+      matchName: copy("texture.4c.match"),
+    },
+    {
+      code: "Bouncy",
+      name: copy("texture.bouncy.name"),
+      desc: copy("texture.bouncy.description"),
+      match: "Lola-bouncy",
+      matchName: copy("texture.bouncy.match"),
+    },
+    {
+      code: "3A",
+      name: copy("texture.3a.name"),
+      desc: copy("texture.3a.description"),
+      match: "beach-curl",
+      matchName: copy("texture.3a.match"),
+    },
+  ];
   return (
     <Layout>
       <section className="pt-20 pb-12 text-center">
-        <p className="text-xs uppercase tracking-luxe text-gold mb-5">· Texture Guide</p>
+        <p className="text-xs uppercase tracking-luxe text-gold mb-5">{copy("texture.eyebrow")}</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
-          Find your <em className="italic text-gradient-blush">match</em>.
+          {copy("texture.heading")}
         </h1>
-        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          MELANVÉE is built for Type 3 and Type 4 hair: the kinks, coils and curls the industry has
-          overlooked. Plus a loose wave for soft, romantic volume.
-        </p>
+        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">{copy("texture.description")}</p>
       </section>
 
       <section className="py-16">
@@ -100,7 +98,7 @@ function TextureGuide() {
                 {product ? (
                   <div className="mt-8 pt-6 border-t border-border">
                     <p className="text-[10px] uppercase tracking-luxe text-mauve mb-3">
-                      Best match
+                      {copy("texture.best_match")}
                     </p>
                     <Link
                       to="/products/$productId"
@@ -132,7 +130,7 @@ function TextureGuide() {
                 ) : (
                   <div className="mt-8 pt-6 border-t border-border">
                     <p className="text-[10px] uppercase tracking-luxe text-mauve mb-3">
-                      Best match
+                      {copy("texture.best_match")}
                     </p>
                     <div className="flex items-center gap-4">
                       <div className="w-16 h-16 overflow-hidden bg-noir flex-shrink-0">
@@ -148,7 +146,7 @@ function TextureGuide() {
                       <div>
                         <p className="font-display text-base text-cream">{t.matchName}</p>
                         <p className="text-[10px] uppercase tracking-luxe text-gold">
-                          Suggested match
+                          {copy("texture.suggested_match")}
                         </p>
                       </div>
                     </div>
@@ -161,13 +159,7 @@ function TextureGuide() {
       </section>
 
       <div className="max-w-3xl mx-auto px-6 py-20 text-center">
-        <p className="text-mauve leading-loose">
-          Not sure?{" "}
-          <Link to="/contact" className="text-gold border-b border-gold/40 hover:border-gold">
-            WhatsApp us a photo of your hair
-          </Link>{" "}
-          and we will match you personally, usually within an hour.
-        </p>
+        <p className="text-mauve leading-loose">{copy("texture.help")}</p>
       </div>
     </Layout>
   );

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, memo } from "react";
 import { Layout } from "@/components/Layout";
+import { useSiteCopy } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -21,6 +22,7 @@ const WHATSAPP_HREF =
 
 // Isolated in its own memoized component so parent re-renders don't touch it
 const ContactForm = memo(function ContactForm() {
+  const copy = useSiteCopy();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -53,10 +55,8 @@ const ContactForm = memo(function ContactForm() {
   if (status === "success") {
     return (
       <div className="bg-card border border-gold/30 p-12 text-center shadow-luxe min-h-[340px] flex flex-col items-center justify-center gap-4">
-        <p className="font-display text-3xl text-cream">Thank you.</p>
-        <p className="text-mauve leading-relaxed max-w-xs">
-          We've received your message and will reply within 1–2 working days.
-        </p>
+        <p className="font-display text-3xl text-cream">{copy("contact.success_heading")}</p>
+        <p className="text-mauve leading-relaxed max-w-xs">{copy("contact.success_description")}</p>
       </div>
     );
   }
@@ -150,16 +150,16 @@ const ContactForm = memo(function ContactForm() {
 });
 
 export default function Contact() {
+  const copy = useSiteCopy();
   return (
     <Layout>
       <section className="py-24 md:py-32 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Get in Touch</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight max-w-3xl mx-auto px-6">
-          We'd love to <em className="italic text-gradient-blush">hear from you</em>.
+          {copy("contact.heading")}
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
-          Questions about texture, length, or shipping? WhatsApp us Monday to Friday, or drop us an
-          email any time.
+          {copy("contact.description")}
         </p>
       </section>
 
@@ -167,7 +167,9 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto px-6 lg:px-12 grid md:grid-cols-5 gap-16">
           <div className="md:col-span-2 space-y-10">
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">WhatsApp</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">
+                {copy("contact.whatsapp_label")}
+              </p>
               <a
                 href={WHATSAPP_HREF}
                 target="_blank"
@@ -177,13 +179,15 @@ export default function Contact() {
                 +44 77603 17678
                 <br />
                 <span className="text-xs uppercase tracking-luxe text-mauve">
-                  Monday to Friday · Tap to chat · Response time: 9am-4pm
+                  {copy("contact.whatsapp_hours")}
                 </span>
               </a>
             </div>
             <div className="hairline w-20" />
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">Email · Anytime</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">
+                {copy("contact.email_label")}
+              </p>
               <p className="text-cream leading-relaxed">
                 customercare@melanvee.com
                 <br />
@@ -192,9 +196,11 @@ export default function Contact() {
             </div>
             <div className="hairline w-20" />
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">London · Worldwide</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">
+                {copy("contact.shipping_label")}
+              </p>
               <p className="text-cream leading-relaxed">
-                Free UK and international shipping for orders over £100
+                {copy("contact.shipping_description")}
                 <br />
               </p>
             </div>

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
+import { useSiteCopy } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/how-to-wear")({
   head: () => ({
@@ -21,72 +22,20 @@ export const Route = createFileRoute("/how-to-wear")({
   component: WearAndCare,
 });
 
-const halfWig = [
-  "Slick your hair into a low bun, or cornrow it flat. Leave a small section out at the front to blend if you want that soft, melted-in finish.",
-  "Slip her on. Adjust the inner straps until she sits snug without pressing.",
-  "Lock her in with the built-in combs at the crown and nape.",
-  "Smooth your leave-out through with curl custard or styling cream. Finger-fluff where the textures meet.",
-  "Lay your edges, spritz a little water to wake the curls, and go.",
-];
-
-const uPart = [
-  "Slick your hair back into a low bun, or cornrow it flat. Leave a U-shaped section out along your natural parting.",
-  "Place her on, pull your own hair through the U opening.",
-  "Adjust the inner straps. She should feel held, not heavy. Secure the combs at the crown and nape.",
-  "Blend your leave-out into the texture with a styling cream until no one can tell where your hair ends and she begins.",
-  "Style your parting, lay your edges, and go.",
-];
-
-const careSteps = [
-  {
-    n: "01",
-    t: "Wash gently",
-    d: "Every 2 to 3 weeks. Co-wash or use sulfate-free shampoo. Work the product downward, root to tip, never in circles.",
-  },
-  {
-    n: "02",
-    t: "Deep condition",
-    d: "Every wash. Leave a rich conditioner in for 20 to 30 minutes, rinse cool. Let the coils drink.",
-  },
-  {
-    n: "03",
-    t: "Detangle softly",
-    d: "Damp, with conditioner in. Fingers first, then a wide-tooth comb, always ends to roots. Never rip through dry.",
-  },
-  {
-    n: "04",
-    t: "Air dry",
-    d: "Squeeze excess water in a microfibre towel, then air dry on a wig stand. Skip the high heat whenever you can.",
-  },
-  {
-    n: "05",
-    t: "Refresh between washes",
-    d: "A spritz of water with leave-in conditioner wakes her back up. A little styling cream brings definition back to the curl.",
-  },
-  {
-    n: "06",
-    t: "Sleep her right",
-    d: "Satin bonnet, silk scarf or satin pillow. Store her on a stand, or tuck her back into her box. She is an investment. Treat her like one.",
-  },
-];
-
-const dos = [
-  "Sulfate-free, moisture-rich products",
-  "Detangle with fingers or a wide-tooth comb",
-  "Air dry on a wig stand",
-  "Sleep satin or silk",
-  "Heat style with a heat protectant",
-];
-
-const donts = [
-  "Scrub or twist when washing",
-  "Brush through dry coils",
-  "Use hot water on any length",
-  "Sleep on cotton with her in",
-  "Use alcohol-heavy products",
-];
-
 function WearAndCare() {
+  const copy = useSiteCopy();
+  const halfWig = copy("wear.half_wig_steps").split("\n");
+  const uPart = copy("wear.u_part_steps").split("\n");
+  const careSteps = Array.from({ length: 6 }, (_, index) => {
+    const number = index + 1;
+    return {
+      n: String(number).padStart(2, "0"),
+      t: copy(`wear.care${number}.title` as `wear.care${1 | 2 | 3 | 4 | 5 | 6}.title`),
+      d: copy(`wear.care${number}.description` as `wear.care${1 | 2 | 3 | 4 | 5 | 6}.description`),
+    };
+  });
+  const dos = copy("wear.do_list").split("\n");
+  const donts = copy("wear.dont_list").split("\n");
   return (
     <Layout>
       {/* HERO */}
@@ -97,7 +46,7 @@ function WearAndCare() {
           transition={{ duration: 0.6 }}
           className="text-xs uppercase tracking-luxe text-gold mb-5"
         >
-          Wear & Care
+          {copy("wear.eyebrow")}
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -105,7 +54,7 @@ function WearAndCare() {
           transition={{ duration: 0.9, delay: 0.1 }}
           className="font-display text-5xl md:text-7xl text-cream leading-[1.05]"
         >
-          Install. Wear. <em className="italic text-gradient-blush">Love her.</em>
+          {copy("wear.heading")}
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -113,8 +62,7 @@ function WearAndCare() {
           transition={{ duration: 0.9, delay: 0.3 }}
           className="mt-8 text-mauve max-w-xl mx-auto leading-loose"
         >
-          No salon visits. No appointments. No damage to your own hair. A simple routine from the
-          moment she arrives, made to keep her soft for one to three years.
+          {copy("wear.description")}
         </motion.p>
       </section>
 
@@ -123,7 +71,9 @@ function WearAndCare() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
             <p className="text-[10px] uppercase tracking-luxe text-mauve">Step One</p>
-            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">The Install</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">
+              {copy("wear.install_heading")}
+            </h2>
             <div className="hairline mx-auto mt-6 w-20" />
           </div>
 
@@ -139,30 +89,18 @@ function WearAndCare() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-[10px] uppercase tracking-luxe text-gold mb-4">The Cap</p>
           <h2 className="font-display text-4xl text-cream leading-tight">
-            Built to <em className="italic text-gradient-blush">breathe</em>.
+            {copy("wear.cap_heading")}
           </h2>
-          <p className="mt-6 text-mauve leading-loose">
-            Every MELANVÉE piece is built on a soft, breathable cap with adjustable inner straps and
-            built-in combs. No tightness, no itching, no pressure on your edges. She sits light
-            enough to forget you have her on, secure enough to live your day in.
-          </p>
+          <p className="mt-6 text-mauve leading-loose">{copy("wear.cap_description")}</p>
           <ul className="mt-10 grid sm:grid-cols-2 gap-x-8 gap-y-4 text-mauve text-left max-w-md mx-auto">
-            <li className="flex gap-3 items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-              Breathable, no itch
-            </li>
-            <li className="flex gap-3 items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-              Adjustable inner straps
-            </li>
-            <li className="flex gap-3 items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-              Combs at crown and nape
-            </li>
-            <li className="flex gap-3 items-center">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-              Gentle on your edges
-            </li>
+            {copy("wear.cap_benefits")
+              .split("\n")
+              .map((benefit) => (
+                <li key={benefit} className="flex gap-3 items-center">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                  {benefit}
+                </li>
+              ))}
           </ul>
         </div>
       </section>
@@ -172,9 +110,11 @@ function WearAndCare() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="mb-14 text-center">
             <p className="text-[10px] uppercase tracking-luxe text-mauve">Step Two</p>
-            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">The Care</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-cream mt-3">
+              {copy("wear.care_heading")}
+            </h2>
             <p className="mt-5 text-mauve max-w-lg mx-auto leading-loose">
-              She is 100% premium virgin human hair. Loved right, she wears for one to three years.
+              {copy("wear.care_intro")}
             </p>
             <div className="hairline mx-auto mt-6 w-20" />
           </div>
@@ -235,15 +175,13 @@ function WearAndCare() {
       {/* OUTRO */}
       <section className="py-24 text-center max-w-2xl mx-auto px-6">
         <p className="font-display text-4xl text-cream leading-tight">
-          Safe to colour, curl <em className="italic text-gradient-blush">or heat style</em>.
+          {copy("wear.outro_heading")}
         </p>
-        <p className="mt-6 text-mauve leading-loose">
-          100% premium virgin human hair. Treat her with gentle products and a heat protectant. For
-          colour changes, we recommend a professional colourist who knows textured hair.
-        </p>
+        <p className="mt-6 text-mauve leading-loose">{copy("wear.outro_description")}</p>
         <div className="mt-12 flex flex-wrap justify-center gap-4">
           <Link
             to="/collection"
+            search={{ handle: undefined }}
             className="text-xs uppercase tracking-luxe bg-gold text-primary-foreground px-8 py-4 hover:shadow-rose-glow transition-all duration-500"
           >
             Shop the Collection

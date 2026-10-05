@@ -11,6 +11,7 @@ import {
   type Product,
   type LengthOption,
 } from "@/lib/supabase-products";
+import { SITE_COPY_DEFAULTS, SITE_COPY_FIELDS, type SiteCopyKey } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/admin/dashboard")({
   component: AdminDashboard,
@@ -61,6 +62,7 @@ export default function AdminDashboard() {
   const [creating, setCreating] = useState(false);
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<"products" | "website-copy">("products");
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -133,21 +135,47 @@ export default function AdminDashboard() {
 
       <main className="max-w-7xl mx-auto px-6 py-10">
         {/* Page title + add button */}
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="font-display text-3xl text-cream">Products</h1>
-            <p className="text-mauve text-sm mt-1">{products.length} products in database</p>
+            <h1 className="font-display text-3xl text-cream">
+              {activeSection === "products" ? "Products" : "Website Copy"}
+            </h1>
+            <p className="text-mauve text-sm mt-1">
+              {activeSection === "products"
+                ? `${products.length} products in database`
+                : "Edit page headings, descriptions, and other website text."}
+            </p>
           </div>
-          <button
-            onClick={() => setCreating(true)}
-            className="bg-gold text-primary-foreground px-6 py-3 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity"
-          >
-            + Add Product
-          </button>
+          {activeSection === "products" && (
+            <button
+              onClick={() => setCreating(true)}
+              className="bg-gold text-primary-foreground px-6 py-3 text-xs uppercase tracking-luxe hover:opacity-90 transition-opacity"
+            >
+              + Add Product
+            </button>
+          )}
+        </div>
+
+        <div className="flex gap-3 border-b border-border mb-8">
+          {(["products", "website-copy"] as const).map((section) => (
+            <button
+              key={section}
+              onClick={() => setActiveSection(section)}
+              className={`px-4 py-3 text-xs uppercase tracking-luxe border-b-2 transition-colors ${
+                activeSection === section
+                  ? "text-gold border-gold"
+                  : "text-mauve border-transparent hover:text-cream"
+              }`}
+            >
+              {section === "products" ? "Products" : "Website Copy"}
+            </button>
+          ))}
         </div>
 
         {/* Products table */}
-        {loading ? (
+        {activeSection === "website-copy" ? (
+          <WebsiteCopyEditor />
+        ) : loading ? (
           <p className="text-mauve text-xs uppercase tracking-luxe animate-pulse">Loading…</p>
         ) : (
           <div className="space-y-3">
@@ -240,6 +268,146 @@ export default function AdminDashboard() {
           {toast}
         </div>
       )}
+    </div>
+  );
+}
+
+function WebsiteCopyEditor() {
+  const [values, setValues] = useState<Record<SiteCopyKey, string>>(SITE_COPY_DEFAULTS);
+  const [loading, setLoading] = useState(true);
+  const [savingKey, setSavingKey] = useState<SiteCopyKey | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [savedKey, setSavedKey] = useState<SiteCopyKey | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      try {
+        const { data, error: queryError } = await supabase.from("site_copy").select("key, value");
+        if (!active) return;
+        if (queryError) {
+          setError(`Couldn't load website copy: ${queryError.message}`);
+        } else if (data) {
+          setValues((current) => ({
+            ...current,
+            ...Object.fromEntries(data.map(({ key, value }) => [key, value])),
+          }));
+        }
+        setLoading(false);
+      } catch (queryError: unknown) {
+        if (!active) return;
+        setError(
+          `Couldn't load website copy: ${queryError instanceof Error ? queryError.message : String(queryError)}`,
+        );
+        setLoading(false);
+      }
+    };
+    void load();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const save = async (key: SiteCopyKey, value = values[key]) => {
+    setSavingKey(key);
+    setError(null);
+    setSavedKey(null);
+    try {
+      const { error: saveError } = await supabase
+        .from("site_copy")
+        .upsert({ key, value, updated_at: new Date().toISOString() });
+      if (saveError) {
+        setError(
+          `Couldn't save "${SITE_COPY_FIELDS.find((field) => field.key === key)?.label}": ${saveError.message}`,
+        );
+      } else {
+        setValues((current) => ({ ...current, [key]: value }));
+        setSavedKey(key);
+      }
+    } catch (saveError: unknown) {
+      setError(
+        `Couldn't save "${SITE_COPY_FIELDS.find((field) => field.key === key)?.label}": ${saveError instanceof Error ? saveError.message : String(saveError)}`,
+      );
+    } finally {
+      setSavingKey(null);
+    }
+  };
+
+  const sections = Array.from(new Set(SITE_COPY_FIELDS.map((field) => field.section)));
+
+  if (loading) {
+    return (
+      <p className="text-mauve text-xs uppercase tracking-luxe animate-pulse">
+        Loading website copy…
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-10">
+      {error && (
+        <p role="alert" className="border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">
+          {error}
+        </p>
+      )}
+      {sections.map((section) => (
+        <section key={section}>
+          <h2 className="font-display text-2xl text-cream mb-4">{section}</h2>
+          <div className="space-y-4">
+            {SITE_COPY_FIELDS.filter((field) => field.section === section).map((field) => (
+              <div key={field.key} className="bg-charcoal border border-border p-5">
+                <label
+                  htmlFor={`site-copy-${field.key}`}
+                  className="block text-xs uppercase tracking-luxe text-gold mb-3"
+                >
+                  {field.label}
+                </label>
+                <textarea
+                  id={`site-copy-${field.key}`}
+                  rows={Math.min(6, Math.max(2, Math.ceil(values[field.key].length / 90)))}
+                  value={values[field.key]}
+                  onChange={(event) =>
+                    setValues((current) => ({ ...current, [field.key]: event.target.value }))
+                  }
+                  className="w-full bg-ink border border-border focus:border-gold outline-none p-3 text-cream text-sm leading-relaxed resize-y"
+                />
+                <div className="mt-3 flex items-center justify-between gap-4">
+                  <span className="text-xs text-green-400" aria-live="polite">
+                    {savedKey === field.key ? "Saved" : ""}
+                  </span>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setValues((current) => ({
+                          ...current,
+                          [field.key]: SITE_COPY_DEFAULTS[field.key],
+                        }));
+                        void save(field.key, SITE_COPY_DEFAULTS[field.key]);
+                      }}
+                      disabled={
+                        savingKey === field.key ||
+                        values[field.key] === SITE_COPY_DEFAULTS[field.key]
+                      }
+                      className="text-[10px] uppercase tracking-luxe text-mauve hover:text-cream disabled:opacity-40"
+                    >
+                      Reset
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void save(field.key)}
+                      disabled={savingKey === field.key}
+                      className="bg-gold text-primary-foreground px-4 py-2 text-[10px] uppercase tracking-luxe hover:opacity-90 disabled:opacity-50"
+                    >
+                      {savingKey === field.key ? "Saving…" : "Save"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

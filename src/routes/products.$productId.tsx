@@ -43,7 +43,11 @@ export const Route = createFileRoute("/products/$productId")({
     <Layout>
       <section className="py-32 text-center">
         <h1 className="font-display text-4xl text-cream mb-4">Piece not found</h1>
-        <Link to="/collection" className="text-gold border-b border-gold/40">
+        <Link
+          to="/collection"
+          search={{ handle: undefined }}
+          className="text-gold border-b border-gold/40"
+        >
           Back to collection
         </Link>
       </section>
@@ -123,7 +127,7 @@ function ProductPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           {/* Breadcrumb */}
           <nav className="text-[10px] uppercase tracking-luxe text-mauve mb-8 flex gap-2">
-            <Link to="/collection" className="hover:text-gold">
+            <Link to="/collection" search={{ handle: undefined }} className="hover:text-gold">
               Collection
             </Link>
             <span>·</span>

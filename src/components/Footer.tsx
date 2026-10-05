@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { CurrencySwitcher } from "./CurrencySwitcher";
+import { useSiteCopy } from "@/lib/site-copy";
 
 const BG = "#3D0B12"; // deep burgundy footer background
 const CREAM = "#FBF3E7"; // primary light text
@@ -11,6 +12,7 @@ const IG_URL = "https://instagram.com/melanveeofficial";
 const TIKTOK_URL = "https://tiktok.com/@melanvee";
 
 export function Footer() {
+  const copy = useSiteCopy();
   return (
     <footer
       className="mt-32 site-footer"
@@ -22,10 +24,10 @@ export function Footer() {
             M E L A N V É E
           </p>
           <p className="mt-4 italic font-display text-lg" style={{ color: ACCENT }}>
-            Made to feel like yours.
+            {copy("footer.tagline")}
           </p>
           <p className="mt-4 text-sm max-w-sm leading-relaxed" style={{ color: MUTED }}>
-            Half wigs and U-part wigs for women of colour. True 3A to 4C textures.
+            {copy("footer.description")}
           </p>
           <div className="mt-6 flex items-center gap-3">
             <Social href={IG_URL} label="Instagram" cream={CREAM}>
@@ -53,27 +55,40 @@ export function Footer() {
 
         <div>
           <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
-            Explore
+            {copy("footer.explore_heading")}
           </p>
           <ul className="space-y-3 text-sm">
-            {[
-              ["/collection", "Collection"],
-              ["/texture-guide", "Texture Guide"],
-              ["/how-to-wear", "Wear & Care"],
-              ["/about", "Our Story"],
-              ["/collaborate", "Collaborate"],
-              ["/faq", "FAQ"],
-              ["/policies", "Policies"],
-              ["/contact", "Contact"],
-            ].map(([to, label]) => (
-              <li key={to}>
-                <Link
-                  to={to as any}
-                  className="transition-colors duration-200"
-                  style={{ color: MUTED }}
-                >
-                  {label}
-                </Link>
+            {(
+              [
+                { to: "/collection", label: "Collection" },
+                { to: "/texture-guide", label: "Texture Guide" },
+                { to: "/how-to-wear", label: "Wear & Care" },
+                { to: "/about", label: "Our Story" },
+                { to: "/collaborate", label: "Collaborate" },
+                { to: "/faq", label: "FAQ" },
+                { to: "/policies", label: "Policies" },
+                { to: "/contact", label: "Contact" },
+              ] as const
+            ).map((item) => (
+              <li key={item.to}>
+                {item.to === "/collection" ? (
+                  <Link
+                    to="/collection"
+                    search={{ handle: undefined }}
+                    className="transition-colors duration-200"
+                    style={{ color: MUTED }}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Link
+                    to={item.to}
+                    className="transition-colors duration-200"
+                    style={{ color: MUTED }}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -81,20 +96,18 @@ export function Footer() {
 
         <div>
           <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
-            Contact
+            {copy("footer.contact_heading")}
           </p>
           <ul className="space-y-3 text-sm" style={{ color: MUTED }}>
-            <li>customercare@melanvee.com</li>
+            <li>{copy("footer.customer_email")}</li>
             <li>
-              woman@melanvee.com{" "}
+              {copy("footer.collab_email")}{" "}
               <span className="text-[10px] uppercase tracking-wider" style={{ color: MUTED }}>
                 (collabs)
               </span>
             </li>
-            <li>
-              WhatsApp: +447760317678<span style={{ opacity: 0.7 }}>(Mon–Fri) 9am–4pm</span>
-            </li>
-            <li>London · Worldwide shipping</li>
+            <li>{copy("footer.whatsapp")}</li>
+            <li>{copy("footer.location")}</li>
           </ul>
         </div>
       </div>

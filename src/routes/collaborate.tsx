@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
+import { useSiteCopy } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/collaborate")({
   head: () => ({
@@ -26,25 +27,13 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojblkzl";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-const tiers = [
-  {
-    n: "01",
-    t: "Content Creator",
-    d: "Wear MELANVÉE in a styled video or photo set. Tag us. We'll send a piece in your texture and length.",
-  },
-  {
-    n: "02",
-    t: "Ambassador",
-    d: "Long-term partnership. Quarterly drops, your own discount code for your community, and revenue share.",
-  },
-  {
-    n: "03",
-    t: "Affiliate",
-    d: "Share your link, earn on every sale. Open to anyone — beginners welcome.",
-  },
-];
-
 function Collaborate() {
+  const copy = useSiteCopy();
+  const tiers = [
+    { n: "01", t: copy("collaborate.creator_title"), d: copy("collaborate.creator") },
+    { n: "02", t: copy("collaborate.ambassador_title"), d: copy("collaborate.ambassador") },
+    { n: "03", t: copy("collaborate.affiliate_title"), d: copy("collaborate.affiliate") },
+  ];
   const [state, setState] = useState<FormState>("idle");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,13 +58,14 @@ function Collaborate() {
   return (
     <Layout>
       <section className="py-24 md:py-32 text-center">
-        <p className="text-xs uppercase tracking-luxe text-gold mb-6">— Work with us</p>
+        <p className="text-xs uppercase tracking-luxe text-gold mb-6">
+          {copy("collaborate.eyebrow")}
+        </p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-[1] max-w-4xl mx-auto px-6">
-          Women supporting <em className="italic text-gradient-blush">women</em>.
+          {copy("collaborate.heading")}
         </h1>
         <p className="mt-8 text-mauve max-w-xl mx-auto px-6 leading-relaxed">
-          MELANVÉE is built by women, for women — and we want to grow with you. Whether you create
-          content, run a community, or just love the brand — there's a way to work together.
+          {copy("collaborate.description")}
         </p>
       </section>
 
@@ -101,11 +91,13 @@ function Collaborate() {
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p className="text-xs uppercase tracking-luxe text-gold mb-4">— Apply</p>
+            <p className="text-xs uppercase tracking-luxe text-gold mb-4">
+              {copy("collaborate.application_eyebrow")}
+            </p>
             <h2 className="font-display text-4xl md:text-5xl text-cream leading-tight">
-              Tell us <em className="italic text-gradient-blush">about you</em>.
+              {copy("collaborate.application_heading")}
             </h2>
-            <p className="mt-4 text-mauve">We read every application. Reply within 5–7 days.</p>
+            <p className="mt-4 text-mauve">{copy("collaborate.application_intro")}</p>
           </div>
 
           {state === "success" ? (

@@ -6,6 +6,7 @@ import { PaymentBadges } from "@/components/PaymentBadges";
 import { Reviews } from "@/components/Reviews";
 import { getCollections, type ShopifyCollection } from "@/lib/shopify";
 import { subscribeToNewsletter } from "@/lib/newsletter";
+import { useSiteCopy } from "@/lib/site-copy";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/3.jpeg";
 
@@ -96,6 +97,7 @@ function NewsletterForm() {
 }
 
 function Home() {
+  const copy = useSiteCopy();
   const [collections, setCollections] = useState<ShopifyCollection[]>([]);
 
   useEffect(() => {
@@ -141,34 +143,34 @@ function Home() {
             className="max-w-2xl"
           >
             <motion.p variants={fade} className="text-xs uppercase tracking-luxe text-gold mb-6">
-              · The Collection
+              {copy("home.hero.eyebrow")}
             </motion.p>
             <motion.h1
               variants={fade}
               className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-white"
             >
-              Hair made to <span className="italic text-gradient-blush">feel like yours</span>.
+              {copy("home.hero.heading")}
             </motion.h1>
             <motion.p
               variants={fade}
               className="mt-8 text-base md:text-lg text-white max-w-lg leading-relaxed"
             >
-              Designed to blend seamlessly with your coils, kinks and curls so you can leave the
-              house in minutes, skip the lace, and wear your hair with confidence.
+              {copy("home.hero.description")}
             </motion.p>
             <motion.div variants={fade} className="mt-10 flex flex-wrap gap-4 items-center">
               <Link
                 to="/collection"
+                search={{ handle: undefined }}
                 className="inline-flex items-center gap-3 bg-gold text-primary-foreground px-8 py-4 text-xs uppercase tracking-luxe hover:shadow-blush-glow transition-all duration-500"
               >
-                Shop the Collection
+                {copy("home.hero.shop_button")}
                 <span aria-hidden>→</span>
               </Link>
               <Link
                 to="/texture-guide"
                 className="inline-flex items-center text-xs uppercase tracking-luxe text-white/80 border-b border-cream/30 pb-1 hover:text-gold hover:border-gold transition-colors"
               >
-                Find Your Texture
+                {copy("header.nav.texture")}
               </Link>
             </motion.div>
           </motion.div>
@@ -202,15 +204,16 @@ function Home() {
             className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-20"
           >
             <div>
-              <p className="text-xs uppercase tracking-luxe text-gold mb-4">· The Collection</p>
+              <p className="text-xs uppercase tracking-luxe text-gold mb-4">
+                {" "}
+                {copy("home.hero.eyebrow")}
+              </p>
               <h2 className="font-display text-4xl md:text-6xl text-cream max-w-xl leading-tight">
-                Every Texture,<em className="italic text-gradient-blush">Covered</em>.
+                {copy("home.collection.heading")}
               </h2>
             </div>
             <p className="text-mauve max-w-sm leading-relaxed">
-              A growing collection of textures and styles-from tight coils to bouncy kinks , defined
-              curls to blowout textures. Multiple lengths, multiple constructions, all designed to
-              feel like yours
+              {copy("home.collection.description")}
             </p>
           </motion.div>
 
@@ -225,7 +228,7 @@ function Home() {
                   transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
                   className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
                 >
-                  <Link to={`/collection?handle=${encodeURIComponent(c.handle)}`} className="block">
+                  <Link to="/collection" search={{ handle: c.handle }} className="block">
                     <div className="aspect-[3/4] overflow-hidden relative">
                       <img
                         src={c.image?.url ?? "/assets/hero.jpg"}
@@ -296,19 +299,17 @@ function Home() {
           >
             <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Philosophy</p>
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-cream">
-              Made for <em className="text-gradient-blush not-italic italic">our textures</em>.
+              {copy("home.philosophy.heading")}
             </h2>
             <div className="hairline mt-10 w-24" />
             <p className="mt-10 text-mauve leading-loose text-lg">
-              MELANVÉE exists for every woman who is tired of salons, tired of wigs that look
-              artificial, tired of damage, tired of spending hours on her hair. The woman who wants
-              to look like herself, not just on a good hair day, but every single day.
+              {copy("home.philosophy.description")}
             </p>
             <Link
               to="/about"
               className="mt-10 inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold border-b border-gold/40 pb-1 hover:border-gold"
             >
-              Read Our Story <span aria-hidden>→</span>
+              {copy("home.philosophy.link")} <span aria-hidden>→</span>
             </Link>
           </motion.div>
         </div>
@@ -319,11 +320,9 @@ function Home() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Before You Buy</p>
           <h2 className="font-display text-3xl md:text-5xl text-cream leading-tight">
-            Everything you need to <em className="italic text-gradient-blush">know</em>.
+            {copy("home.faq.heading")}
           </h2>
-          <p className="mt-6 text-mauve">
-            Texture matching, install times, shipping, returns, all answered.
-          </p>
+          <p className="mt-6 text-mauve">{copy("home.faq.description")}</p>
           <div className="mt-10 flex flex-wrap gap-4 justify-center">
             <Link
               to="/texture-guide"
@@ -346,11 +345,9 @@ function Home() {
         <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-xs uppercase tracking-luxe text-gold mb-6">· Join the House</p>
           <h2 className="font-display text-4xl md:text-6xl text-cream leading-tight">
-            Be first for <em className="text-gradient-blush not-italic italic">the launch</em>.
+            {copy("home.newsletter.heading")}
           </h2>
-          <p className="mt-6 text-mauve max-w-xl mx-auto">
-            Early access, restock alerts, and first looks at new textures.
-          </p>
+          <p className="mt-6 text-mauve max-w-xl mx-auto">{copy("home.newsletter.description")}</p>
 
           <NewsletterForm />
 

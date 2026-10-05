@@ -2,16 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { CartButton } from "./CartDrawer";
 import { getCollections, type ShopifyCollection } from "@/lib/shopify";
-
-const nav = [
-  { to: "/", label: "Home" },
-  { to: "/collection", label: "Shop" },
-  { to: "/texture-guide", label: "Texture" },
-  { to: "/how-to-wear", label: "Wear & Care" },
-  { to: "/about", label: "About" },
-  { href: "https://af.uppromote.com/0z2xz1-xk/register", label: "Collab" },
-  { to: "/contact", label: "Contact" },
-] as const;
+import { useSiteCopy } from "@/lib/site-copy";
 
 const BRAND = "M E L A N V É E";
 const CREAM = "var(--ivory)";
@@ -22,6 +13,7 @@ const COCOA = "var(--burgundy)";
 const BORDER = "rgba(74,18,32,0.1)";
 
 export function Header() {
+  const copy = useSiteCopy();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
@@ -29,6 +21,15 @@ export function Header() {
   const [collectionsLoading, setCollectionsLoading] = useState(false);
   const [collectionsError, setCollectionsError] = useState(false);
   const [collectionsLoaded, setCollectionsLoaded] = useState(false);
+  const nav = [
+    { to: "/", label: copy("header.nav.home") },
+    { to: "/collection", label: copy("header.nav.shop") },
+    { to: "/texture-guide", label: copy("header.nav.texture") },
+    { to: "/how-to-wear", label: copy("header.nav.wear_care") },
+    { to: "/about", label: copy("header.nav.about") },
+    { href: "https://af.uppromote.com/0z2xz1-xk/register", label: copy("header.nav.collaborate") },
+    { to: "/contact", label: copy("header.nav.contact") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -63,12 +64,7 @@ export function Header() {
           className="animate-marquee whitespace-nowrap inline-block text-[10px] uppercase tracking-luxe"
           style={{ color: CREAM }}
         >
-          Free UK &amp; international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium
-          virgin human hair &nbsp;&nbsp;·&nbsp;&nbsp; True 3A to 4C textures
-          &nbsp;&nbsp;·&nbsp;&nbsp; No lace · No glue &nbsp;&nbsp;·&nbsp;&nbsp; Free UK &amp;
-          international shipping on orders over £100 &nbsp;&nbsp;·&nbsp;&nbsp; Premium virgin human
-          hair &nbsp;&nbsp;·&nbsp;&nbsp; True 3A to 4C textures &nbsp;&nbsp;·&nbsp;&nbsp; No lace ·
-          No glue &nbsp;&nbsp;·&nbsp;&nbsp;
+          {`${copy("header.announcement")} · ${copy("header.announcement")}`}
         </div>
       </div>
 
@@ -143,6 +139,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <Link
               to="/collection"
+              search={{ handle: undefined }}
               className="hidden lg:inline-flex items-center text-[11px] uppercase tracking-luxe px-5 py-2.5 transition-all duration-200"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
               onMouseEnter={(e) =>
@@ -152,7 +149,7 @@ export function Header() {
                 ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--secondary)")
               }
             >
-              Shop Now
+              {copy("header.shop_button")}
             </Link>
 
             <span
@@ -193,7 +190,7 @@ export function Header() {
         <div style={{ backgroundColor: SURFACE, borderBottom: `1px solid ${BORDER}` }}>
           <nav className="flex flex-col px-5 py-6 gap-5">
             {nav.map((item) =>
-              item.label === "Shop" ? (
+              item.label === copy("header.nav.shop") ? (
                 <div key={item.to} className="border-b border-[rgba(74,18,32,0.1)] pb-5">
                   <button
                     type="button"
@@ -203,7 +200,7 @@ export function Header() {
                     className="flex w-full items-center justify-between text-left text-[11px] uppercase tracking-luxe transition-colors duration-200"
                     style={{ color: shopOpen ? CREAM : MAUVE }}
                   >
-                    <span>Shop</span>
+                    <span>{copy("header.nav.shop")}</span>
                     <span
                       aria-hidden="true"
                       className={`font-serif text-lg leading-none transition-transform duration-200 ${shopOpen ? "rotate-45" : ""}`}
@@ -219,11 +216,12 @@ export function Header() {
                     >
                       <Link
                         to="/collection"
+                        search={{ handle: undefined }}
                         onClick={closeMenu}
                         className="block py-2 text-[11px] uppercase tracking-luxe transition-colors duration-200"
                         style={{ color: CREAM }}
                       >
-                        All products
+                        {copy("collection.all_products")}
                       </Link>
                       <p className="pb-1 pt-3 text-[10px] uppercase tracking-[0.2em] text-mauve/70">
                         Collections
@@ -288,6 +286,7 @@ export function Header() {
             )}
             <Link
               to="/collection"
+              search={{ handle: undefined }}
               onClick={closeMenu}
               className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe px-5 py-2.5 hover:opacity-85 transition-opacity"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}

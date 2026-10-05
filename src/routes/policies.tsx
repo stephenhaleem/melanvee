@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
+import { useSiteCopy } from "@/lib/site-copy";
 
 export const Route = createFileRoute("/policies")({
   head: () => ({
@@ -20,14 +21,14 @@ export const Route = createFileRoute("/policies")({
 
 type Tab = "shipping" | "returns" | "exchange" | "all";
 
-const tabs: { id: Tab; label: string }[] = [
-  { id: "all", label: "All Policies" },
-  { id: "shipping", label: "Shipping" },
-  { id: "returns", label: "Returns" },
-  { id: "exchange", label: "Exchange" },
-];
-
 function Policies() {
+  const copy = useSiteCopy();
+  const tabs: { id: Tab; label: string }[] = [
+    { id: "all", label: copy("policies.all_title") },
+    { id: "shipping", label: copy("policies.shipping_title") },
+    { id: "returns", label: copy("policies.returns_title") },
+    { id: "exchange", label: copy("policies.exchange_title") },
+  ];
   const [active, setActive] = useState<Tab>(() => {
     try {
       if (typeof window === "undefined") return "all" as Tab;
@@ -45,13 +46,11 @@ function Policies() {
   return (
     <Layout>
       <section className="py-20 md:py-28 text-center">
-        <p className="text-xs uppercase tracking-luxe text-gold mb-5">— The Fine Print</p>
+        <p className="text-xs uppercase tracking-luxe text-gold mb-5">{copy("policies.eyebrow")}</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
-          Our <em className="italic text-gradient-blush">policies</em>.
+          {copy("policies.heading")}
         </h1>
-        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          Clear, fair, written without jargon. Questions? WhatsApp us.
-        </p>
+        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">{copy("policies.description")}</p>
       </section>
 
       <section className="pb-32">
@@ -94,9 +93,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function Shipping() {
+  const copy = useSiteCopy();
   return (
-    <Section title="Shipping Policy">
-      <p>All MELANVÉE orders are dispatched promptly upon processing,</p>
+    <Section title={`${copy("policies.shipping_title")} Policy`}>
+      <p>{copy("policies.shipping_intro")}</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
           <strong className="text-cream">Dispatch:</strong> Within 24 to 72 hours of your order.
@@ -127,12 +127,10 @@ function Shipping() {
 }
 
 function Returns() {
+  const copy = useSiteCopy();
   return (
-    <Section title="Returns Policy">
-      <p>
-        Because our wigs are intimate beauty products, we follow strict hygiene rules, but we want
-        you to feel safe ordering.
-      </p>
+    <Section title={`${copy("policies.returns_title")} Policy`}>
+      <p>{copy("policies.returns_intro")}</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
           Returns are accepted within <strong className="text-cream">14 days of delivery</strong> on
@@ -169,9 +167,10 @@ function Returns() {
 }
 
 function Exchange() {
+  const copy = useSiteCopy();
   return (
-    <Section title="Exchange Policy">
-      <p>Wrong texture? Wrong length? We will help you find the right one.</p>
+    <Section title={`${copy("policies.exchange_title")} Policy`}>
+      <p>{copy("policies.exchange_intro")}</p>
       <ul className="space-y-3 list-none pl-0">
         <Item>
           Exchanges are accepted within <strong className="text-cream">7 days of delivery</strong>{" "}
@@ -192,9 +191,10 @@ function Exchange() {
 }
 
 function PrivacyTerms() {
+  const copy = useSiteCopy();
   return (
     <>
-      <Section title="Privacy Policy">
+      <Section title={copy("policies.privacy_title")}>
         <p>
           We collect only what we need to fulfil your order: name, email, delivery address, payment
           details. We never sell your data.
@@ -204,7 +204,7 @@ function PrivacyTerms() {
           email we send.
         </p>
       </Section>
-      <Section title="Terms of Service">
+      <Section title={copy("policies.terms_title")}>
         <p>
           By placing an order with MELANVÉE you agree to these terms. All prices are listed and
           charged in GBP at checkout. Your display currency may vary but payment will always be

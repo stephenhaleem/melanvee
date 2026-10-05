@@ -2,6 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
+import { useSiteCopy } from "@/lib/site-copy";
 import { useCurrency } from "@/lib/currency";
 import {
   getProducts,
@@ -37,6 +38,7 @@ export const Route = createFileRoute("/collection")({
 });
 
 function Collection() {
+  const copy = useSiteCopy();
   const { handle } = Route.useSearch();
   const navigate = useNavigate();
   const { format } = useCurrency();
@@ -77,7 +79,7 @@ function Collection() {
   );
 
   useEffect(() => {
-    loadForHandle(handle);
+    loadForHandle(handle ?? null);
   }, [handle]);
 
   useEffect(() => {
@@ -92,13 +94,9 @@ function Collection() {
       <section className="pt-16 pb-12 text-center">
         <p className="text-xs uppercase tracking-luxe text-gold mb-5">· The Collection</p>
         <h1 className="font-display text-5xl md:text-7xl text-cream leading-tight px-6">
-          The<em className="italic text-gradient-blush"> collection</em>.
+          {copy("collection.heading")}
         </h1>
-        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">
-          A growing collection of textures and styles-from tight coils to bouncy kinks , defined
-          curls to blowout textures. Multiple lengths, multiple constructions, all designed to feel
-          like yours
-        </p>
+        <p className="mt-6 text-mauve max-w-xl mx-auto px-6">{copy("collection.description")}</p>
         <div className="hairline mt-10 w-32 mx-auto" />
       </section>
 
@@ -108,7 +106,7 @@ function Collection() {
           <div className="mb-12 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(14rem,20rem)]">
             <input
               type="text"
-              placeholder="Search products..."
+              placeholder={copy("collection.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-6 py-3 bg-card text-cream placeholder:text-mauve border border-border focus:border-gold outline-none transition-colors"
@@ -121,13 +119,13 @@ function Collection() {
                 onChange={(e) =>
                   navigate({
                     to: "/collection",
-                    search: e.target.value ? { handle: e.target.value } : {},
+                    search: { handle: e.target.value || undefined },
                   })
                 }
                 className="w-full appearance-none border border-border bg-card px-6 py-3 pr-12 text-cream outline-none transition-colors focus:border-gold disabled:cursor-wait disabled:opacity-60"
               >
                 <option value="" className="bg-card">
-                  All products
+                  {copy("collection.all_products")}
                 </option>
                 {collectionsError && (
                   <option disabled className="bg-card">
@@ -172,15 +170,19 @@ function Collection() {
 
           {!loading && !error && products.length === 0 && (
             <div className="text-center py-20">
-              <p className="font-display text-2xl text-cream mb-3">No products found</p>
-              <p className="text-mauve text-sm">Check back soon — the collection is on its way.</p>
+              <p className="font-display text-2xl text-cream mb-3">
+                {copy("collection.empty_heading")}
+              </p>
+              <p className="text-mauve text-sm">{copy("collection.empty_description")}</p>
             </div>
           )}
 
           {!loading && filteredProducts.length === 0 && products.length > 0 && (
             <div className="text-center py-20">
-              <p className="font-display text-2xl text-cream mb-3">No results found</p>
-              <p className="text-mauve text-sm">Try a different search term.</p>
+              <p className="font-display text-2xl text-cream mb-3">
+                {copy("collection.no_results")}
+              </p>
+              <p className="text-mauve text-sm">{copy("collection.no_results_description")}</p>
             </div>
           )}
 
