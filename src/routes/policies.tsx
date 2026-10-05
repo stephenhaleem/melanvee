@@ -97,31 +97,7 @@ function Shipping() {
   return (
     <Section title={`${copy("policies.shipping_title")} Policy`}>
       <p>{copy("policies.shipping_intro")}</p>
-      <ul className="space-y-3 list-none pl-0">
-        <Item>
-          <strong className="text-cream">Dispatch:</strong> Within 24 to 72 hours of your order.
-          Times may vary slightly during busy periods and weekends.
-        </Item>
-        <Item>
-          <strong className="text-cream">UK & Europe:</strong> Delivered in 3 to 5 working days
-          after dispatch.
-        </Item>
-        <Item>
-          <strong className="text-cream">Rest of world:</strong> Delivered in 3 to 8 working days
-          after dispatch.
-        </Item>
-        <Item>
-          <strong className="text-cream">Free UK shipping</strong> on all orders over £100.
-        </Item>
-        <Item>
-          <strong className="text-cream">Free international shipping</strong> on all orders over
-          £100.
-        </Item>
-        <Item>
-          All orders are <strong className="text-cream">tracked</strong>. You will receive a
-          tracking link by email as soon as your order leaves us.
-        </Item>
-      </ul>
+      <PolicyList value={copy("policies.shipping_details")} />
     </Section>
   );
 }
@@ -131,37 +107,8 @@ function Returns() {
   return (
     <Section title={`${copy("policies.returns_title")} Policy`}>
       <p>{copy("policies.returns_intro")}</p>
-      <ul className="space-y-3 list-none pl-0">
-        <Item>
-          Returns are accepted within <strong className="text-cream">14 days of delivery</strong> on
-          unopened, unworn pieces in their original packaging.
-        </Item>
-        <Item>
-          All returns are <strong className="text-cream">subject to a quality inspection</strong>.
-          Refunds are only issued once the piece passes inspection and shows no sign of wear,
-          washing, styling, dye or alteration.
-        </Item>
-        <Item>
-          Once a wig has been worn, installed, washed, dyed or altered, we cannot accept it back for
-          hygiene reasons.
-        </Item>
-        <Item>
-          <strong className="text-cream">Return shipping is the customer's responsibility</strong>,
-          except in the case of damaged or faulty items, or if we sent the wrong piece, in which
-          case we cover the full cost.
-        </Item>
-        <Item>
-          Approved refunds are issued to your original payment method within 5 to 7 working days of
-          our inspection team receiving and approving the return.
-        </Item>
-      </ul>
-      <p className="text-sm">
-        To start a return, email{" "}
-        <a href="mailto:hello@melanvee.com" className="text-gold border-b border-gold/40">
-          hello@melanvee.com
-        </a>{" "}
-        with your order number.
-      </p>
+      <PolicyList value={copy("policies.returns_details")} />
+      <p className="text-sm">{copy("policies.returns_contact")}</p>
     </Section>
   );
 }
@@ -171,21 +118,7 @@ function Exchange() {
   return (
     <Section title={`${copy("policies.exchange_title")} Policy`}>
       <p>{copy("policies.exchange_intro")}</p>
-      <ul className="space-y-3 list-none pl-0">
-        <Item>
-          Exchanges are accepted within <strong className="text-cream">7 days of delivery</strong>{" "}
-          on unopened, unworn pieces in original packaging.
-        </Item>
-        <Item>You can exchange for a different texture, length, or take store credit.</Item>
-        <Item>
-          <strong className="text-cream">Customer covers return shipping.</strong> We cover the cost
-          of sending the new piece.
-        </Item>
-        <Item>
-          If the new piece is more expensive, you will be invoiced for the difference. If it is
-          cheaper, you will be refunded the difference.
-        </Item>
-      </ul>
+      <PolicyList value={copy("policies.exchange_details")} />
     </Section>
   );
 }
@@ -195,36 +128,42 @@ function PrivacyTerms() {
   return (
     <>
       <Section title={copy("policies.privacy_title")}>
-        <p>
-          We collect only what we need to fulfil your order: name, email, delivery address, payment
-          details. We never sell your data.
-        </p>
-        <p>
-          If you sign up to our mailing list, you can unsubscribe at any time using the link in any
-          email we send.
-        </p>
+        <PolicyParagraphs value={copy("policies.privacy_details")} />
       </Section>
       <Section title={copy("policies.terms_title")}>
-        <p>
-          By placing an order with MELANVÉE you agree to these terms. All prices are listed and
-          charged in GBP at checkout. Your display currency may vary but payment will always be
-          processed in GBP
-        </p>
-        <p>
-          Our product images are professionally styled to showcase each texture at its best. As with
-          all natural human hair, slight variations in shade or curl pattern between batches are
-          completely normal and do not affect the quality of your hair.
-        </p>
+        <PolicyParagraphs value={copy("policies.terms_details")} />
       </Section>
     </>
   );
 }
 
-function Item({ children }: { children: React.ReactNode }) {
+function PolicyList({ value }: { value: string }) {
   return (
-    <li className="flex gap-3">
-      <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-      <span>{children}</span>
-    </li>
+    <ul className="space-y-3 list-none pl-0">
+      {value
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line, index) => (
+          <li key={`${index}-${line}`} className="flex gap-3">
+            <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+            <span>{line}</span>
+          </li>
+        ))}
+    </ul>
+  );
+}
+
+function PolicyParagraphs({ value }: { value: string }) {
+  return (
+    <>
+      {value
+        .split("\n")
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean)
+        .map((paragraph, index) => (
+          <p key={`${index}-${paragraph}`}>{paragraph}</p>
+        ))}
+    </>
   );
 }

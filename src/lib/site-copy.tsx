@@ -905,6 +905,13 @@ export const SITE_COPY_FIELDS = [
   },
   {
     section: "Policies",
+    label: "Shipping policy details",
+    key: "policies.shipping_details",
+    fallback:
+      "Dispatch: Within 24 to 72 hours of your order. Times may vary slightly during busy periods and weekends.\nUK & Europe: Delivered in 3 to 5 working days after dispatch.\nRest of world: Delivered in 3 to 8 working days after dispatch.\nFree UK shipping on all orders over £100.\nFree international shipping on all orders over £100.\nAll orders are tracked. You will receive a tracking link by email as soon as your order leaves us.",
+  },
+  {
+    section: "Policies",
     label: "Returns policy introduction",
     key: "policies.returns_intro",
     fallback:
@@ -912,9 +919,43 @@ export const SITE_COPY_FIELDS = [
   },
   {
     section: "Policies",
+    label: "Returns policy details",
+    key: "policies.returns_details",
+    fallback:
+      "Returns are accepted within 14 days of delivery on unopened, unworn pieces in their original packaging.\nAll returns are subject to a quality inspection. Refunds are only issued once the piece passes inspection and shows no sign of wear, washing, styling, dye or alteration.\nOnce a wig has been worn, installed, washed, dyed or altered, we cannot accept it back for hygiene reasons.\nReturn shipping is the customer's responsibility, except in the case of damaged or faulty items, or if we sent the wrong piece, in which case we cover the full cost.\nApproved refunds are issued to your original payment method within 5 to 7 working days of our inspection team receiving and approving the return.",
+  },
+  {
+    section: "Policies",
+    label: "Returns contact instruction",
+    key: "policies.returns_contact",
+    fallback: "To start a return, email hello@melanvee.com with your order number.",
+  },
+  {
+    section: "Policies",
     label: "Exchange policy introduction",
     key: "policies.exchange_intro",
     fallback: "Wrong texture? Wrong length? We will help you find the right one.",
+  },
+  {
+    section: "Policies",
+    label: "Exchange policy details",
+    key: "policies.exchange_details",
+    fallback:
+      "Exchanges are accepted within 7 days of delivery on unopened, unworn pieces in original packaging.\nYou can exchange for a different texture, length, or take store credit.\nCustomer covers return shipping. We cover the cost of sending the new piece.\nIf the new piece is more expensive, you will be invoiced for the difference. If it is cheaper, you will be refunded the difference.",
+  },
+  {
+    section: "Policies",
+    label: "Privacy policy paragraphs",
+    key: "policies.privacy_details",
+    fallback:
+      "We collect only what we need to fulfil your order: name, email, delivery address, payment details. We never sell your data.\nIf you sign up to our mailing list, you can unsubscribe at any time using the link in any email we send.",
+  },
+  {
+    section: "Policies",
+    label: "Terms of service paragraphs",
+    key: "policies.terms_details",
+    fallback:
+      "By placing an order with MELANVÉE you agree to these terms. All prices are listed and charged in GBP at checkout. Your display currency may vary but payment will always be processed in GBP.\nOur product images are professionally styled to showcase each texture at its best. As with all natural human hair, slight variations in shade or curl pattern between batches are completely normal and do not affect the quality of your hair.",
   },
   {
     section: "Collection",
