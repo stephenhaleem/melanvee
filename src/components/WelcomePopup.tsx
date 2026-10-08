@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { subscribeToNewsletter } from "@/lib/newsletter";
 
 const KEY = "melanvee_welcome_seen_v1";
-const CODE = "FEEL5";
+const CODE = "FEEL10";
 
 export function WelcomePopup() {
   const [open, setOpen] = useState(false);

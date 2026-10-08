@@ -68,6 +68,7 @@ function ProductPage() {
   const { product } = Route.useLoaderData();
   const { format } = useCurrency();
   const { addToCart, loading: cartLoading } = useShopifyCart();
+  const isWig = product.productType.toLowerCase().includes("wig");
   const [adding, setAdding] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("features");
 
@@ -291,7 +292,7 @@ function ProductPage() {
       <section className="py-16 bg-charcoal border-y border-border">
         <div className="max-w-5xl mx-auto px-6">
           <div className="flex border-b border-border mb-12 flex-wrap">
-            {TABS.map((tab) => (
+            {TABS.filter((tab) => isWig || tab.id !== "how-to-wear").map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
@@ -319,7 +320,7 @@ function ProductPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.25 }}
-                className="grid md:grid-cols-2 gap-10"
+                className={`grid ${isWig ? "md:grid-cols-2" : ""} gap-10`}
               >
                 <div>
                   <ul className="space-y-3">
@@ -336,38 +337,40 @@ function ProductPage() {
                     ))}
                   </ul>
                 </div>
-                <div>
-                  <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
-                  <p className="text-mauve leading-loose">
-                    Universal cap with adjustable inner straps and built-in combs.
-                  </p>
-                  <ul className="mt-4 space-y-2 text-mauve text-sm">
-                    <li className="flex gap-3 items-center">
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      Circumference: 22" / 56cm
-                    </li>
-                    <li className="flex gap-3 items-center">
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      Front to nape: 13" to 14"
-                    </li>
-                    <li className="flex gap-3 items-center">
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-                      Ear to ear: 11" to 12"
-                    </li>
-                  </ul>
-                  <div className="mt-6 max-w-[260px] overflow-hidden">
-                    <img
-                      src={capSizeImg}
-                      alt="Wig cap size diagram"
-                      loading="lazy"
-                      className="w-full h-auto opacity-90"
-                    />
+                {isWig && (
+                  <div>
+                    <p className="text-xs uppercase tracking-luxe text-gold mb-4">Cap Size</p>
+                    <p className="text-mauve leading-loose">
+                      Universal cap with adjustable inner straps and built-in combs.
+                    </p>
+                    <ul className="mt-4 space-y-2 text-mauve text-sm">
+                      <li className="flex gap-3 items-center">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                        Circumference: 22" / 56cm
+                      </li>
+                      <li className="flex gap-3 items-center">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                        Front to nape: 13" to 14"
+                      </li>
+                      <li className="flex gap-3 items-center">
+                        <span className="inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
+                        Ear to ear: 11" to 12"
+                      </li>
+                    </ul>
+                    <div className="mt-6 max-w-[260px] overflow-hidden">
+                      <img
+                        src={capSizeImg}
+                        alt="Wig cap size diagram"
+                        loading="lazy"
+                        className="w-full h-auto opacity-90"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </motion.div>
             )}
 
-            {activeTab === "how-to-wear" && (
+            {isWig && activeTab === "how-to-wear" && (
               <motion.div
                 key="how-to-wear"
                 initial={{ opacity: 0, y: 8 }}
