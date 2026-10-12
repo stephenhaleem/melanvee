@@ -93,6 +93,7 @@ export type ShopifyCartLine = {
 export type ShopifyCart = {
   id: string;
   checkoutUrl: string;
+  note: string | null;
   totalQuantity: number;
   cost: {
     totalAmount: { amount: string; currencyCode: string };
@@ -138,6 +139,7 @@ const CART_FRAGMENT = `
   fragment CartFragment on Cart {
     id
     checkoutUrl
+    note
     totalQuantity
     cost {
       totalAmount { amount currencyCode }
@@ -388,6 +390,31 @@ export async function removeCartLines(cartId: string, lineIds: string[]): Promis
   }
 
   return data.cartLinesRemove.cart;
+}
+
+export async function updateCartNote(cartId: string, note: string): Promise<ShopifyCart> {
+  const query = `
+    ${CART_FRAGMENT}
+    mutation UpdateCartNote($cartId: ID!, $note: String!) {
+      cartNoteUpdate(cartId: $cartId, note: $note) {
+        cart { ...CartFragment }
+        userErrors { field message }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch<{
+    cartNoteUpdate: {
+      cart: ShopifyCart;
+      userErrors: { field: string; message: string }[];
+    };
+  }>(query, { cartId, note });
+
+  if (data.cartNoteUpdate.userErrors.length > 0) {
+    throw new Error(data.cartNoteUpdate.userErrors[0].message);
+  }
+
+  return data.cartNoteUpdate.cart;
 }
 
 /**

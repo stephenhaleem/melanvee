@@ -47,6 +47,8 @@ const FREE_SHIPPING_THRESHOLD = 100;
 
 export const CartButton = memo(function CartButton() {
   const [open, setOpen] = useState(false);
+  const [customerNote, setCustomerNote] = useState("");
+  const [noteError, setNoteError] = useState("");
 
   useEffect(() => {
     openSetterRef.current = setOpen;
@@ -62,9 +64,23 @@ export const CartButton = memo(function CartButton() {
     };
   }, [open]);
 
-  const { lines, count, totalGBP, loading, updateQty, removeLine, checkout } = useShopifyCart();
+  const { lines, note, count, totalGBP, loading, updateQty, removeLine, checkout } =
+    useShopifyCart();
   const { format } = useCurrency();
   const remaining = FREE_SHIPPING_THRESHOLD - totalGBP;
+
+  useEffect(() => {
+    setCustomerNote(note);
+  }, [note]);
+
+  async function handleCheckout() {
+    setNoteError("");
+    try {
+      await checkout(customerNote);
+    } catch {
+      setNoteError("We couldn't save your note. Please try again before checkout.");
+    }
+  }
 
   return (
     <>
@@ -139,96 +155,129 @@ export const CartButton = memo(function CartButton() {
                   </p>
                 </div>
               ) : (
-                lines.map((line) => (
-                  <div
-                    key={line.lineId}
-                    className="flex justify-between gap-4 pb-5 last:border-0"
-                    style={{ borderBottom: `1px solid ${BORDER}` }}
-                  >
-                    {line.image && (
-                      <div
-                        className="w-16 h-20 flex-shrink-0 overflow-hidden"
-                        style={{ backgroundColor: SURFACE2 }}
-                      >
-                        <img
-                          src={line.image}
-                          alt={line.name}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <p
-                        className="font-display text-lg leading-snug truncate"
-                        style={{ color: CREAM }}
-                      >
-                        {line.name}
-                      </p>
-                      {line.variantTitle && line.variantTitle !== "Default Title" && (
-                        <p className="text-xs mt-1" style={{ color: MAUVE }}>
-                          {line.variantTitle}
-                        </p>
-                      )}
-                      <div className="mt-3 flex items-center gap-2">
-                        <button
-                          onClick={() => updateQty(line.lineId, line.qty - 1)}
-                          disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
-                          style={{ border: `1px solid ${BORDER}`, color: CREAM }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = PINK;
-                            e.currentTarget.style.color = PINK;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = BORDER;
-                            e.currentTarget.style.color = CREAM;
-                          }}
-                          aria-label="Decrease quantity"
+                <>
+                  {lines.map((line) => (
+                    <div
+                      key={line.lineId}
+                      className="flex justify-between gap-4 pb-5 last:border-0"
+                      style={{ borderBottom: `1px solid ${BORDER}` }}
+                    >
+                      {line.image && (
+                        <div
+                          className="w-16 h-20 flex-shrink-0 overflow-hidden"
+                          style={{ backgroundColor: SURFACE2 }}
                         >
-                          −
-                        </button>
-                        <span
-                          className="text-sm w-6 text-center tabular-nums"
+                          <img
+                            src={line.image}
+                            alt={line.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <p
+                          className="font-display text-lg leading-snug truncate"
                           style={{ color: CREAM }}
                         >
-                          {line.qty}
-                        </span>
+                          {line.name}
+                        </p>
+                        {line.variantTitle && line.variantTitle !== "Default Title" && (
+                          <p className="text-xs mt-1" style={{ color: MAUVE }}>
+                            {line.variantTitle}
+                          </p>
+                        )}
+                        <div className="mt-3 flex items-center gap-2">
+                          <button
+                            onClick={() => updateQty(line.lineId, line.qty - 1)}
+                            disabled={loading}
+                            className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
+                            style={{ border: `1px solid ${BORDER}`, color: CREAM }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = PINK;
+                              e.currentTarget.style.color = PINK;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = BORDER;
+                              e.currentTarget.style.color = CREAM;
+                            }}
+                            aria-label="Decrease quantity"
+                          >
+                            −
+                          </button>
+                          <span
+                            className="text-sm w-6 text-center tabular-nums"
+                            style={{ color: CREAM }}
+                          >
+                            {line.qty}
+                          </span>
+                          <button
+                            onClick={() => updateQty(line.lineId, line.qty + 1)}
+                            disabled={loading}
+                            className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
+                            style={{ border: `1px solid ${BORDER}`, color: CREAM }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.borderColor = PINK;
+                              e.currentTarget.style.color = PINK;
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.borderColor = BORDER;
+                              e.currentTarget.style.color = CREAM;
+                            }}
+                            aria-label="Increase quantity"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <p className="font-sans text-lg" style={{ color: PINK }}>
+                          {format(line.priceGBP * line.qty)}
+                        </p>
                         <button
-                          onClick={() => updateQty(line.lineId, line.qty + 1)}
+                          onClick={() => removeLine(line.lineId)}
                           disabled={loading}
-                          className="w-7 h-7 flex items-center justify-center transition-colors disabled:opacity-40"
-                          style={{ border: `1px solid ${BORDER}`, color: CREAM }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = PINK;
-                            e.currentTarget.style.color = PINK;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = BORDER;
-                            e.currentTarget.style.color = CREAM;
-                          }}
-                          aria-label="Increase quantity"
+                          className="mt-2 text-[10px] uppercase tracking-luxe transition-colors disabled:opacity-40"
+                          style={{ color: MAUVE }}
+                          onMouseEnter={(e) => (e.currentTarget.style.color = PINK)}
+                          onMouseLeave={(e) => (e.currentTarget.style.color = MAUVE)}
                         >
-                          +
+                          Remove
                         </button>
                       </div>
                     </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className="font-sans text-lg" style={{ color: PINK }}>
-                        {format(line.priceGBP * line.qty)}
+                  ))}
+                  <div className="pt-2">
+                    <label
+                      htmlFor="customer-order-note"
+                      className="block text-xs uppercase tracking-luxe mb-2"
+                      style={{ color: CREAM }}
+                    >
+                      Special requests or customizations
+                    </label>
+                    <textarea
+                      id="customer-order-note"
+                      value={customerNote}
+                      onChange={(event) => setCustomerNote(event.target.value)}
+                      maxLength={5000}
+                      rows={4}
+                      placeholder="Share any details you'd like us to know about your order."
+                      className="w-full resize-y px-3 py-3 text-sm leading-relaxed focus:outline-none"
+                      style={{
+                        border: `1px solid ${BORDER}`,
+                        backgroundColor: SURFACE,
+                        color: CREAM,
+                      }}
+                    />
+                    <p className="mt-2 text-[10px] leading-relaxed" style={{ color: MAUVE }}>
+                      Your note will be included with your order in Shopify.
+                    </p>
+                    {noteError && (
+                      <p className="mt-2 text-xs" style={{ color: PINK }} role="alert">
+                        {noteError}
                       </p>
-                      <button
-                        onClick={() => removeLine(line.lineId)}
-                        disabled={loading}
-                        className="mt-2 text-[10px] uppercase tracking-luxe transition-colors disabled:opacity-40"
-                        style={{ color: MAUVE }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = PINK)}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = MAUVE)}
-                      >
-                        Remove
-                      </button>
-                    </div>
+                    )}
                   </div>
-                ))
+                </>
               )}
             </div>
 
@@ -263,7 +312,7 @@ export const CartButton = memo(function CartButton() {
 
               <button
                 disabled={lines.length === 0 || loading}
-                onClick={checkout}
+                onClick={handleCheckout}
                 className="w-full py-4 text-xs uppercase tracking-luxe transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ backgroundColor: PINK, color: DARK }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = PINK_D)}

@@ -11,6 +11,7 @@ import {
   addCartLines,
   updateCartLines,
   removeCartLines,
+  updateCartNote,
   setCartReturnUrl,
   parsePrice,
   type ShopifyCart,
@@ -196,6 +197,20 @@ export async function shopifyRemoveLine(lineId: string): Promise<void> {
   }
 }
 
+export async function shopifySaveNote(note: string): Promise<ShopifyCart> {
+  _loading = true;
+  try {
+    let cart = _cart;
+    if (!cart) cart = await initCart();
+
+    _cart = await updateCartNote(cart.id, note);
+    broadcast();
+    return _cart;
+  } finally {
+    _loading = false;
+  }
+}
+
 /**
  * Build the checkout URL.
  *
@@ -226,12 +241,13 @@ function buildCheckoutUrl(rawCheckoutUrl: string): string {
 /**
  * Get the Shopify checkout URL and redirect the user.
  */
-export function redirectToCheckout(): void {
-  if (!_cart?.checkoutUrl) {
+export function redirectToCheckout(checkoutUrl?: string): void {
+  const url = checkoutUrl ?? _cart?.checkoutUrl;
+  if (!url) {
     console.warn("[melanvee] No checkout URL available");
     return;
   }
-  window.location.href = buildCheckoutUrl(_cart.checkoutUrl);
+  window.location.href = buildCheckoutUrl(url);
 }
 
 // ─── Derived helpers ───────────────────────────────────────────────────────
@@ -274,6 +290,7 @@ function toDisplayLines(cart: ShopifyCart | null): CartDisplayLine[] {
 
 export type UseShopifyCartReturn = {
   lines: CartDisplayLine[];
+  note: string;
   count: number;
   totalGBP: number;
   checkoutUrl: string | null;
@@ -281,7 +298,7 @@ export type UseShopifyCartReturn = {
   addToCart: (merchandiseId: string, quantity?: number) => Promise<void>;
   updateQty: (lineId: string, quantity: number) => Promise<void>;
   removeLine: (lineId: string) => Promise<void>;
-  checkout: () => void;
+  checkout: (note: string) => Promise<void>;
 };
 
 export function useShopifyCart(): UseShopifyCartReturn {
@@ -331,12 +348,23 @@ export function useShopifyCart(): UseShopifyCartReturn {
     }
   }, []);
 
+  const checkout = useCallback(async (note: string) => {
+    setLoading(true);
+    try {
+      const updatedCart = await shopifySaveNote(note);
+      redirectToCheckout(updatedCart.checkoutUrl);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const lines = toDisplayLines(cart);
   const count = cart?.totalQuantity ?? 0;
   const totalGBP = lines.reduce((sum, l) => sum + l.priceGBP * l.qty, 0);
 
   return {
     lines,
+    note: cart?.note ?? "",
     count,
     totalGBP,
     checkoutUrl: cart ? buildCheckoutUrl(cart.checkoutUrl) : null,
@@ -344,6 +372,6 @@ export function useShopifyCart(): UseShopifyCartReturn {
     addToCart,
     updateQty,
     removeLine,
-    checkout: redirectToCheckout,
+    checkout,
   };
 }
