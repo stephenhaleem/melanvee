@@ -189,106 +189,116 @@ export function Header() {
       {open && (
         <div style={{ backgroundColor: SURFACE, borderBottom: `1px solid ${BORDER}` }}>
           <nav className="flex flex-col px-5 py-6 gap-5">
-            {nav.map((item) =>
-              item.label === copy("header.nav.shop") ? (
-                <div key={item.to} className="border-b border-[rgba(74,18,32,0.1)] pb-5">
-                  <button
-                    type="button"
-                    aria-expanded={shopOpen}
-                    aria-controls="mobile-shop-menu"
-                    onClick={() => setShopOpen((value) => !value)}
-                    className="flex w-full items-center justify-between text-left text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                    style={{ color: shopOpen ? CREAM : MAUVE }}
-                  >
-                    <span>{copy("header.nav.shop")}</span>
-                    <span
-                      aria-hidden="true"
-                      className={`font-serif text-lg leading-none transition-transform duration-200 ${shopOpen ? "rotate-45" : ""}`}
+            {nav
+              .filter(
+                (item) =>
+                  !("to" in item) ||
+                  (item.to !== "/texture-guide" && item.to !== "/how-to-wear"),
+              )
+              .map((item) =>
+                item.label === copy("header.nav.shop") ? (
+                  <div key={item.to} className="border-b border-[rgba(74,18,32,0.1)] pb-5">
+                    <button
+                      type="button"
+                      aria-expanded={shopOpen}
+                      aria-controls="mobile-shop-menu"
+                      onClick={() => setShopOpen((value) => !value)}
+                      className="flex w-full items-center justify-between text-left text-sm font-medium tracking-normal transition-colors duration-200"
+                      style={{ color: CREAM }}
                     >
-                      +
-                    </span>
-                  </button>
-
-                  {shopOpen && (
-                    <div
-                      id="mobile-shop-menu"
-                      className="mt-4 max-h-[min(55vh,28rem)] overflow-y-auto border-l border-[rgba(74,18,32,0.14)] pl-4"
-                    >
-                      <Link
-                        to="/collection"
-                        search={{ handle: undefined }}
-                        onClick={closeMenu}
-                        className="block py-2 text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                        style={{ color: CREAM }}
+                      <span>{copy("header.nav.shop")}</span>
+                      <span
+                        aria-hidden="true"
+                        className={`font-serif text-lg leading-none transition-transform duration-200 ${shopOpen ? "rotate-45" : ""}`}
                       >
-                        {copy("collection.all_products")}
-                      </Link>
-                      <p className="pb-1 pt-3 text-[10px] uppercase tracking-[0.2em] text-mauve/70">
-                        Collections
-                      </p>
-                      {collectionsLoading && (
-                        <p className="py-2 text-xs text-mauve">Loading collections...</p>
-                      )}
-                      {collectionsError && (
-                        <p className="py-2 text-xs text-mauve">
-                          Collections are temporarily unavailable.
+                        +
+                      </span>
+                    </button>
+
+                    {shopOpen && (
+                      <div
+                        id="mobile-shop-menu"
+                        className="mt-4 max-h-[min(55vh,28rem)] overflow-y-auto border-l border-[rgba(74,18,32,0.14)] pl-4"
+                      >
+                        <Link
+                          to="/collection"
+                          search={{ handle: undefined }}
+                          onClick={closeMenu}
+                          className="block py-2.5 text-sm tracking-normal transition-colors duration-200"
+                          style={{ color: CREAM }}
+                        >
+                          {copy("collection.all_products")}
+                        </Link>
+                        <p className="pb-1 pt-3 text-xs font-medium uppercase tracking-wider text-ivory/80">
+                          Collections
                         </p>
-                      )}
-                      {!collectionsLoading &&
-                        !collectionsError &&
-                        collections.map((collection) => (
-                          <Link
-                            key={collection.id}
-                            to="/collection"
-                            search={{ handle: collection.handle }}
-                            onClick={closeMenu}
-                            className="block py-2 text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                            style={{ color: MAUVE }}
-                            onMouseEnter={(e) =>
-                              ((e.currentTarget as HTMLElement).style.color = CREAM)
-                            }
-                            onMouseLeave={(e) =>
-                              ((e.currentTarget as HTMLElement).style.color = MAUVE)
-                            }
-                          >
-                            {collection.title}
-                          </Link>
-                        ))}
-                    </div>
-                  )}
-                </div>
-              ) : "href" in item ? (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                  style={{ color: MAUVE }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  onClick={closeMenu}
-                  className="text-[11px] uppercase tracking-luxe transition-colors duration-200"
-                  style={{ color: MAUVE }}
-                  activeProps={{ style: { color: CREAM } }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MAUVE)}
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
+                        {collectionsLoading && (
+                          <p className="py-2 text-sm text-ivory/80">Loading collections...</p>
+                        )}
+                        {collectionsError && (
+                          <p className="py-2 text-sm text-ivory/80">
+                            Collections are temporarily unavailable.
+                          </p>
+                        )}
+                        {!collectionsLoading &&
+                          !collectionsError &&
+                          collections.map((collection) => (
+                            <Link
+                              key={collection.id}
+                              to="/collection"
+                              search={{ handle: collection.handle }}
+                              onClick={closeMenu}
+                              className="block py-2.5 text-sm tracking-normal transition-colors duration-200"
+                              style={{ color: CREAM }}
+                              onMouseEnter={(e) =>
+                                ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                              }
+                              onMouseLeave={(e) =>
+                                ((e.currentTarget as HTMLElement).style.color = CREAM)
+                              }
+                            >
+                              {collection.title}
+                            </Link>
+                          ))}
+                      </div>
+                    )}
+                  </div>
+                ) : "href" in item ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="text-sm tracking-normal transition-colors duration-200"
+                    style={{ color: CREAM }}
+                    onMouseEnter={(e) =>
+                      ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                    }
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    onClick={closeMenu}
+                    className="text-sm tracking-normal transition-colors duration-200"
+                    style={{ color: CREAM }}
+                    activeProps={{ style: { color: "var(--secondary)" } }}
+                    onMouseEnter={(e) =>
+                      ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
+                    }
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = CREAM)}
+                  >
+                    {item.label}
+                  </Link>
+                ),
+              )}
             <Link
               to="/collection"
               search={{ handle: undefined }}
               onClick={closeMenu}
-              className="mt-1 inline-flex w-fit text-[11px] uppercase tracking-luxe px-5 py-2.5 hover:opacity-85 transition-opacity"
+              className="mt-1 inline-flex w-fit text-sm font-medium tracking-normal px-5 py-3 hover:opacity-85 transition-opacity"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
             >
               Shop Now

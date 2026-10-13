@@ -18,7 +18,7 @@ export function Footer() {
       className="mt-32 site-footer"
       style={{ backgroundColor: BG, borderTop: `1px solid ${BORDER}` }}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="md:col-span-2">
           <p className="font-display text-2xl tracking-[0.25em]" style={{ color: CREAM }}>
             M E L A N V É E
@@ -29,28 +29,6 @@ export function Footer() {
           <p className="mt-4 text-sm max-w-sm leading-relaxed" style={{ color: MUTED }}>
             {copy("footer.description")}
           </p>
-          <div className="mt-6 flex items-center gap-3">
-            <Social href={IG_URL} label="Instagram" cream={CREAM}>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                aria-hidden
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
-            </Social>
-            <Social href={TIKTOK_URL} label="TikTok" cream={CREAM}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.36a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.01z" />
-              </svg>
-            </Social>
-          </div>
         </div>
 
         <div>
@@ -65,9 +43,6 @@ export function Footer() {
                 { to: "/how-to-wear", label: "Wear & Care" },
                 { to: "/about", label: "Our Story" },
                 { to: "/collaborate", label: "Collaborate" },
-                { to: "/faq", label: "FAQ" },
-                { to: "/policies", label: "Policies" },
-                { to: "/contact", label: "Contact" },
               ] as const
             ).map((item) => (
               <li key={item.to}>
@@ -96,6 +71,32 @@ export function Footer() {
 
         <div>
           <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
+            Customer Care
+          </p>
+          <ul className="space-y-3 text-sm">
+            {(
+              [
+                { to: "/faq", label: "FAQ" },
+                { to: "/policies", label: "Policies" },
+                { to: "/policies", label: "Shipping Policy" },
+                { to: "/contact", label: "Contact" },
+              ] as const
+            ).map((item) => (
+              <li key={item.label}>
+                <Link
+                  to={item.to}
+                  className="transition-colors duration-200"
+                  style={{ color: MUTED }}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
             {copy("footer.contact_heading")}
           </p>
           <ul className="space-y-3 text-sm" style={{ color: MUTED }}>
@@ -109,6 +110,28 @@ export function Footer() {
             <li>{copy("footer.whatsapp")}</li>
             <li>{copy("footer.location")}</li>
           </ul>
+          <div className="mt-6 flex items-center gap-3">
+            <Social href={IG_URL} label="Instagram" cream={CREAM}>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </Social>
+            <Social href={TIKTOK_URL} label="TikTok" cream={CREAM}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.36a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.01z" />
+              </svg>
+            </Social>
+          </div>
         </div>
       </div>
 

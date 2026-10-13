@@ -218,7 +218,7 @@ function Home() {
           </motion.div>
 
           {collections.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-7">
               {collections.map((c, i) => (
                 <motion.div
                   key={c.id}
@@ -226,44 +226,36 @@ function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.8, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  className="group min-w-0 bg-card rounded-xl overflow-hidden shadow-card transform transition-all duration-300 hover:shadow-luxe hover:-translate-y-1"
+                  className="group min-w-0"
                 >
-                  <Link to="/collection" search={{ handle: c.handle }} className="block">
-                    <div className="aspect-[3/4] overflow-hidden relative">
+                  <Link
+                    to="/collection"
+                    search={{ handle: c.handle }}
+                    className="relative block aspect-square overflow-hidden bg-charcoal"
+                  >
+                    <div className="absolute inset-0 overflow-hidden">
                       <img
                         src={c.image?.url ?? "/assets/hero.jpg"}
                         alt={c.image?.altText ?? c.title}
                         loading="lazy"
                         width={1024}
                         height={1280}
-                        className="w-full h-full object-cover transition-transform duration-[1.4s] ease-out group-hover:scale-105 rounded-t-xl"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     </div>
-                    <div className="p-4 sm:p-6 flex flex-col justify-between items-start gap-6">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-luxe text-gold mb-2">
-                          · Collection
-                        </p>
-                        <h3 className="font-display text-xl sm:text-2xl text-cream group-hover:text-gold transition-colors duration-300">
-                          {c.title}
-                        </h3>
-                        <p className="text-sm text-mauve mt-1 line-clamp-1">{c.description}</p>
-                      </div>
-                      <p className="font-sans text-lg text-gold whitespace-nowrap">View</p>
-                    </div>
+                    <span className="absolute inset-x-3 bottom-3 flex min-h-8 items-center justify-center bg-[#FBF3E7]/95 px-2 py-2 text-center text-[9px] sm:text-[10px] uppercase tracking-[0.16em] text-[#3D0B12] shadow-sm transition-colors duration-300 group-hover:bg-[#E8B4C0]">
+                      {c.title}
+                    </span>
                   </Link>
                 </motion.div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 lg:gap-12">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-7">
               {[1, 2, 3].map((n) => (
                 <div key={n} className="animate-pulse">
-                  <div className="aspect-[3/4] bg-charcoal" />
-                  <div className="pt-6 space-y-2">
-                    <div className="h-3 w-16 bg-charcoal rounded" />
-                    <div className="h-6 w-40 bg-charcoal rounded" />
-                  </div>
+                  <div className="aspect-square bg-charcoal" />
+                  <div className="mx-3 -mt-11 relative h-8 bg-card" />
                 </div>
               ))}
             </div>
