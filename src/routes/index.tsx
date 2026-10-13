@@ -9,6 +9,7 @@ import { subscribeToNewsletter } from "@/lib/newsletter";
 import { useSiteCopy } from "@/lib/site-copy";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/3.jpeg";
+import dividerImg from "@/assets/gdj-divider-8557901_1920.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -96,12 +97,33 @@ function NewsletterForm() {
   );
 }
 
+function CurlyDivider() {
+  return (
+    <div className="px-6" aria-hidden="true">
+      <div
+        className="mx-auto aspect-[10/1] w-full max-w-[960px]"
+        style={{
+          backgroundColor: "var(--gold)",
+          maskImage: `url("${dividerImg}")`,
+          maskPosition: "center",
+          maskRepeat: "no-repeat",
+          maskSize: "100% auto",
+          WebkitMaskImage: `url("${dividerImg}")`,
+          WebkitMaskPosition: "center",
+          WebkitMaskRepeat: "no-repeat",
+          WebkitMaskSize: "100% auto",
+        }}
+      />
+    </div>
+  );
+}
+
 function Home() {
   const copy = useSiteCopy();
   const [collections, setCollections] = useState<ShopifyCollection[]>([]);
 
   useEffect(() => {
-    getCollections(6).then(setCollections).catch(console.error);
+    getCollections(4).then(setCollections).catch(console.error);
   }, []);
 
   return (
@@ -193,6 +215,10 @@ function Home() {
         </div>
       </section>
 
+      <div className="py-3 md:py-5">
+        <CurlyDivider />
+      </div>
+
       {/* COLLECTION PREVIEW */}
       <section className="py-28 md:py-40">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
@@ -218,7 +244,7 @@ function Home() {
           </motion.div>
 
           {collections.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-7">
+            <div className="grid grid-cols-2 gap-3 md:gap-5 lg:gap-7">
               {collections.map((c, i) => (
                 <motion.div
                   key={c.id}
@@ -251,8 +277,8 @@ function Home() {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-7">
-              {[1, 2, 3].map((n) => (
+            <div className="grid grid-cols-2 gap-3 md:gap-5 lg:gap-7">
+              {[1, 2, 3, 4].map((n) => (
                 <div key={n} className="animate-pulse">
                   <div className="aspect-square bg-charcoal" />
                   <div className="mx-3 -mt-11 relative h-8 bg-card" />
@@ -262,6 +288,10 @@ function Home() {
           )}
         </div>
       </section>
+
+      <div className="py-3 md:py-5">
+        <CurlyDivider />
+      </div>
 
       {/* PHILOSOPHY */}
       <section className="py-28 md:py-40 bg-charcoal">
@@ -307,6 +337,10 @@ function Home() {
         </div>
       </section>
 
+      <div className="py-3 md:py-5">
+        <CurlyDivider />
+      </div>
+
       {/* FAQ TEASER */}
       <section className="py-28 bg-charcoal">
         <div className="max-w-3xl mx-auto px-6 text-center">
@@ -331,6 +365,10 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <div className="py-3 md:py-5">
+        <CurlyDivider />
+      </div>
 
       {/* NEWSLETTER */}
       <section className="py-28 md:py-40">
