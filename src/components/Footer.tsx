@@ -14,12 +14,9 @@ const TIKTOK_URL = "https://tiktok.com/@melanvee";
 export function Footer() {
   const copy = useSiteCopy();
   return (
-    <footer
-      className="mt-32 site-footer"
-      style={{ backgroundColor: BG, borderTop: `1px solid ${BORDER}` }}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="md:col-span-2">
+    <footer className="mt-32 site-footer" style={{ backgroundColor: BG }}>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-x-8 gap-y-12">
+        <div className="sm:col-span-2 lg:col-span-2">
           <p className="font-display text-2xl tracking-[0.25em]" style={{ color: CREAM }}>
             M E L A N V É E
           </p>
@@ -77,8 +74,6 @@ export function Footer() {
             {(
               [
                 { to: "/faq", label: "FAQ" },
-                { to: "/policies", label: "Policies" },
-                { to: "/policies", label: "Shipping Policy" },
                 { to: "/contact", label: "Contact" },
               ] as const
             ).map((item) => (
@@ -97,9 +92,37 @@ export function Footer() {
 
         <div>
           <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
+            Policies
+          </p>
+          <ul className="space-y-3 text-sm">
+            {(
+              [
+                { tab: "shipping", label: "Shipping" },
+                { tab: "returns", label: "Returns" },
+                { tab: "exchange", label: "Exchange" },
+                { tab: "privacy", label: "Privacy" },
+                { tab: "terms", label: "Terms of Service" },
+              ] as const
+            ).map((item) => (
+              <li key={item.tab}>
+                <Link
+                  to="/policies"
+                  search={{ tab: item.tab }}
+                  className="transition-colors duration-200"
+                  style={{ color: MUTED }}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="lg:col-span-2">
+          <p className="text-xs uppercase tracking-luxe mb-4" style={{ color: MUTED }}>
             {copy("footer.contact_heading")}
           </p>
-          <ul className="space-y-3 text-sm" style={{ color: MUTED }}>
+          <ul className="space-y-3 break-words text-sm" style={{ color: MUTED }}>
             <li>{copy("footer.customer_email")}</li>
             <li>
               {copy("footer.collab_email")}{" "}
@@ -135,7 +158,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div style={{ borderTop: `1px solid ${BORDER}` }}>
+      <div>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="text-[10px] uppercase tracking-luxe" style={{ color: MUTED }}>
@@ -146,25 +169,11 @@ export function Footer() {
         </div>
       </div>
 
-      <div style={{ borderTop: `1px solid ${BORDER}` }}>
+      <div>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
           <p className="text-xs tracking-wide" style={{ color: ACCENT }}>
             © {new Date().getFullYear()} MELANVÉE. All rights reserved.
           </p>
-          <div className="flex items-center gap-5 text-[10px] uppercase tracking-luxe">
-            {["Shipping", "Returns", "All Policies"].map((label) => (
-              <Link
-                key={label}
-                to="/policies"
-                className="transition-colors duration-200"
-                style={{ color: MUTED }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = ACCENT)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = MUTED)}
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

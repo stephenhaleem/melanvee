@@ -9,6 +9,12 @@ export const SITE_COPY_FIELDS = [
     fallback:
       "Free UK & international shipping on orders over £100 · Premium virgin human hair · True 3A to 4C textures · No lace · No glue",
   },
+  {
+    section: "Header",
+    label: "Background video URL (MP4/WebM, optional)",
+    key: "header.background_video",
+    fallback: "",
+  },
   { section: "Header", label: "Shop button", key: "header.shop_button", fallback: "Shop Now" },
   { section: "Header", label: "Home navigation", key: "header.nav.home", fallback: "Home" },
   { section: "Header", label: "Shop navigation", key: "header.nav.shop", fallback: "Shop" },

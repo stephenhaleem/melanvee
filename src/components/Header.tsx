@@ -14,6 +14,7 @@ const BORDER = "rgba(74,18,32,0.1)";
 
 export function Header() {
   const copy = useSiteCopy();
+  const backgroundVideo = copy("header.background_video").trim();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
@@ -57,9 +58,22 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
+    <header className="fixed top-0 inset-x-0 z-50 isolate">
+      {backgroundVideo && (
+        <video
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          tabIndex={-1}
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+        />
+      )}
       {/* Announcement bar */}
-      <div style={{ backgroundColor: COCOA }} className="overflow-hidden py-[9px]">
+      <div style={{ backgroundColor: COCOA }} className="relative z-10 overflow-hidden py-[9px]">
         <div
           className="animate-marquee whitespace-nowrap inline-block text-[10px] uppercase tracking-luxe"
           style={{ color: CREAM }}
@@ -70,11 +84,11 @@ export function Header() {
 
       {/* Main navbar */}
       <div
+        className="relative z-10"
         style={{
           backgroundColor: scrolled ? "rgba(251,243,231,0.97)" : "rgba(251,243,231,0.85)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
-          borderBottom: `1px solid ${BORDER}`,
           boxShadow: scrolled ? "0 2px 30px rgba(0,0,0,0.4)" : "none",
           transition: "background-color 0.4s, box-shadow 0.4s",
         }}
@@ -99,7 +113,7 @@ export function Header() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
+                  className="text-[11px] font-semibold uppercase tracking-luxe transition-colors duration-300 relative group"
                   style={{ color: CREAM }}
                   onMouseEnter={(e) =>
                     ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
@@ -116,7 +130,7 @@ export function Header() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="text-[11px] uppercase tracking-luxe transition-colors duration-300 relative group"
+                  className="text-[11px] font-semibold uppercase tracking-luxe transition-colors duration-300 relative group"
                   style={{ color: CREAM }}
                   activeProps={{ style: { color: "var(--secondary)" } }}
                   activeOptions={{ exact: true }}
@@ -140,7 +154,7 @@ export function Header() {
             <Link
               to="/collection"
               search={{ handle: undefined }}
-              className="hidden lg:inline-flex items-center text-[11px] uppercase tracking-luxe px-5 py-2.5 transition-all duration-200"
+              className="hidden lg:inline-flex items-center text-[11px] font-semibold uppercase tracking-luxe px-5 py-2.5 transition-all duration-200"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLElement).style.backgroundColor = "var(--cream-warm)")
@@ -187,23 +201,22 @@ export function Header() {
 
       {/* Mobile dropdown */}
       {open && (
-        <div style={{ backgroundColor: SURFACE, borderBottom: `1px solid ${BORDER}` }}>
+        <div style={{ backgroundColor: SURFACE }}>
           <nav className="flex flex-col px-5 py-6 gap-5">
             {nav
               .filter(
                 (item) =>
-                  !("to" in item) ||
-                  (item.to !== "/texture-guide" && item.to !== "/how-to-wear"),
+                  !("to" in item) || (item.to !== "/texture-guide" && item.to !== "/how-to-wear"),
               )
               .map((item) =>
                 item.label === copy("header.nav.shop") ? (
-                  <div key={item.to} className="border-b border-[rgba(74,18,32,0.1)] pb-5">
+                  <div key={item.to} className="pb-5">
                     <button
                       type="button"
                       aria-expanded={shopOpen}
                       aria-controls="mobile-shop-menu"
                       onClick={() => setShopOpen((value) => !value)}
-                      className="flex w-full items-center justify-between text-left text-sm font-medium tracking-normal transition-colors duration-200"
+                      className="flex w-full items-center justify-between text-left text-sm font-semibold tracking-normal transition-colors duration-200"
                       style={{ color: CREAM }}
                     >
                       <span>{copy("header.nav.shop")}</span>
@@ -218,18 +231,18 @@ export function Header() {
                     {shopOpen && (
                       <div
                         id="mobile-shop-menu"
-                        className="mt-4 max-h-[min(55vh,28rem)] overflow-y-auto border-l border-[rgba(74,18,32,0.14)] pl-4"
+                        className="mt-4 max-h-[min(55vh,28rem)] overflow-y-auto pl-4"
                       >
                         <Link
                           to="/collection"
                           search={{ handle: undefined }}
                           onClick={closeMenu}
-                          className="block py-2.5 text-sm tracking-normal transition-colors duration-200"
+                          className="block py-2.5 text-sm font-semibold tracking-normal transition-colors duration-200"
                           style={{ color: CREAM }}
                         >
                           {copy("collection.all_products")}
                         </Link>
-                        <p className="pb-1 pt-3 text-xs font-medium uppercase tracking-wider text-ivory/80">
+                        <p className="pb-1 pt-3 text-xs font-semibold uppercase tracking-wider text-ivory/80">
                           Collections
                         </p>
                         {collectionsLoading && (
@@ -248,7 +261,7 @@ export function Header() {
                               to="/collection"
                               search={{ handle: collection.handle }}
                               onClick={closeMenu}
-                              className="block py-2.5 text-sm tracking-normal transition-colors duration-200"
+                              className="block py-2.5 text-sm font-semibold tracking-normal transition-colors duration-200"
                               style={{ color: CREAM }}
                               onMouseEnter={(e) =>
                                 ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
@@ -268,7 +281,7 @@ export function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className="text-sm tracking-normal transition-colors duration-200"
+                    className="text-sm font-semibold tracking-normal transition-colors duration-200"
                     style={{ color: CREAM }}
                     onMouseEnter={(e) =>
                       ((e.currentTarget as HTMLElement).style.color = "var(--secondary)")
@@ -282,7 +295,7 @@ export function Header() {
                     key={item.to}
                     to={item.to}
                     onClick={closeMenu}
-                    className="text-sm tracking-normal transition-colors duration-200"
+                    className="text-sm font-semibold tracking-normal transition-colors duration-200"
                     style={{ color: CREAM }}
                     activeProps={{ style: { color: "var(--secondary)" } }}
                     onMouseEnter={(e) =>
@@ -298,7 +311,7 @@ export function Header() {
               to="/collection"
               search={{ handle: undefined }}
               onClick={closeMenu}
-              className="mt-1 inline-flex w-fit text-sm font-medium tracking-normal px-5 py-3 hover:opacity-85 transition-opacity"
+              className="mt-1 inline-flex w-fit text-sm font-semibold tracking-normal px-5 py-3 hover:opacity-85 transition-opacity"
               style={{ backgroundColor: "var(--secondary)", color: "var(--burgundy)" }}
             >
               Shop Now

@@ -9,7 +9,6 @@ import { subscribeToNewsletter } from "@/lib/newsletter";
 import { useSiteCopy } from "@/lib/site-copy";
 import heroImg from "@/assets/hero.jpg";
 import aboutImg from "@/assets/3.jpeg";
-import dividerImg from "@/assets/gdj-divider-8557901_1920.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -97,27 +96,6 @@ function NewsletterForm() {
   );
 }
 
-function CurlyDivider() {
-  return (
-    <div className="px-6" aria-hidden="true">
-      <div
-        className="mx-auto aspect-[10/1] w-full max-w-[960px]"
-        style={{
-          backgroundColor: "var(--gold)",
-          maskImage: `url("${dividerImg}")`,
-          maskPosition: "center",
-          maskRepeat: "no-repeat",
-          maskSize: "100% auto",
-          WebkitMaskImage: `url("${dividerImg}")`,
-          WebkitMaskPosition: "center",
-          WebkitMaskRepeat: "no-repeat",
-          WebkitMaskSize: "100% auto",
-        }}
-      />
-    </div>
-  );
-}
-
 function Home() {
   const copy = useSiteCopy();
   const [collections, setCollections] = useState<ShopifyCollection[]>([]);
@@ -190,7 +168,7 @@ function Home() {
               </Link>
               <Link
                 to="/texture-guide"
-                className="inline-flex items-center text-xs uppercase tracking-luxe text-white/80 border-b border-cream/30 pb-1 hover:text-gold hover:border-gold transition-colors"
+                className="inline-flex items-center text-xs uppercase tracking-luxe text-white/80 pb-1 hover:text-gold transition-colors"
               >
                 {copy("header.nav.texture")}
               </Link>
@@ -200,7 +178,7 @@ function Home() {
       </section>
 
       {/* MARQUEE */}
-      <section className="border-y border-border py-6 bg-charcoal">
+      <section className="py-6 bg-charcoal">
         <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4 md:gap-8 lg:gap-20 text-[10px] sm:text-xs uppercase tracking-luxe text-mauve px-6 text-center">
           <span className="whitespace-nowrap">Premium Virgin Human Hair</span>
           <span className="inline sm:hidden text-gold">•</span>
@@ -214,10 +192,6 @@ function Home() {
           <span className="whitespace-nowrap">Worldwide Shipping</span>
         </div>
       </section>
-
-      <div className="py-3 md:py-5">
-        <CurlyDivider />
-      </div>
 
       {/* COLLECTION PREVIEW */}
       <section className="py-28 md:py-40">
@@ -289,10 +263,6 @@ function Home() {
         </div>
       </section>
 
-      <div className="py-3 md:py-5">
-        <CurlyDivider />
-      </div>
-
       {/* PHILOSOPHY */}
       <section className="py-28 md:py-40 bg-charcoal">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -323,23 +293,18 @@ function Home() {
             <h2 className="font-display text-4xl md:text-5xl leading-tight text-cream">
               {copy("home.philosophy.heading")}
             </h2>
-            <div className="hairline mt-10 w-24" />
             <p className="mt-10 text-mauve leading-loose text-lg">
               {copy("home.philosophy.description")}
             </p>
             <Link
               to="/about"
-              className="mt-10 inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold border-b border-gold/40 pb-1 hover:border-gold"
+              className="mt-10 inline-flex items-center gap-3 text-xs uppercase tracking-luxe text-gold pb-1"
             >
               {copy("home.philosophy.link")} <span aria-hidden>→</span>
             </Link>
           </motion.div>
         </div>
       </section>
-
-      <div className="py-3 md:py-5">
-        <CurlyDivider />
-      </div>
 
       {/* FAQ TEASER */}
       <section className="py-28 bg-charcoal">
@@ -365,10 +330,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <div className="py-3 md:py-5">
-        <CurlyDivider />
-      </div>
 
       {/* NEWSLETTER */}
       <section className="py-28 md:py-40">

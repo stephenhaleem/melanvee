@@ -497,7 +497,7 @@
   .site-nav {
     background: var(--burgundy);
     color: var(--secondary);
-    border-bottom: 1px solid rgba(74, 18, 32, 0.08);
+    border-bottom: none;
   }
   .site-nav a {
     color: var(--secondary);
@@ -515,7 +515,7 @@
   .site-footer {
     background: var(--burgundy-deep);
     color: var(--secondary);
-    border-top: 1px solid rgba(74, 18, 32, 0.06);
+    border-top: none;
   }
   .site-footer a {
     color: var(--secondary);

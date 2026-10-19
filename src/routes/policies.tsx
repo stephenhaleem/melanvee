@@ -1,9 +1,21 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useSiteCopy } from "@/lib/site-copy";
 
+type Tab = "all" | "shipping" | "returns" | "exchange" | "privacy" | "terms";
+const tabs: Tab[] = ["all", "shipping", "returns", "exchange", "privacy", "terms"];
+
+function isTab(value: unknown): value is Tab {
+  return typeof value === "string" && tabs.includes(value as Tab);
+}
+
 export const Route = createFileRoute("/policies")({
+  validateSearch: (search: Record<string, unknown>) => {
+    const hashTab = typeof window === "undefined" ? "" : window.location.hash.slice(1);
+    return {
+      tab: isTab(search.tab) ? search.tab : isTab(hashTab) ? hashTab : "all",
+    };
+  },
   head: () => ({
     meta: [
       { title: "Policies — MELANVÉE" },
@@ -19,29 +31,18 @@ export const Route = createFileRoute("/policies")({
   component: Policies,
 });
 
-type Tab = "shipping" | "returns" | "exchange" | "all";
-
 function Policies() {
   const copy = useSiteCopy();
-  const tabs: { id: Tab; label: string }[] = [
+  const navigate = useNavigate({ from: "/policies" });
+  const { tab: active } = Route.useSearch();
+  const policyTabs: { id: Tab; label: string }[] = [
     { id: "all", label: copy("policies.all_title") },
     { id: "shipping", label: copy("policies.shipping_title") },
     { id: "returns", label: copy("policies.returns_title") },
     { id: "exchange", label: copy("policies.exchange_title") },
+    { id: "privacy", label: copy("policies.privacy_title") },
+    { id: "terms", label: copy("policies.terms_title") },
   ];
-  const [active, setActive] = useState<Tab>(() => {
-    try {
-      if (typeof window === "undefined") return "all" as Tab;
-      const params = new URLSearchParams(window.location.search);
-      const p = params.get("tab");
-      if (p === "shipping" || p === "returns" || p === "exchange" || p === "all") return p as Tab;
-      const h = window.location.hash.replace("#", "");
-      if (h === "shipping" || h === "returns" || h === "exchange" || h === "all") return h as Tab;
-      return "all" as Tab;
-    } catch {
-      return "all" as Tab;
-    }
-  });
 
   return (
     <Layout>
@@ -56,15 +57,16 @@ function Policies() {
       <section className="pb-32">
         <div className="max-w-4xl mx-auto px-6">
           <div className="flex flex-wrap gap-2 border-b border-border mb-12">
-            {tabs.map((t) => (
+            {policyTabs.map((t) => (
               <button
                 key={t.id}
-                onClick={() => setActive(t.id)}
+                onClick={() => void navigate({ search: { tab: t.id } })}
                 className={`px-5 py-3 text-xs uppercase tracking-luxe transition-all ${
                   active === t.id
                     ? "text-gold border-b-2 border-gold -mb-px"
                     : "text-mauve hover:text-cream"
                 }`}
+                aria-pressed={active === t.id}
               >
                 {t.label}
               </button>
@@ -75,7 +77,8 @@ function Policies() {
             {(active === "shipping" || active === "all") && <Shipping />}
             {(active === "returns" || active === "all") && <Returns />}
             {(active === "exchange" || active === "all") && <Exchange />}
-            {active === "all" && <PrivacyTerms />}
+            {(active === "privacy" || active === "all") && <Privacy />}
+            {(active === "terms" || active === "all") && <Terms />}
           </div>
         </div>
       </section>
@@ -97,7 +100,7 @@ function Shipping() {
   return (
     <Section title={`${copy("policies.shipping_title")} Policy`}>
       <p>{copy("policies.shipping_intro")}</p>
-      <PolicyList value={copy("policies.shipping_details")} />
+      <PolicyDetailsTable value={copy("policies.shipping_details")} />
     </Section>
   );
 }
@@ -107,7 +110,7 @@ function Returns() {
   return (
     <Section title={`${copy("policies.returns_title")} Policy`}>
       <p>{copy("policies.returns_intro")}</p>
-      <PolicyList value={copy("policies.returns_details")} />
+      <PolicyDetailsTable value={copy("policies.returns_details")} />
       <p className="text-sm">{copy("policies.returns_contact")}</p>
     </Section>
   );
@@ -118,52 +121,59 @@ function Exchange() {
   return (
     <Section title={`${copy("policies.exchange_title")} Policy`}>
       <p>{copy("policies.exchange_intro")}</p>
-      <PolicyList value={copy("policies.exchange_details")} />
+      <PolicyDetailsTable value={copy("policies.exchange_details")} />
     </Section>
   );
 }
 
-function PrivacyTerms() {
+function Privacy() {
   const copy = useSiteCopy();
   return (
-    <>
-      <Section title={copy("policies.privacy_title")}>
-        <PolicyParagraphs value={copy("policies.privacy_details")} />
-      </Section>
-      <Section title={copy("policies.terms_title")}>
-        <PolicyParagraphs value={copy("policies.terms_details")} />
-      </Section>
-    </>
+    <Section title={copy("policies.privacy_title")}>
+      <PolicyDetailsTable value={copy("policies.privacy_details")} />
+    </Section>
   );
 }
 
-function PolicyList({ value }: { value: string }) {
+function Terms() {
+  const copy = useSiteCopy();
   return (
-    <ul className="space-y-3 list-none pl-0">
-      {value
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean)
-        .map((line, index) => (
-          <li key={`${index}-${line}`} className="flex gap-3">
-            <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-gold flex-shrink-0" />
-            <span>{line}</span>
-          </li>
-        ))}
-    </ul>
+    <Section title={copy("policies.terms_title")}>
+      <PolicyDetailsTable value={copy("policies.terms_details")} />
+    </Section>
   );
 }
 
-function PolicyParagraphs({ value }: { value: string }) {
+function PolicyDetailsTable({ value }: { value: string }) {
+  const rows = value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
   return (
-    <>
-      {value
-        .split("\n")
-        .map((paragraph) => paragraph.trim())
-        .filter(Boolean)
-        .map((paragraph, index) => (
-          <p key={`${index}-${paragraph}`}>{paragraph}</p>
-        ))}
-    </>
+    <div className="overflow-x-auto border border-border">
+      <table className="w-full border-collapse text-left text-sm">
+        <thead className="bg-charcoal text-xs uppercase tracking-luxe text-cream">
+          <tr>
+            <th scope="col" className="w-20 border-b border-border px-4 py-3">
+              No.
+            </th>
+            <th scope="col" className="border-b border-border px-4 py-3">
+              Details
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((line, index) => (
+            <tr key={`${index}-${line}`} className="border-b border-border last:border-b-0">
+              <th scope="row" className="px-4 py-4 align-top font-medium text-gold">
+                {String(index + 1).padStart(2, "0")}
+              </th>
+              <td className="px-4 py-4 leading-relaxed">{line}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
